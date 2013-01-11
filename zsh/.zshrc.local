@@ -1,0 +1,8 @@
+# Tab switch clearing bindings for LXTerminal
+bindkey ';5~' end-of-line
+bindkey '5~' end-of-line
+bindkey '^T' end-of-line
+
+#bindkey "$terminfo[knp]" end-of-line
+
+bindkey '^e' kill-word
