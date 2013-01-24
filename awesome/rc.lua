@@ -267,6 +267,7 @@ globalkeys = awful.util.table.join(
     -- other spawn keys
     awful.key({}, "XF86PowerOff", function () awful.util.spawn("fkey power") end),
     awful.key({}, "XF86Search", function () awful.util.spawn("dmenu_run -b") end),
+    awful.key({}, "Print", function () awful.util.spawn("fkey shot") end),
 
     -- Standard program
     awful.key({ modkey, "Control" }, "r", awesome.restart),
