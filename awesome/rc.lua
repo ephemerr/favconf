@@ -35,6 +35,8 @@ do
 end
 -- }}}
 
+awful.util.spawn("~/.xinitrc")
+
 -- {{{ Variable definitions
 -- Themes define colours, icons, and wallpapers
 beautiful.init("/usr/share/awesome/themes/zenburn/theme.lua")
@@ -56,8 +58,8 @@ layouts =
 {
     awful.layout.suit.max,
     awful.layout.suit.tile,
-    awful.layout.suit.fair.horizontal,
-    awful.layout.suit.floating,
+--    awful.layout.suit.fair.horizontal,
+--    awful.layout.suit.floating,
 --    awful.layout.suit.tile.left,
 --    awful.layout.suit.tile.bottom,
 --    awful.layout.suit.tile.top,
@@ -213,6 +215,7 @@ end
 
 
 globalkeys = awful.util.table.join(
+    -- Focus by direction
     awful.key({ modkey,           }, "Left",    focus_bydirection("left")  ),
     awful.key({ modkey,           }, "Right",   focus_bydirection("right") ),
     awful.key({ modkey,           }, "Up",      focus_bydirection("up")    ),
@@ -242,14 +245,11 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey,           }, "u", awful.client.urgent.jumpto),
     awful.key({ "Mod1",           }, "Tab",
         function ()
-            awful.client.focus.history.previous()
+            -- awful.client.focus.history.previous()
+            awful.client.focus.byidx( 1)
             if client.focus then client.focus:raise() end
         end),
-    awful.key({ modkey,           }, "Tab",
-        function ()
-            awful.client.focus.history.previous()
-            if client.focus then client.focus:raise() end
-        end),
+    awful.key({ modkey,           }, "Tab",function () awful.client.cycle(true) end),
     -- Func keys
     awful.key({ modkey,           }, "F1", function () awful.util.spawn("fkey 1") end),
     awful.key({ modkey,           }, "F2", function () awful.util.spawn("fkey 2") end),
@@ -298,6 +298,24 @@ globalkeys = awful.util.table.join(
 --]]
 )
 clientkeys = awful.util.table.join(
+    -- move resize tags
+   awful.key({ modkey }, "-",  function () awful.client.moveresize( 20,  20, -40, -40) end),
+   awful.key({ modkey }, "=", function () awful.client.moveresize(-20, -20,  40,  40) end),
+   awful.key({ modkey, "Control" }, "Right", function () awful.client.moveresize(  20,  0,   0,   0) end),
+   awful.key({ modkey, "Control" }, "Down",  function () awful.client.moveresize(  0,  20,   0,   0) end),
+   awful.key({ modkey, "Control" }, "Up",    function () awful.client.moveresize(  0, -20,   0,   0) end),
+   awful.key({ modkey, "Control" }, "Left",  function () awful.client.moveresize(-20,   0,   0,   0) end),
+   
+   awful.key({ modkey, "Shift" }, "Right", function () awful.client.moveresize(  0,   0,  20,   0) end),
+   awful.key({ modkey, "Shift" }, "Up",    function () awful.client.moveresize(  0, -20,   0,  20) end),
+   awful.key({ modkey, "Shift" }, "Left",  function () awful.client.moveresize(-20,   0,  20,   0) end),
+   awful.key({ modkey, "Shift" }, "Down",  function () awful.client.moveresize(  0,   0,   0,  20) end),
+
+   -- show / hide window decor
+   awful.key({ modkey,            }, "i", function (c)
+       if   c.titlebar then awful.titlebar.remove(c)
+       else awful.titlebar.add(c, { modkey = modkey }) end
+   end),
     awful.key({ modkey,           }, "f",      function (c) c.fullscreen = not c.fullscreen  end),
     awful.key({ modkey, "Control" }, "c",      function (c) c:kill()                         end),
 --    awful.key({ "Mod1",           }, "F4",     function (c) c:kill()                         end),
