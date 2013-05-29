@@ -10,6 +10,15 @@
 " properly set to work with the Vim-related packages available in Debian.
 runtime! debian.vim
 
+
+" Latex suite config
+" For more info about this lines, type ":help ls_1" in vim 
+ filetype plugin on
+ set grepprg=grep\ -nH\ $*
+ filetype indent on
+ let g:tex_flavor='latex'
+ set iskeyword+=:
+
 " Uncomment the next line to make Vim more Vi-compatible
 " NOTE: debian.vim sets 'nocompatible'.  Setting 'compatible' changes numerous
 " options, so any other options should be set AFTER setting 'compatible'.
@@ -18,7 +27,11 @@ runtime! debian.vim
 " Vim5 and later versions support syntax highlighting. Uncommenting the next
 " line enables syntax highlighting by default.
 syntax on
-
+hi MatchParen   ctermbg=black ctermfg=blue 
+hi Pmenu        ctermbg=black ctermfg=blue 
+hi PmenuSel     ctermbg=white ctermfg=black 
+hi PmenuBar     ctermbg=white ctermfg=blue 
+hi PmenuThumb   ctermbg=white ctermfg=blue 
 " If using a dark background within the editing area and syntax highlighting
 " turn on this option as well
 "set background=dark
@@ -121,20 +134,37 @@ endif
 	nmap <C-Space><C-Space>d
 		\:vert scs find d <C-R>=expand("<cword>")<CR><CR>
 
+" Comments
+nmap <C-d> <Esc>^<Insert>//<Tab><Esc>
+
+" Window managment
 set splitbelow
 set hidden
 set autowrite
-"set foldmethod=indent
-
-"autocmd!	" Remove ALL autocommands for the current group.
-"au QuickfixCmdPost make splint %
-
-nmap <F8> :make
-
 nmap _ :ls!<Return>
 map <C-l> :arg 
 nmap <S-Tab> <C-^>
+nmap <C-h> ggeegf 
+
+
+" Folding
+set foldmethod=indent
+set nofoldenable
+hi Folded NONE
+
+"autocmd!	" Remove ALL autocommands for the current group.
+"au QuickfixCmdPost make splint %
+nmap <F8> :make
+
+" Clipboard
 nmap <C-v> :<C-r>"
+"imap <C-i> <Esc>"0P 
+nmap <C-P> "0P 
+
+" Tags
+imap <C-_> <C-X><C-]>:buf<Space> 
+map <F11>  :sp tags<CR>:%s/^\([^     :]*:\)\=\([^    ]*\).*/syntax keyword Tag \2/<CR>:wq! tags.vim<CR>/^<CR><F12>
+map <F12>  :so tags.vim<CR>
 
 " Stop insert mode by arrows
 "imap <Right> <Esc><Right>
@@ -143,4 +173,20 @@ nmap <C-v> :<C-r>"
 "imap <Up> <Esc><Up>
 
 " Disable Replace mode by second <Insert>
-imap <Insert> <Esc>
+imap <Insert> <Esc><Right>
+"imap <Esc> <Esc><Right>
+
+" line breaks
+set tw=123
+set wm=0
+set fo=cqt
+
+nmap g1 :buf 1<CR>
+nmap g2 :buf 2<CR>
+nmap g3 :buf 3<CR>
+nmap g4 :buf 4<CR>
+nmap g5 :buf 5<CR>
+nmap g6 :buf 6<CR>
+nmap g7 :buf 7<CR>
+nmap g8 :buf 8<CR>
+nmap g9 :buf 9<CR>

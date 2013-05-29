@@ -2728,7 +2728,9 @@ if (( GRMLSMALL_SPECIFIC > 0 )) && isgrmlsmall ; then
 
 fi
 
-zrclocal
+#~/.zshrc.local
+
+export PDIR=~/Projects
 
 ## genrefcard.pl settings
 
