@@ -258,6 +258,7 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey,           }, "F5", function () awful.util.spawn("fkey 5") end),
     awful.key({ modkey,           }, "F6", function () awful.util.spawn("fkey 6") end),
     -- Spec func keys
+    awful.key({ "Shift",           }, "F2", function () awful.util.spawn("fkey S2") end),
     awful.key({ "Shift",           }, "F6", function () awful.util.spawn("fkey S6") end),
     awful.key({ "Shift",           }, "F7", function () awful.util.spawn("fkey S7") end),
     awful.key({ "Shift",           }, "F8", function () awful.util.spawn("fkey S8") end),

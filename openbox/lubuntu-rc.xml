@@ -178,6 +178,11 @@
   </dock>
   <keyboard>
 <!-- My custom -->
+<keybind key="XF86Search">
+<action name="Execute">
+<command>dmenu_run -b</command>
+</action>
+</keybind>
 <!-- Keybindings for windows auto arrangement !!!inspired by useradded!!!-->
 <keybind key="A-Caps_">
 <action name="Execute">
@@ -312,6 +317,10 @@
 <action name="ToggleFullscreen"/>
 </keybind>
 <!-- Keybindings for window switching -->
+<keybind key="S-A-Tab">
+<action name="PreviousWindow">
+</action>
+</keybind>
 <keybind key="A-Tab">
 <action name="NextWindow">
 </action>
@@ -384,42 +393,42 @@
 <!-- Keybindings for standard functional keys -->
 <keybind key="S-F9">
 <action name="Execute">
-<command>touchpad_switch</command>
+<command>fkey S9</command>
 </action>
 </keybind>
 <keybind key="S-F8">
 <action name="Execute">
-<command>wireless_switch</command>
+<command>fkey S8</command>
 </action>
 </keybind>
 <keybind key="S-F5">
 <action name="Execute">
-<command>screen_switch</command>
+<command>fkey S5</command>
 </action>
 </keybind>
 <keybind key="S-F6">
 <action name="Execute">
-<command>light_down</command>
+<command>fkey S6</command>
 </action>
 </keybind>
 <keybind key="S-F7">
 <action name="Execute">
-<command>light_up</command>
+<command>fkey S7</command>
 </action>
 </keybind>
 <keybind key="S-F10">
 <action name="Execute">
-<command>volume_down</command>
+<command>fkey S10</command>
 </action>
 </keybind>
 <keybind key="S-F11">
 <action name="Execute">
-<command>volume_up</command>
+<command>fkey S11</command>
 </action>
 </keybind>
 <keybind key="S-F12">
 <action name="Execute">
-<command>mute_toggle</command>
+<command>fkey S12</command>
 </action>
 </keybind>
 <keybind key="S-F4">
@@ -429,17 +438,17 @@
 </keybind>
 <keybind key="S-F1">
 <action name="Execute">
-<command>audio_prev</command>
+<command>fkey S1</command>
 </action>
 </keybind>
 <keybind key="S-F2">
 <action name="Execute">
-<command>audio_play</command>
+<command>fkey S2</command>
 </action>
 </keybind>
 <keybind key="S-F3">
 <action name="Execute">
-<command>audio_stop</command>
+<command>fkey S3</command>
 </action>
 </keybind>
 <!-- Keybindings for standard functional keys -->
@@ -505,7 +514,7 @@
 </keybind>
 <keybind key="XF86PowerOff">
 <action name="Execute">
-<command>poweroff_switch</command>
+<command>fkey power</command>
 </action>
 </keybind>
 <!--  Keybindings or printscreens !!!inspired by Rolin!!! -->
