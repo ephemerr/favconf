@@ -10,7 +10,7 @@
     <focusNew>yes</focusNew>
     <!-- always try to focus new windows when they appear. other rules do
        apply -->
-    <followMouse>yes</followMouse>
+    <followMouse>no</followMouse>
     <!-- move focus to a window when you move the mouse into it -->
     <focusLast>yes</focusLast>
     <!-- focus the last used window when changing desktops, instead of the one
@@ -120,7 +120,7 @@
 
        use obconf if you want to change these without having to log out
        and back in -->
-    <number>1</number>
+    <number>3</number>
     <firstdesk>1</firstdesk>
     <names>
       <!-- set names up here if you want to, like this:
@@ -178,6 +178,11 @@
   </dock>
   <keyboard>
 <!-- My custom -->
+<keybind key="C-Menu">
+<action name="Execute">
+<command>dmenu_run</command>
+</action>
+</keybind>
 <!-- Keybindings for windows auto arrangement !!!inspired by useradded!!!-->
 <keybind key="A-Caps_">
 <action name="Execute">
@@ -192,8 +197,8 @@
 <action name="MoveResizeTo">
 <x>0</x>
 <y>0</y>
-<width>50%</width>
-<height>100%</height>
+<width>960</width>
+<height>1000</height>
 </action>	
 <action name="NextWindow">
 <dialog>none</dialog>
@@ -206,8 +211,8 @@
 <action name="MoveResizeTo">
 <x>50%</x>
 <y>0</y>
-<width>50%</width>
-<height>100%</height>
+<width>960</width>
+<height>1000</height>
 </action>	
 </finalactions>	
 </action>
@@ -217,72 +222,72 @@
 <action name="MoveResizeTo">
 <x>0</x>
 <y>0</y>
-<width>50%</width>
-<height>50%</height>
+<width>960</width>
+<height>499</height>
 </action>
 </keybind>
 <keybind key="W-w">
 <action name="MoveResizeTo">
 <x>center</x>
 <y>0</y>
-<width>100%</width>
-<height>50%</height>
+<width>1920</width>
+<height>499</height>
 </action>
 </keybind>
 <keybind key="W-e">
 <action name="MoveResizeTo">
 <x>-0</x>
 <y>0</y>
-<width>50%</width>
-<height>50%</height>
+<width>960</width>
+<height>499</height>
 </action>
 </keybind>
 <keybind key="W-a">
 <action name="MoveResizeTo">
 <x>0</x>
 <y>center</y>
-<width>50%</width>
-<height>100%</height>
+<width>960</width>
+<height>1000</height>
 </action>
 </keybind>
 <keybind key="W-s">
 <action name="MoveResizeTo">
 <x>center</x>
 <y>center</y>
-<width>50%</width>
-<height>50%</height>
+<width>960</width>
+<height>499</height>
 </action>
 </keybind>
 <keybind key="W-d">
 <action name="MoveResizeTo">
 <x>-0</x>
 <y>center</y>
-<width>50%</width>
-<height>100%</height>
+<width>960</width>
+<height>1000</height>
 </action>
 </keybind>
 <keybind key="W-z">
 <action name="MoveResizeTo">
 <x>0</x>
 <y>-0</y>
-<width>50%</width>
-<height>50%</height>
+<width>960</width>
+<height>499</height>
 </action>
 </keybind>
 <keybind key="W-x">
 <action name="MoveResizeTo">
 <x>center</x>
 <y>-0</y>
-<width>100%</width>
-<height>50%</height>
+<width>1920</width>
+<height>499</height>
 </action>
 </keybind>
 <keybind key="W-c">
 <action name="MoveResizeTo">
 <x>-0</x>
 <y>-0</y>
-<width>50%</width>
-<height>50%</height>
+<width>960</width>
+<height>499</height>
 </action>
 </keybind>
 <!-- Keybindings for window control -->
@@ -293,7 +298,7 @@
 <action name="ToggleShowDesktop"/>
 </keybind>
 <keybind key="W-m">
-<action name="Maximize"/>
+<action name="ToggleMaximize"/>
 </keybind>
 <keybind key="W-Return">
 <action name="ToggleMaximize"/>
@@ -649,6 +654,10 @@
 <keybind key="W-6">
 <action name="GoToDesktop">
 <to>6</to>
+</action>
+</keybind>
+<keybind key="W-m">
+<action name="Maximize">
 </action>
 </keybind>
 <keybind key="W-l">
@@ -1124,10 +1133,8 @@ submenu will not be hidden until a different submenu is opened --&gt;
 <applications>
 <!-- match all windows, and remove their decorations -->
 <application class="*">
-<decor>no</decor>
 </application>
 <application type="normal">
-<maximized>true</maximized>
 </application>
 <application title="qtcreator_process_stub">
 <iconic>yes</iconic>	
