@@ -10,4 +10,4 @@ bindkey '^e' kill-word
 
 alias chrome 
 
-export PDIR=~/Projects
+export PDIR=~/projects

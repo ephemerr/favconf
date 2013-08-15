@@ -1,0 +1,37 @@
+#!/usr/bin/lua
+
+--local = {
+    FS = "%s"
+    RS = "\n"
+    FILENAME = arg[2]
+--    FNR = 0
+    NF = 0
+    NR = 0
+    R = ""
+    F = {}
+    RT = ""
+--    RT = "", 
+--}
+
+BEGIN = true
+dofile(arg[1])
+BEGIN = false
+
+local file=assert(io.open(FILENAME, "r"))
+FILE = file:read("*all")
+dstart,dend = FILE:find(RS)
+while dend do
+    oldstart,oldend=dstart,dend
+    dstart,dend = FILE:find(RS, dend+1)
+    dstart = dstart or FILE:len()+1
+    R = FILE:sub(oldend+1, dstart-1)
+    RT = FILE:sub(oldstart, oldend)
+    NR = NR + 1
+    F = {}
+    for f in string.gmatch(R, "[^"..FS.."]+") do
+        F[#F + 1] = f
+    end
+    if #F then
+        dofile(arg[1])
+    end
+end     

@@ -2730,7 +2730,7 @@ fi
 
 #~/.zshrc.local
 
-export PDIR=~/Projects
+export PDIR=~/projects
 
 ## genrefcard.pl settings
 
