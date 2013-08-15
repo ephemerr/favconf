@@ -1,37 +1,62 @@
 #!/usr/bin/lua
 
---local = {
-    FS = "%s"
-    RS = "\n"
-    FILENAME = arg[2]
---    FNR = 0
-    NF = 0
-    NR = 0
-    R = ""
-    F = {}
-    RT = ""
---    RT = "", 
---}
+FS = "%s"           -- field separator
+RS = "\n"           -- record separator
+FILENAME = arg[2]   -- data file name
+SCRIPT = arg[1]     -- script file or string 
+--FNR = 0
+NF = 0              -- number of fields
+NR = 0              -- number of records
+R = ""              -- current record
+F = {}              -- fields array
+RT = ""             -- record separator value 
 
+-- specify script function
+if os.execute("test -e " .. SCRIPT) == 0 then 
+    scriptfile = assert(io.open(SCRIPT, "r"))
+    scriptbuf = scriptfile:read("*all")
+    doscript = assert(loadstring(scriptbuf)) 
+else
+    doscript = assert(loadstring(SCRIPT)) 
+end
+
+-- specify data source
+if FILENAME and os.execute("test -e " .. FILENAME) == 0 then 
+    assert(io.input(FILENAME, "r"))
+end
+
+-- specify record extraction function
+if RS == "\n" then 
+    nextrecord = function()
+        R = io.read("*line")
+        return R
+    end
+else
+    filebuf = io.read("*all")
+    nextrecord = function()
+        oldstart,oldend=dstart,dend
+        dstart,dend = filebuf:find(RS, dend+1)
+        dstart = dstart or filebuf:len()+1
+        R = filebuf:sub(oldend+1, dstart-1)
+        RT = filebuf:sub(dstart, dend)
+        return R
+    end
+end
+
+-- BEGIN processing
 BEGIN = true
-dofile(arg[1])
+    doscript()
 BEGIN = false
 
-local file=assert(io.open(FILENAME, "r"))
-FILE = file:read("*all")
-dstart,dend = FILE:find(RS)
-while dend do
-    oldstart,oldend=dstart,dend
-    dstart,dend = FILE:find(RS, dend+1)
-    dstart = dstart or FILE:len()+1
-    R = FILE:sub(oldend+1, dstart-1)
-    RT = FILE:sub(oldstart, oldend)
+-- record processing
+while nextrecord() do
     NR = NR + 1
     F = {}
     for f in string.gmatch(R, "[^"..FS.."]+") do
         F[#F + 1] = f
     end
     if #F then
-        dofile(arg[1])
+        doscript()
     end
 end     
+
