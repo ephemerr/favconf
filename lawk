@@ -1,29 +1,35 @@
 #!/usr/bin/lua
 
-FS = "%s"           -- field separator
-RS = "\n"           -- record separator
-FILENAME = arg[2]   -- data file name
+FS = "%s"           -- field separator - lua regexp chars or classes
+RS = "\n"           -- record separator - string
 SCRIPT = arg[1]     -- script file or string 
+DATA = arg[2]       -- data file name
+ARGS = arg[3]       -- args for script
 --FNR = 0
-NF = 0              -- number of fields
 NR = 0              -- number of records
+--NF = 0              -- current number of fields - it equals to #F
 R = ""              -- current record
-F = {}              -- fields array
-RT = ""             -- record separator value 
+F = {}              -- current fields array
+RT = ""             -- current record separator value 
 
 -- specify script function
 if os.execute("test -e " .. SCRIPT) == 0 then 
     scriptfile = assert(io.open(SCRIPT, "r"))
     scriptbuf = scriptfile:read("*all")
-    doscript = assert(loadstring(scriptbuf)) 
 else
-    doscript = assert(loadstring(SCRIPT)) 
+    scriptbuf = "if " .. SCRIPT .. " then print(R) end"
 end
+doscript = assert(loadstring(scriptbuf)) 
 
 -- specify data source
-if FILENAME and os.execute("test -e " .. FILENAME) == 0 then 
-    assert(io.input(FILENAME, "r"))
+if DATA and os.execute("test -e " .. DATA) == 0 then 
+    assert(io.input(DATA, "r"))
 end
+
+-- BEGIN processing
+BEGIN = true
+doscript()
+BEGIN = false
 
 -- specify record extraction function
 if RS == "\n" then 
@@ -32,26 +38,29 @@ if RS == "\n" then
         return R
     end
 else
-    filebuf = io.read("*all")
+    local filebuf = io.read("*all")
+    local flen = filebuf:len()+1
+    local dstart,dend = 0,0
     nextrecord = function()
+        -- check finish
+        if dstart == flen then return nil end
+        -- save separator
         oldstart,oldend=dstart,dend
+        -- next separator
         dstart,dend = filebuf:find(RS, dend+1)
-        dstart = dstart or filebuf:len()+1
+        if not dstart then dend,dstart = flen,flen end
+        -- cutout record
         R = filebuf:sub(oldend+1, dstart-1)
         RT = filebuf:sub(dstart, dend)
         return R
     end
 end
 
--- BEGIN processing
-BEGIN = true
-    doscript()
-BEGIN = false
-
--- record processing
+-- record by record processing
 while nextrecord() do
-    NR = NR + 1
+    NR = NR + 1    
     F = {}
+    local f
     for f in string.gmatch(R, "[^"..FS.."]+") do
         F[#F + 1] = f
     end
@@ -60,3 +69,11 @@ while nextrecord() do
     end
 end     
 
+-- clear data
+R=""
+F={}
+
+-- END processing
+END = true
+doscript()
+END = false

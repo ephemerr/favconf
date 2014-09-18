@@ -58,13 +58,18 @@
     Mod4 + F3
 "gnome-terminal -e htop"
     Mod4 + F4
-"dmenu_run"
+"dmenu_run -fn '-*-courier-*-r-*-*-20-*-*-*-*-*-*-*'"
     Mod4 + Menu
+
 # Window managment
 "wmctrl -c :ACTIVE:"
     Mod1 + F4
-
-
+"p2right"
+    Mod4 + Next 
+"p2left"
+    Mod4 + Prior 
+#"wmctrl -r :ACTIVE: -b toggle,maximized_vert" 
+#    Mod4 + End 
 
 
 #"xterm -geom 50x20+20+20"

@@ -2728,9 +2728,16 @@ if (( GRMLSMALL_SPECIFIC > 0 )) && isgrmlsmall ; then
 
 fi
 
+
+
+
 #~/.zshrc.local
 
 export PDIR=~/projects
+export EDITOR=vim
+export PATH=$PATH:/usr/local/sbin:/usr/sbin:/sbin
+alias gt="gnome-terminal --tab --profile hold"
+setxkbmap -option "grp:alt_shift_toggle,grp_led:scroll" -layout "us,ru"
 
 ## genrefcard.pl settings
 
