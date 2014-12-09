@@ -10,15 +10,6 @@
 " properly set to work with the Vim-related packages available in Debian.
 runtime! debian.vim
 
-
-" Latex suite config
-" For more info about this lines, type ":help ls_1" in vim 
- filetype plugin on
- set grepprg=grep\ -nH\ $*
- filetype indent on
- let g:tex_flavor='latex'
- set iskeyword+=:
-
 " Uncomment the next line to make Vim more Vi-compatible
 " NOTE: debian.vim sets 'nocompatible'.  Setting 'compatible' changes numerous
 " options, so any other options should be set AFTER setting 'compatible'.
@@ -55,8 +46,6 @@ hi PmenuThumb   ctermbg=white ctermfg=blue
 "set ignorecase		" Do case insensitive matching
 "set smartcase		" Do smart case matching
 "set incsearch		" Incremental search
-"set autowrite		" Automatically save before commands like :next and :make
-"set hidden             " Hide buffers when they are abandoned
 "set mouse=a		" Enable mouse usage (all modes)
 
 " Source a global configuration file if available
@@ -76,95 +65,35 @@ map <F4> [I:let nr = input("Which one: ")<Bar>exe "normal " . nr ."[\t"<CR>
 
 set number
 
-if has("cscope")
-    set csprg=/usr/local/bin/cscope
-    set csto=0
-    "set cst
-    set nocsverb
-    " add any database in current directory
-    if filereadable("cscope.out")
-        cs add cscope.out
-    " else add database pointed to by environment
-    elseif $CSCOPE_DB != ""
-        cs add $CSCOPE_DB
-    endif
-    set csverb
-endif
 
-"    map <C-_> :cstag <C-R>=expand("<cword>")<CR><CR>
-    map g<C-]> :cs find 3 <C-R>=expand("<cword>")<CR><CR>
-    map g<C-\> :cs find 0 <C-R>=expand("<cword>")<CR><CR>
-    nmap <C-_>s :cs find s <C-R>=expand("<cword>")<CR><CR>
-	nmap <C-_>g :cs find g <C-R>=expand("<cword>")<CR><CR>
-	nmap <C-_>c :cs find c <C-R>=expand("<cword>")<CR><CR>
-	nmap <C-_>t :cs find t <C-R>=expand("<cword>")<CR><CR>
-	nmap <C-_>e :cs find e <C-R>=expand("<cword>")<CR><CR>
-	nmap <C-_>f :cs find f <C-R>=expand("<cfile>")<CR><CR>
-	nmap <C-_>i :cs find i ^<C-R>=expand("<cfile>")<CR>$<CR>
-	nmap <C-_>d :cs find d <C-R>=expand("<cword>")<CR><CR>
-
-	" Using 'CTRL-spacebar' then a search type makes the vim window
-	" split horizontally, with search result displayed in
-	" the new window.
-
-	nmap <C-Space>s :scs find s <C-R>=expand("<cword>")<CR><CR>
-	nmap <C-Space>g :scs find g <C-R>=expand("<cword>")<CR><CR>
-	nmap <C-Space>c :scs find c <C-R>=expand("<cword>")<CR><CR>
-	nmap <C-Space>t :scs find t <C-R>=expand("<cword>")<CR><CR>
-	nmap <C-Space>e :scs find e <C-R>=expand("<cword>")<CR><CR>
-	nmap <C-Space>f :scs find f <C-R>=expand("<cfile>")<CR><CR>
-	nmap <C-Space>i :scs find i ^<C-R>=expand("<cfile>")<CR>$<CR>
-	nmap <C-Space>d :scs find d <C-R>=expand("<cword>")<CR><CR>
-
-	" Hitting CTRL-space *twice* before the search type does a vertical
-	" split instead of a horizontal one
-
-	nmap <C-Space><C-Space>s
-		\:vert scs find s <C-R>=expand("<cword>")<CR><CR>
-	nmap <C-Space><C-Space>g
-		\:vert scs find g <C-R>=expand("<cword>")<CR><CR>
-	nmap <C-Space><C-Space>c
-		\:vert scs find c <C-R>=expand("<cword>")<CR><CR>
-	nmap <C-Space><C-Space>t
-		\:vert scs find t <C-R>=expand("<cword>")<CR><CR>
-	nmap <C-Space><C-Space>e
-		\:vert scs find e <C-R>=expand("<cword>")<CR><CR>
-	nmap <C-Space><C-Space>i
-		\:vert scs find i ^<C-R>=expand("<cfile>")<CR>$<CR>
-	nmap <C-Space><C-Space>d
-		\:vert scs find d <C-R>=expand("<cword>")<CR><CR>
-
-" Comments
-nmap <C-d> <Esc>^<Insert>//<Tab><Esc>
 
 " Window managment
+set autowrite		" Automatically save before commands like :next and :make
+set hidden             " Hide buffers when they are abandoned
 set splitbelow
-set hidden
-set autowrite
 nmap _ :ls!<Return>
-map <C-l> :arg 
+map <C-l> :tabe 
 nmap <S-Tab> <C-^>
 nmap <C-h> ggeegf 
 
-
-" Folding
-set foldmethod=indent
-set nofoldenable
-hi Folded NONE
+set foldmethod=syntax
+set foldnestmax=1
 
 "autocmd!	" Remove ALL autocommands for the current group.
 "au QuickfixCmdPost make splint %
+
 nmap <F8> :make
+set makeprg=colormake
 
 " Clipboard
-nmap <C-v> :<C-r>"
+"nmap <C-v> :<C-r>"
 "imap <C-i> <Esc>"0P 
 nmap <C-P> "0P 
 
 " Tags
 imap <C-_> <C-X><C-]>:buf<Space> 
-map <F11>  :sp tags<CR>:%s/^\([^     :]*:\)\=\([^    ]*\).*/syntax keyword Tag \2/<CR>:wq! tags.vim<CR>/^<CR><F12>
-map <F12>  :so tags.vim<CR>
+map <C-F11>  :sp tags<CR>:%s/^\([^     :]*:\)\=\([^    ]*\).*/syntax keyword Tag \2/<CR>:wq! tags.vim<CR>/^<CR><F12>
+map <C-F12>  :so tags.vim<CR>
 
 " Stop insert mode by arrows
 "imap <Right> <Esc><Right>
@@ -181,12 +110,36 @@ set tw=123
 set wm=0
 set fo=cqt
 
-nmap g1 :buf 1<CR>
-nmap g2 :buf 2<CR>
-nmap g3 :buf 3<CR>
-nmap g4 :buf 4<CR>
-nmap g5 :buf 5<CR>
-nmap g6 :buf 6<CR>
-nmap g7 :buf 7<CR>
-nmap g8 :buf 8<CR>
-nmap g9 :buf 9<CR>
+""""""""""""""""""""""""""""""""""""""""""" Commenting blocks of code.
+autocmd FileType c,cpp,java,scala let b:comment_leader = '// '
+autocmd FileType sh,ruby,python   let b:comment_leader = '# '
+autocmd FileType conf,fstab       let b:comment_leader = '# '
+autocmd FileType tex              let b:comment_leader = '% '
+autocmd FileType mail             let b:comment_leader = '> '
+autocmd FileType vim              let b:comment_leader = '" '
+noremap <C-d> :<C-B>silent <C-E>s/^/<C-R>=escape(b:comment_leader,'\/')<CR>/<CR>:nohlsearch<CR>
+noremap <C-D> :<C-B>silent <C-E>s/^\V<C-R>=escape(b:comment_leader,'\/')<CR>//e<CR>:nohlsearch<CR>
+
+"""""""""""""""""""""""""""""""""""""""""""" LATEX. 
+" REQUIRED. This makes vim invoke Latex-Suite when you open a tex file.
+filetype plugin on
+
+" IMPORTANT: win32 users will need to have 'shellslash' set so that latex
+" can be called correctly.
+"set shellslash
+
+" IMPORTANT: grep will sometimes skip displaying the file name if you
+" search in a singe file. This will confuse Latex-Suite. Set your grep
+" program to always generate a file-name.
+set grepprg=grep\ -nH\ $*
+
+" OPTIONAL: This enables automatic indentation as you type.
+filetype indent on
+
+" OPTIONAL: Starting with Vim 7, the filetype of empty .tex files defaults to
+" 'plaintex' instead of 'tex', which results in vim-latex not being loaded.
+" The following changes the default filetype back to 'tex':
+let g:tex_flavor='latex'
+
+set iskeyword+=:
+silent !ctags -R *.c

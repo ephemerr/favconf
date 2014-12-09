@@ -14,11 +14,14 @@ RT = ""             -- current record separator value
 
 -- specify script function
 if os.execute("test -e " .. SCRIPT) == 0 then 
+    -- script from file
     scriptfile = assert(io.open(SCRIPT, "r"))
     scriptbuf = scriptfile:read("*all")
 else
+    -- script from arg line
     scriptbuf = "if " .. SCRIPT .. " then print(R) end"
 end
+-- load script 
 doscript = assert(loadstring(scriptbuf)) 
 
 -- specify data source
@@ -35,6 +38,8 @@ BEGIN = false
 if RS == "\n" then 
     nextrecord = function()
         R = io.read("*line")
+        -- clear from '\r'
+        if R then R = string.gsub(R,'\r','') end
         return R
     end
 else
@@ -77,3 +82,4 @@ F={}
 END = true
 doscript()
 END = false
+

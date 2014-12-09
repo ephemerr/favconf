@@ -2731,13 +2731,51 @@ fi
 
 
 
-#~/.zshrc.local
+# Tab switch clearing bindings for LXTerminal
+bindkey ';5~' end-of-line
+bindkey '5~' end-of-line
+bindkey '^T' end-of-line
+
+#bindkey "$terminfo[knp]" end-of-line
+
+bindkey '^e' kill-word
 
 export PDIR=~/projects
 export EDITOR=vim
 export PATH=$PATH:/usr/local/sbin:/usr/sbin:/sbin
 alias gt="gnome-terminal --tab --profile hold"
+alias make="colormake"
 setxkbmap -option "grp:alt_shift_toggle,grp_led:scroll" -layout "us,ru"
+
+
+
+# CCZE Colourize Config for Centos 
+# http://lintut.com/colorize-log-files-on-linux-using-ccze-tool/
+# http://www.tecmint.com/how-to-enable-epel-repository-for-rhel-centos-6-5/
+declare -r CCZE=`which ccze`
+if [ "$TERM" != dumb ] && [ -n "$CCZE" ]; then
+    function br {
+      $@ |  $CCZE -A 
+    }
+    
+#    alias br=br
+    alias configure='br ./configure'
+    alias diff='br diff'
+    alias gcc='br gcc'
+    alias g++='br g++'
+    alias as='br as'
+    alias gas='br gas'
+    alias ld='br ld'
+    alias netstat='br netstat'
+#    alias ping='br ping'
+    alias traceroute='br /usr/sbin/traceroute'
+fi
+
+
+
+#$HOME/.zshrc.local
+
+
 
 ## genrefcard.pl settings
 
