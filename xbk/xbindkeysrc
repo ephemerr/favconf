@@ -37,6 +37,11 @@
 #keystate_capslock = enable
 #keystate_scrolllock= enable
 
+
+# test
+"gvim"
+    Control+Alt + h 
+
 # Func keys
 "sudo poweroff"
     XF86PowerOff
@@ -50,7 +55,8 @@
     Shift + F12
 
 # Main utils
-"gnome-terminal"
+#"gnome-terminal"
+"gvim"
     Mod4 + F1
 "dolphin"
     Mod4 + F2
@@ -62,10 +68,12 @@
     Mod4 + Menu
 
 # Window managment
+"wmctrl -r :ACTIVE: -b add,maximized_horz"
+    Mod1 + Return 
 "wmctrl -c :ACTIVE:"
     Mod1 + F4
 "p2right"
-    Mod4 + Next 
+    Mod4 + Super_L + Next 
 "p2left"
     Mod4 + Prior 
 #"wmctrl -r :ACTIVE: -b toggle,maximized_vert" 
