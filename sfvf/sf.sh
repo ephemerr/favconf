@@ -11,5 +11,5 @@ if test -e ".sfvf"; then rm ".sfvf"; fi
 
 # serch
 for line in $(find -L . -name "*.c" -o -name "*.h" -o -name "*.cpp"); do  
-    lawk "/usr/local/bin/sf.lua" "$line" $1
+    lawk "/usr/local/bin/sf.lua" "$line" "$1"
 done
