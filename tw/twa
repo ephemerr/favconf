@@ -1,0 +1,2 @@
+#!/bin/bash
+for i in ./tw/*.tw; do printf "\n${i//tw}"; cat $i; done | less

@@ -3,12 +3,14 @@ if BEGIN then
     COLOREDARG = "\27[31m"..ARGS.."\27[34m"
     
     -- count lines in the results file
-    resfile = io.open(".sfvf", "r")
     L = 1 
-    while resfile and resfile:read("*line") do
-        L = L + 1
+    resfile = io.open(".sfvf", "r")
+    if resfile then 
+        while resfile:read("*line") do
+            L = L + 1
+        end
+        resfile:close() 
     end
-    if resfile then resfile:close() end
 
     -- open results file for output
     resfile = assert(io.open(".sfvf", "a"))

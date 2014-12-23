@@ -8,7 +8,6 @@ if [ "$ARG" = "" ]; then ARG=1; fi
 `sed -nr "
     $ARG {   
     s:\x1B\[[0-9;]*[mK]::g # remove color codes 
-    s/([0-9]+).[\t ]+([0-9]+)[\t \27]([^\t ]+)[\t ]+([^\n]+)/vim -c :\2 \3/p # args for vim
+    s/([0-9]+).[\t ]+([0-9]+)[\t \27]([^\t ]+)[\t ]+([^\n]+)/vims \+\2 \3/p # args for vim
     }
     " ./.sfvf`
-
