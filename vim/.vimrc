@@ -132,3 +132,22 @@ let g:tex_flavor='latex'
 
 set iskeyword+=:
 
+
+
+"""""""""""""""""""""""""""" Sessions 
+fu! SS()
+    execute 'mksession! ' . getcwd() . '/.session.vim'
+endfunction
+
+fu! RS()
+if filereadable(getcwd() . '/.session.vim')
+    execute 'so ' . getcwd() . '/.session.vim'
+endif
+endfunction
+
+
+"command Rs call RS()
+"command Ss call SS()
+
+
+
