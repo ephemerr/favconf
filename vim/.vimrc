@@ -50,12 +50,14 @@ set expandtab
 "set backspace=indent,eol
 set softtabstop=4
 
-" ctags key
-map <F4> [I:let nr = input("Which one: ")<Bar>exe "normal " . nr ."[\t"<CR>
+""""""""""""""""""""" ctags key
+"map <C-[> [I:let nr = input("Which one: ")<Bar>exe "normal " . nr ."[\t"<CR>
 
+"""""""""""""""""""""
 set number " Show line numbers
-set hlsearch " Highlight searched word
 
+""""""""""""""""""""
+set hlsearch " Highlight searched word
 
 """"""""""""""""""""""" Window managment
 set autowrite		" Automatically save before commands like :next and :make
@@ -63,6 +65,7 @@ set hidden             " Hide buffers when they are abandoned
 set splitbelow
 nmap _ :ls!<Return>
 map <C-l> :tabe 
+map <C-F1> :tab help 
 nmap <S-Tab> <C-^>
 nmap <C-h> ggeegf   " Go to header
 
@@ -90,9 +93,9 @@ imap <Insert> <Esc><Right>
 "imap <Esc> <Esc><Right>
 
 """""""""""""""""""""""""""" Line breaks
-set tw=123
-set wm=0
-set fo=cqt
+set textwidth=123
+set wrapmargin=0
+set formatoptions=cqt
 
 """""""""""""""""""""""""""" Commenting blocks of code.
 augroup filetype_comments
@@ -131,8 +134,6 @@ filetype indent on
 let g:tex_flavor='latex'
 
 set iskeyword+=:
-
-
 
 """""""""""""""""""""""""""" Sessions 
 fu! SS()
