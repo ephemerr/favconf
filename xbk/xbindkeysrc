@@ -62,8 +62,8 @@
     Mod4 + Menu
 
 # Window managment
-"wmctrl -c :ACTIVE:"
-    Mod1 + F4
+#"wmctrl -c :ACTIVE:"
+#    Mod1 + F4
 "p2right"
     Mod4 + Next 
 "p2left"

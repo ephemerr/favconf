@@ -72,6 +72,7 @@ nmap <C-h> ggeegf   " Go to header
 """"""""""""""""""""""""" Folding
 set foldmethod=syntax
 set foldnestmax=1
+set foldlevelstart=1
 
 """"""""""""""""""""""""" Compilation
 "au QuickfixCmdPost make splint %
