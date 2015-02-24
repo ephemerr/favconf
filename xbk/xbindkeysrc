@@ -47,20 +47,20 @@
     XF86PowerOff
 "wireless_switch"
     Shift + F8
+"amixer set Master 5dB+"
+    XF86AudioRaiseVolume
 "amixer set Master 5dB-"
-    Shift + F10
-"amixer set Master 5dB-"
-    Shift + F11
-"amixer sset Speaker Mix DAC2SPK toggle"
-    Shift + F12
+    XF86AudioLowerVolume
+"amixer sset Master toggle"
+    XF86AudioMute
 
 # Main utils
 #"gnome-terminal"
-"gvim"
+"gnome-terminal"
     Mod4 + F1
-"dolphin"
+"pcmanfm"
     Mod4 + F2
-"opera"
+"iceweasel"
     Mod4 + F3
 "gnome-terminal -e htop"
     Mod4 + F4
