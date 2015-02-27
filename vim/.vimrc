@@ -43,12 +43,12 @@ if filereadable("/etc/vim/vimrc.local")
 endif
 
 """"""""""""""""""""" Tabbing and indentation
-set tabstop=4
-set shiftwidth=4 
+set tabstop=2
+set shiftwidth=2 
 set expandtab
 "set cindent
 "set backspace=indent,eol
-set softtabstop=4
+set softtabstop=2
 
 """"""""""""""""""""" ctags key
 "map <C-[> [I:let nr = input("Which one: ")<Bar>exe "normal " . nr ."[\t"<CR>
