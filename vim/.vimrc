@@ -81,7 +81,7 @@ set makeprg=colormake
 """""""""""""""""""""""" Clipboard
 "nmap <C-v> :<C-r>"
 "imap <C-i> <Esc>"0P 
-nmap <C-P> "0P 
+"nmap <C-P> "0P 
 
 """""""""""""""""""""""""" Tags
 nmap <S-Tab> <C-^>
@@ -152,4 +152,8 @@ endfunction
 "command Ss call SS()
 
 
+"""""""" Automatically removing all trailing whitespace
+autocmd FileType c,h autocmd BufWritePre <buffer> :%s/\s\+$//e
 
+""""""""""" Set vim bracket highlighting colors
+hi MatchParen cterm=none ctermbg=none ctermfg=blue
