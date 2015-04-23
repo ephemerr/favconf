@@ -1,0 +1,75 @@
+\documentclass[final]{beamer} % beamer 3.10: do NOT use option hyperref={pdfpagelabels=false} !
+%\documentclass[final,hyperref={pdfpagelabels=false}]{beamer} % beamer 3.07: get rid of beamer warnings
+\mode<presentation> {  %% check http://www-i6.informatik.rwth-aachen.de/~dreuw/latexbeamerposter.php for examples
+\usetheme{Berlin}    %% you should define your own theme e.g. for big headlines using your own logos 
+}
+\usepackage[english]{babel}
+\usepackage[latin1]{inputenc}
+\usepackage{amsmath,amsthm, amssymb, latexsym}
+%\usepackage{times}\usefonttheme{professionalfonts}  % times is obsolete
+\usefonttheme[onlymath]{serif}
+\boldmath
+\usepackage[orientation=portrait,size=a4,scale=1.,debug]{beamerposter}                       % e.g. for DIN-A0 poster
+%\usepackage[orientation=portrait,size=a1,scale=1.4,grid,debug]{beamerposter}                  % e.g. for DIN-A1 poster, with optional grid and debug output
+%\usepackage[size=custom,width=200,height=120,scale=2,debug]{beamerposter}                     % e.g. for custom size poster
+%\usepackage[orientation=portrait,size=a0,scale=1.0,printer=rwth-glossy-uv.df]{beamerposter}   % e.g. for DIN-A0 poster with rwth-glossy-uv printer check
+% ...
+%
+\usepackage{xcolor,graphicx}
+
+\title[Fancy Posters]{Making Really Fancy Posters with \LaTeX}
+\author[Dreuw \& Deselaers]{Philippe Dreuw and Thomas Deselaers}
+\institute[RWTH Aachen University]{Human Language Technology and Pattern Recognition,RWTH Aachen University}
+\date{Jul. 31th, 2007}
+
+\setbeamertemplate{footline}[]{}
+\setbeamertemplate{navigation symbols}{}
+
+%\setbeamercolor{normal text}{bg=red!20}
+
+\definecolor{UniBlue}{RGB}{222,222,222}
+\setbeamercolor{title}{fg=UniBlue}
+\setbeamercolor{frametitle}{fg=UniBlue}
+\setbeamercolor{structure}{fg=UniBlue}
+
+\setbeamertemplate{headline}
+{%
+\begin{beamercolorbox}{section in head/foot}
+%\vskip2pt\insertnavigation{\paperwidth}\vskip2pt
+\end{beamercolorbox}%
+}
+
+\setbeamertemplate{footline}
+{%
+\begin{beamercolorbox}{section in head/foot}
+%\vskip2pt\insertnavigation{\paperwidth}\vskip2pt
+\end{beamercolorbox}%
+}
+
+\begin{document}
+\begin{frame}{} 
+\vfill
+
+ \centering
+%\begin{block}{\large Fontsizes}
+\begin{tabular}{| c | c | c | c |}
+  \hline
+  {\LARGE 17 }   & {\Large Something} xx-  & {\normalsize at 18:00}\\
+  {\large april} & {\normalsize About} & {\footnotesize Where,Where,Where??}\\
+  \hline
+
+\end{tabular}  
+%  {\tiny tiny}\par
+%  {\scriptsize scriptsize}\par
+%  {\footnotesize footnotesize}\par
+%  {\normalsize normalsize}\par
+%  {\large large}\par
+%  {\Large Large}\par
+%  {\LARGE LARGE}\par
+%  {\veryHuge veryHuge}\par
+%  {\VeryHuge VeryHuge}\par
+%  {\VERYHuge VERYHuge}\par
+%\end{block}
+\vfill
+\end{frame}
+\end{document}

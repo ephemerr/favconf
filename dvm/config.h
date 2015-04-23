@@ -23,7 +23,7 @@ static const Rule rules[] = {
 	{ "Dolphin",    NULL,       NULL,       1 << 1,       False,       -1 },
 	{ "Google",     NULL,       NULL,       1 << 2,       False,       -1 },
 	{ "Firefox",    NULL,       NULL,       1 << 2,       False,       -1 },
-	{ "Qt Creator", NULL,       NULL,       1 << 3,       False,       -1 },
+	{ "Qtcreator",  NULL,       NULL,       1 << 3,       False,       -1 },
 };
 
 /* layout(s) */

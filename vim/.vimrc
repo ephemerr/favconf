@@ -94,9 +94,10 @@ imap <Insert> <Esc><Right>
 "imap <Esc> <Esc><Right>
 
 """""""""""""""""""""""""""" Line breaks
-set textwidth=123
+set nowrap
+set textwidth=0
 set wrapmargin=0
-set formatoptions=cqt
+set formatoptions=cq "t
 
 """""""""""""""""""""""""""" Commenting blocks of code.
 augroup filetype_comments
