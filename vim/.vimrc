@@ -43,12 +43,12 @@ if filereadable("/etc/vim/vimrc.local")
 endif
 
 """"""""""""""""""""" Tabbing and indentation
-set tabstop=2
-set shiftwidth=2 
+set tabstop=4
+set shiftwidth=4 
 set expandtab
 "set cindent
 "set backspace=indent,eol
-set softtabstop=2
+set softtabstop=4
 
 """"""""""""""""""""" ctags key
 "map <C-[> [I:let nr = input("Which one: ")<Bar>exe "normal " . nr ."[\t"<CR>
@@ -65,8 +65,7 @@ set hidden             " Hide buffers when they are abandoned
 set splitbelow
 nmap _ :ls!<Return>
 map <C-l> :tabe 
-map <C-F1> :tab help 
-nmap <S-Tab> <C-^>
+map <S-F1> :tab help 
 nmap <C-h> ggeegf   " Go to header
 
 """"""""""""""""""""""""" Folding
@@ -82,9 +81,10 @@ set makeprg=colormake
 """""""""""""""""""""""" Clipboard
 "nmap <C-v> :<C-r>"
 "imap <C-i> <Esc>"0P 
-nmap <C-P> "0P 
+"nmap <C-P> "0P 
 
 """""""""""""""""""""""""" Tags
+nmap <S-Tab> <C-^>
 imap <C-_> <C-X><C-]>:buf<Space> 
 map <C-F11>  :sp tags<CR>:%s/^\([^     :]*:\)\=\([^    ]*\).*/syntax keyword Tag \2/<CR>:wq! tags.vim<CR>/^<CR><F12>
 map <C-F12>  :so tags.vim<CR>
@@ -94,9 +94,10 @@ imap <Insert> <Esc><Right>
 "imap <Esc> <Esc><Right>
 
 """""""""""""""""""""""""""" Line breaks
-set textwidth=123
+set nowrap
+set textwidth=0
 set wrapmargin=0
-set formatoptions=cqt
+set formatoptions=cq "t
 
 """""""""""""""""""""""""""" Commenting blocks of code.
 augroup filetype_comments
@@ -152,4 +153,8 @@ endfunction
 "command Ss call SS()
 
 
+"""""""" Automatically removing all trailing whitespace
+autocmd FileType c,h autocmd BufWritePre <buffer> :%s/\s\+$//e
 
+""""""""""" Set vim bracket highlighting colors
+hi MatchParen cterm=none ctermbg=none ctermfg=blue

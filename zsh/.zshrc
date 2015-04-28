@@ -2747,8 +2747,6 @@ alias gt="gnome-terminal --tab --profile hold"
 alias make="colormake"
 setxkbmap -option "grp:alt_shift_toggle,grp_led:scroll" -layout "us,ru"
 
-
-
 # CCZE Colourize Config for Centos 
 # http://lintut.com/colorize-log-files-on-linux-using-ccze-tool/
 # http://www.tecmint.com/how-to-enable-epel-repository-for-rhel-centos-6-5/
@@ -2770,8 +2768,6 @@ if [ "$TERM" != dumb ] && [ -n "$CCZE" ]; then
 #    alias ping='br ping'
     alias traceroute='br /usr/sbin/traceroute'
 fi
-
-
 
 ################################# SSH
 SSH_ENV=$HOME/.ssh/environment
