@@ -16,6 +16,7 @@
 % ...
 %
 \usepackage{xcolor,graphicx}
+\usepackage[T1]{fontenc}
 
 \title[Fancy Posters]{Making Really Fancy Posters with \LaTeX}
 \author[Dreuw \& Deselaers]{Philippe Dreuw and Thomas Deselaers}
@@ -43,6 +44,8 @@
 {%
 \begin{beamercolorbox}{section in head/foot}
 %\vskip2pt\insertnavigation{\paperwidth}\vskip2pt
+\centering
+vk.com/theatrestory
 \end{beamercolorbox}%
 }
 
@@ -52,13 +55,16 @@
 
  \centering
 %\begin{block}{\large Fontsizes}
+\begin{table}
 \begin{tabular}{| c | c | c | c |}
-  \hline
-  {\LARGE 17 }   & {\Large Something} xx-  & {\normalsize at 18:00}\\
-  {\large april} & {\normalsize About} & {\footnotesize Where,Where,Where??}\\
-  \hline
 
-\end{tabular}  
+  {\Large 17 }   & {\Large Something} xx-  & {\normalsize at 18:00}\\
+  {\normalsize april} & {\normalsize About} & {\footnotesize Where,Where,Where??}\\
+  \hline  \hline
+  {\Large 27 }   & {\Large Something} xx-  & {\normalsize at 18:00}\\
+  {\normalsize april} & {\normalsize About} & {\footnotesize Where,Where,Where??}\\
+\end{tabular}
+\end{table}
 %  {\tiny tiny}\par
 %  {\scriptsize scriptsize}\par
 %  {\footnotesize footnotesize}\par
