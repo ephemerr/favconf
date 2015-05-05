@@ -1,4 +1,3 @@
-%\documentclass[a4paper,10pt,notitlepage,twoside,openany]{book}
 \documentclass[final]{beamer} % beamer 3.10: do NOT use option hyperref={pdfpagelabels=false} !
 %\documentclass[final,hyperref={pdfpagelabels=false}]{beamer} % beamer 3.07: get rid of beamer warnings
 \mode<presentation> {  %% check http://www-i6.informatik.rwth-aachen.de/~dreuw/latexbeamerposter.php for examples
@@ -8,15 +7,22 @@
 %\usepackage{times}\usefonttheme{professionalfonts}  % times is obsolete
 %\usefonttheme[onlymath]{serif}
 %\boldmath
-\usepackage[orientation=portrait,size=a4,scale=1.,debug]{beamerposter}                       % e.g. for DIN-A0 poster
+%\usepackage[orientation=portrait,size=custom,width=5.8,height=8.3,scale=.5,debug]{beamerposter}                       
+\usepackage[orientation=portrait,size=a4,scale=1.,debug]{beamerposter}                       
+
 %\usepackage[orientation=portrait,size=a1,scale=1.4,grid,debug]{beamerposter}                  % e.g. for DIN-A1 poster, with optional grid and debug output
 %\usepackage[size=custom,width=200,height=120,scale=2,debug]{beamerposter}                     % e.g. for custom size poster
 %\usepackage[orientation=portrait,size=a0,scale=1.0,printer=rwth-glossy-uv.df]{beamerposter}   % e.g. for DIN-A0 poster with rwth-glossy-uv printer check
-%\usepackage{xcolor,graphicx}
+\usepackage{xcolor,graphicx}
 \usepackage{latexsym} 
 \usepackage[T2A]{fontenc} 
 \usepackage[utf8]{inputenc} 
 \usepackage[russian]{babel} 
+%\usepackage[table]{xcolor,graphicx}
+\usepackage[export]{adjustbox}
+\usepackage{colortbl}
+
+\usepackage{dejavu}
 
 \setbeamertemplate{footline}[]{}
 \setbeamertemplate{navigation symbols}{}
@@ -27,6 +33,7 @@
 %\setbeamercolor{title}{fg=UniBlue}
 %\setbeamercolor{frametitle}{fg=UniBlue}
 %\setbeamercolor{structure}{fg=UniBlue}
+\definecolor{lightgray}{gray}{0.8}
 
 \setbeamertemplate{headline}
 {%
@@ -56,7 +63,8 @@
 %\title[Fancy Posters]{Основы Slackware Linux. Официальный учебник.}
 \date{\today}
 
-
+\newfont{\fff}{ccfonts}  % 12-point italic euro symbol
+\newcommand{\EUR}{{\euroit E}}
 
 \begin{document}
 \begin{frame}{} 
@@ -64,13 +72,26 @@
 
  \centering
 %\begin{block}{\large Fontsizes}
-\begin{table}
-\begin{tabular}{| c | c | c | c |}
+\begin{tabular}{ c  c  c }
+\includegraphics{alpha.jpg}  & \adjustbox{raise=3ex,frame}{111111111111} & {\includegraphics{alpha.jpg}}\\ 
+\end{tabular}
 
-  {\Large 17 }   & {\Large Something} xx-  & {\normalsize at 18:00}\\
+
+
+\setlength{\arrayrulewidth}{1pt}
+\arrayrulecolor{lightgray}
+%\setlength\doublerulesep{2pt}\doublerulesepcolor{yellow}
+
+
+
+\begin{table}
+\begin{tabular}{ c | c | c | c }
+
+  {\Large \textbf{17} }   & {\Large Something} xx-  & {\normalsize at 18:00}\\
   {\normalsize апрель} & {\normalsize about} & {\footnotesize Where,Where,Where??}\\
-  \hline  \hline
-  {\Large 27 }   & {\Large Something} xx-  & {\normalsize at 18:00}\\
+  \hline 
+  
+  {\Large \fff d 27 }   & {\Large Something} xx-  & {\normalsize at 18:00}\\
   {\normalsize april} & {\normalsize About} & {\footnotesize Where,Where,Where??}\\
 \end{tabular}
 \end{table}
