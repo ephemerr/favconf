@@ -24,6 +24,7 @@ static const Rule rules[] = {
 	{ "Google",     NULL,       NULL,       1 << 2,       False,       -1 },
 	{ "Firefox",    NULL,       NULL,       1 << 2,       False,       -1 },
 	{ "Qtcreator",  NULL,       NULL,       1 << 3,       False,       -1 },
+	{ "QtCreator",  NULL,       NULL,       1 << 3,       False,       -1 },
 };
 
 /* layout(s) */
