@@ -56,6 +56,7 @@ set softtabstop=4
 """""""""""""""""""""
 set number " Show line numbers
 set cursorline " Highlight current line
+hi CursorLine cterm=bold ctermbg=none ctermfg=none
 
 """"""""""""""""""""
 set hlsearch " Highlight searched word

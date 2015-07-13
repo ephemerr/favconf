@@ -1,0 +1,33 @@
+#!/bin/bash
+shopt -s -o xtrace
+shopt -s -o nounset
+declare -r LOG="/home/azzel/gitcommit.log"
+declare -r PDIR="/home/azzel/projects"
+touch $LOG 
+
+
+function commit_dir {
+    cd $1 
+    #git checkout -b feature_x
+    git commit -a -m "cron daily commit"
+    cd - 
+}
+#commit_dir "/home/azzel/netBGT4/prj/bt53_31/tvk
+#commit_dir "/home/azzel/projects"
+
+declare -a \
+#     REP[0]="$PDIR/test"
+    REP[0]="$PDIR/t50"\
+    REP[1]="$PDIR/pns24baget"\
+    REP[2]="$PDIR/atools"\
+    REP[3]="$PDIR/kens_test"\
+    REP[3]="$PDIR/param_mon"\
+    REP[4]="$PDIR/stendT50/"
+
+
+echo `date` >> $LOG
+for GITDIR in ${REP[*]}; do
+    echo $GITDIR >> $LOG
+    commit_dir $GITDIR
+done
+
