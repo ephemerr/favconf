@@ -1,10 +1,12 @@
 #!/bin/bash
-cp lawk       /usr/local/bin/ 
-cp gitcommit  /usr/local/bin/ 
-cp p2left     /usr/local/bin/ 
-cp p2right    /usr/local/bin/ 
-cp sfvf/sf    /usr/local/bin/ 
-cp sfvf/vf    /usr/local/bin/ 
-cp tw/tw      /usr/local/bin/ 
-cp tw/twa     /usr/local/bin/ 
-cp vim/vims   /usr/local/bin/ 
+declare -r FAV="/home/azzel/favconf"
+
+ln -sf $FAV/lawk       /usr/local/bin/lawk       
+ln -sf $FAV/gitcommit  /usr/local/bin/gitcommit  
+ln -sf $FAV/p2left     /usr/local/bin/p2left     
+ln -sf $FAV/p2right    /usr/local/bin/p2right    
+ln -sf $FAV/sfvf/sf    /usr/local/bin/sf    
+ln -sf $FAV/sfvf/vf    /usr/local/bin/vf    
+ln -sf $FAV/tw/tw      /usr/local/bin/tw      
+ln -sf $FAV/tw/twa     /usr/local/bin/twa     
+ln -sf $FAV/vim/vims   /usr/local/bin/vims   
