@@ -1,0 +1,12 @@
+#!/bin/bash
+cp colormake/colormakerc   .colormakerc
+cp dwm/config.h            ~/projects/dwm-6.0/
+cp dwm/dwmstatus.c         ~/projects/dwmstatus/
+cp mkdir ~/.dwm
+cp dwm/autostart.sh        ~/.dwm/
+cp git/.gitignore          ~/
+cp vim/.vimrc              ~/
+cp xbk/xbindkeysrc         ~/.xbindkeysrc 
+cp zsh/.zshrc              ~/.zshrc
+cp openbox/work.xml        ~/.config/openbox/
+cp openbox/lubuntu-rc.xml  ~/.config/openbox/

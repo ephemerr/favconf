@@ -1,0 +1,10 @@
+#!/bin/bash
+cp lawk       /usr/local/bin/ 
+cp gitcommit  /usr/local/bin/ 
+cp p2left     /usr/local/bin/ 
+cp p2right    /usr/local/bin/ 
+cp sfvf/sf    /usr/local/bin/ 
+cp sfvf/vf    /usr/local/bin/ 
+cp tw/tw      /usr/local/bin/ 
+cp tw/twa     /usr/local/bin/ 
+cp vim/vims   /usr/local/bin/ 
