@@ -1,6 +1,5 @@
 #!/bin/bash
 mkdir ~/.dwm
-mkdir ~/.zshrc
 mkdir ~/.xbindkeysrc
 mkdir ~/.config/openbox
 cp colormake/colormakerc   .colormakerc
@@ -10,6 +9,6 @@ cp dwm/autostart.sh        ~/.dwm/
 cp git/.gitignore          ~/
 cp vim/.vimrc              ~/
 cp xbk/xbindkeysrc         ~/.xbindkeysrc 
-cp zsh/.zshrc              ~/.zshrc
+cp zsh/.zshrc              ~/
 cp openbox/work.xml        ~/.config/openbox/
 cp openbox/lubuntu-rc.xml  ~/.config/openbox/
