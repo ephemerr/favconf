@@ -1,14 +1,14 @@
 #!/bin/bash
+declare -r FAV=~/favconf
 mkdir ~/.dwm
-mkdir ~/.xbindkeysrc
 mkdir ~/.config/openbox
-cp colormake/colormakerc   .colormakerc
-cp dwm/config.h            ~/projects/dwm-6.0/
-cp dwm/dwmstatus.c         ~/projects/dwmstatus/
-cp dwm/autostart.sh        ~/.dwm/
-cp git/.gitignore          ~/
-cp vim/.vimrc              ~/
-cp xbk/xbindkeysrc         ~/.xbindkeysrc 
-cp zsh/.zshrc              ~/
-cp openbox/work.xml        ~/.config/openbox/
-cp openbox/lubuntu-rc.xml  ~/.config/openbox/
+ln -sf $FAV/colormake/colormakerc   ~/.colormakerc
+ln -sf $FAV/dwm/config.h            ~/projects/dwm-6.0/
+ln -sf $FAV/dwm/dwmstatus.c         ~/projects/dwmstatus/
+ln -sf $FAV/dwm/autostart.sh        ~/.dwm/
+ln -sf $FAV/git/.gitignore          ~/
+ln -sf $FAV/vim/.vimrc              ~/
+ln -sf $FAV/xbk/xbindkeysrc         ~/.xbindkeysrc 
+ln -sf $FAV/zsh/.zshrc              ~/.zshrc
+ln -sf $FAV/openbox/work.xml        ~/.config/openbox/
+ln -sf $FAV/openbox/lubuntu-rc.xml  ~/.config/openbox/
