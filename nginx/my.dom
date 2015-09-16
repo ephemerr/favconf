@@ -1,0 +1,22 @@
+# fast cgi support
+# include /etc/nginx/fcgiwrap.conf;
+
+server {
+    listen 80;
+    server_name my.dom;
+    root /home/azzel/soft/ephemerr.github.io/;
+    location / {
+       index index.html;
+    }
+  # Lua WSAPI
+    location ~ .lua$ {
+        fastcgi_pass unix:/var/run/fcgiwrap.socket;
+        #fastcgi_pass  127.0.0.1:8999;
+        fastcgi_index run.lua;
+        fastcgi_split_path_info ^(.+\.lua)(.*)$;
+        fastcgi_param PATH_INFO $fastcgi_path_info;
+        fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+        include fastcgi_params;
+    }
+}
+

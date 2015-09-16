@@ -5,7 +5,7 @@ RS = "\n"           -- record separator - string
 SCRIPT = arg[1]     -- script file or string 
 DATA = arg[2]       -- data file name
 ARGS = arg[3]       -- args for script
---FNR = 0
+--local FNR = 0
 NR = 0              -- number of records
 --NF = 0              -- current number of fields - it equals to #F
 R = ""              -- current record
@@ -22,7 +22,7 @@ else
     scriptbuf = "if " .. SCRIPT .. " then print(R) end"
 end
 -- load script 
-doscript = assert(loadstring(scriptbuf)) 
+local doscript = assert(loadstring(scriptbuf)) 
 
 -- specify data source
 if DATA and os.execute("test -e " .. DATA) == 0 then 
@@ -62,11 +62,12 @@ else
 end
 
 -- record by record processing
+local token = "[^"..FS.."]+"
 while nextrecord() do
     NR = NR + 1    
     F = {}
     local f
-    for f in string.gmatch(R, "[^"..FS.."]+") do
+    for f in string.gmatch(R, token) do
         F[#F + 1] = f
     end
     if #F then

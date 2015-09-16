@@ -55,6 +55,8 @@ set softtabstop=4
 
 """""""""""""""""""""
 set number " Show line numbers
+set cursorline " Highlight current line
+hi CursorLine cterm=bold ctermbg=none ctermfg=none
 
 """"""""""""""""""""
 set hlsearch " Highlight searched word
@@ -158,3 +160,7 @@ autocmd FileType c,h autocmd BufWritePre <buffer> :%s/\s\+$//e
 
 """"""""""" Set vim bracket highlighting colors
 hi MatchParen cterm=none ctermbg=none ctermfg=blue
+
+
+
+
