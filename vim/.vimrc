@@ -13,11 +13,11 @@ runtime! debian.vim
 " Vim5 and later versions support syntax highlighting. Uncommenting the next
 " line enables syntax highlighting by default.
 syntax on
-hi MatchParen   ctermbg=black ctermfg=blue 
-hi Pmenu        ctermbg=black ctermfg=blue 
-hi PmenuSel     ctermbg=white ctermfg=black 
-hi PmenuBar     ctermbg=white ctermfg=blue 
-hi PmenuThumb   ctermbg=white ctermfg=blue 
+hi MatchParen   ctermbg=black ctermfg=blue
+hi Pmenu        ctermbg=black ctermfg=blue
+hi PmenuSel     ctermbg=white ctermfg=black
+hi PmenuBar     ctermbg=white ctermfg=blue
+hi PmenuThumb   ctermbg=white ctermfg=blue
 " If using a dark background within the editing area and syntax highlighting
 " turn on this option as well
 "set background=dark
@@ -44,7 +44,7 @@ endif
 
 """"""""""""""""""""" Tabbing and indentation
 set tabstop=4
-set shiftwidth=4 
+set shiftwidth=4
 set expandtab
 "set cindent
 "set backspace=indent,eol
@@ -66,8 +66,8 @@ set autowrite		" Automatically save before commands like :next and :make
 set hidden             " Hide buffers when they are abandoned
 set splitbelow
 nmap _ :ls!<Return>
-map <C-l> :tabe 
-map <S-F1> :tab help 
+map <C-l> :tabe
+map <S-F1> :tab help
 nmap <C-h> ggeegf   " Go to header
 
 """"""""""""""""""""""""" Folding
@@ -78,16 +78,17 @@ set foldlevelstart=1
 """"""""""""""""""""""""" Compilation
 "au QuickfixCmdPost make splint %
 nmap <F8> :make
+nmap <F5> :%s=\s\+$==
 set makeprg=colormake
 
 """""""""""""""""""""""" Clipboard
 "nmap <C-v> :<C-r>"
-"imap <C-i> <Esc>"0P 
-"nmap <C-P> "0P 
+"imap <C-i> <Esc>"0P
+"nmap <C-P> "0P
 
 """""""""""""""""""""""""" Tags
 nmap <S-Tab> <C-^>
-imap <C-_> <C-X><C-]>:buf<Space> 
+imap <C-_> <C-X><C-]>:buf<Space>
 map <C-F11>  :sp tags<CR>:%s/^\([^     :]*:\)\=\([^    ]*\).*/syntax keyword Tag \2/<CR>:wq! tags.vim<CR>/^<CR><F12>
 map <C-F12>  :so tags.vim<CR>
 
@@ -116,7 +117,7 @@ augroup END
 "noremap <silent> <C-D> :<C-B>silent <C-E>s/^\V<C-R>=escape(b:comment_leader,'\/')<CR>//e<CR>:nohlsearch<CR>
 
 
-"""""""""""""""""""""""""""" LATEX. 
+"""""""""""""""""""""""""""" LATEX.
 " REQUIRED. This makes vim invoke Latex-Suite when you open a tex file.
 filetype plugin on
 
@@ -139,7 +140,7 @@ let g:tex_flavor='latex'
 
 set iskeyword+=:
 
-"""""""""""""""""""""""""""" Sessions 
+"""""""""""""""""""""""""""" Sessions
 fu! SS()
     execute 'mksession! ' . getcwd() . '/.session.vim'
 endfunction
@@ -156,7 +157,7 @@ endfunction
 
 
 """""""" Automatically removing all trailing whitespace
-autocmd FileType c,h autocmd BufWritePre <buffer> :%s/\s\+$//e
+autocmd FileType c,h,haml autocmd BufWritePre <buffer> :%s/\s\+$//e
 
 """"""""""" Set vim bracket highlighting colors
 hi MatchParen cterm=none ctermbg=none ctermfg=blue
