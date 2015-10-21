@@ -1,15 +1,23 @@
-#!/bin/bash
+#!/bin/bash 
+
+declare PATT="$1"
+declare FINDARG="$2"
 
 # without arg show last log
-if [ "$1" = "" ]; then 
+if [ "$PATT" = "" ]; then 
     if test -e ".sfvf"; then cat ".sfvf"; fi
     exit 0
+fi
+
+if [ "$FINDARG" != "" ]; then 
+    FINDARG="-and $FINDARG"
 fi
 
 # remove last log
 if test -e ".sfvf"; then rm ".sfvf"; fi
 
-# serch
-for line in $(find -L . -name "*.c" -o -name "*.h" -o -name "*.cpp"); do  
-    lawk "/usr/local/bin/sf.lua" "$line" "$1"
+##find -L . -not -regex './\.g.+' $FINDARG 
+# search
+for line in $(find -L . -not -regex './\.g.+' $FINDARG); do  
+    lawk "/usr/local/bin/sf.lua" "$line" "$PATT"
 done

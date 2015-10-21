@@ -2799,6 +2799,18 @@ alias vim=vims
 # open file
 alias op=xdg-open
 
+
+up-line-or-search-prefix () {
+  local CURSOR_before_search=$CURSOR
+  zle up-line-or-search "$LBUFFER"
+  CURSOR=$CURSOR_before_search
+}
+zle -N up-line-or-search-prefix
+
+bindkey "^[OA" up-line-or-search-prefix
+
+cd
+
 #$HOME/.zshrc.local
 
 ## genrefcard.pl settings

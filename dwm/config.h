@@ -18,13 +18,14 @@ static const Bool topbar            = True;     /* False means bottom bar */
 static const char *tags[] = { "1", "2", "3", "4", "5", "6", "7", "8" };
 
 static const Rule rules[] = {
-	/* class        instance    title       tags mask     isfloating   monitor */
-	{ "Gimp",       NULL,       NULL,       1 << 1,       True,        -1 },
-	{ "Dolphin",    NULL,       NULL,       1 << 1,       False,       -1 },
-	{ "Google",     NULL,       NULL,       1 << 2,       False,       -1 },
-	{ "Firefox",    NULL,       NULL,       1 << 2,       False,       -1 },
-	{ "Qtcreator",  NULL,       NULL,       1 << 3,       False,       -1 },
-	{ "QtCreator",  NULL,       NULL,       1 << 3,       False,       -1 },
+	/* class            instance    title       tags mask     isfloating   monitor */
+	{ "Gimp",           NULL,       NULL,       1 << 1,       True,        -1 },
+	{ "Dolphin",        NULL,       NULL,       1 << 1,       False,       -1 },
+	{ "Google",         NULL,       NULL,       1 << 2,       False,       -1 },
+	{ "google-chrome",  NULL,       NULL,       1 << 2,       False,       -1 },
+	{ "Firefox",        NULL,       NULL,       1 << 2,       False,       -1 },
+	{ "Qtcreator",      NULL,       NULL,       1 << 3,       False,       -1 },
+	{ "QtCreator",      NULL,       NULL,       1 << 3,       False,       -1 },
 };
 
 /* layout(s) */

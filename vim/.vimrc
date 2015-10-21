@@ -66,7 +66,7 @@ set autowrite		" Automatically save before commands like :next and :make
 set hidden             " Hide buffers when they are abandoned
 set splitbelow
 nmap _ :ls!<Return>
-map <C-l> :tabe
+map <C-l> :tabe ./
 map <S-F1> :tab help
 nmap <C-h> ggeegf   " Go to header
 
@@ -162,6 +162,6 @@ autocmd FileType c,h,haml autocmd BufWritePre <buffer> :%s/\s\+$//e
 """"""""""" Set vim bracket highlighting colors
 hi MatchParen cterm=none ctermbg=none ctermfg=blue
 
+execute pathogen#infect()
 
-
-
+au BufNewFile,BufRead *.less set filetype=less
