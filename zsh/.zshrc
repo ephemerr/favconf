@@ -2806,10 +2806,17 @@ up-line-or-search-prefix () {
   CURSOR=$CURSOR_before_search
 }
 zle -N up-line-or-search-prefix
-
 bindkey "^[OA" up-line-or-search-prefix
 
-cd
+down-line-or-search-prefix () {
+  local CURSOR_before_search=$CURSOR
+  zle down-line-or-search "$LBUFFER"
+  CURSOR=$CURSOR_before_search
+}
+zle -N down-line-or-search-prefix
+bindkey "^[OB" down-line-or-search-prefix
+
+cd ~
 
 #$HOME/.zshrc.local
 
