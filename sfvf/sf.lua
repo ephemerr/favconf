@@ -17,9 +17,9 @@ if BEGIN then
 end
 
 -- search a line for a word and change it to a colorified version
-R,res = R:gsub(ARGS,COLOREDARG)
+R,res = string.gsub(R,ARGS,COLOREDARG)
 if res ~= 0 then
-    outline = (L .. ".\t" .. NR .. '\t\27[32m' .. DATA .. '\27[34m\t' .. R  .. '\27[0m');
+    local outline = L .. ".\t" .. NR .. '\t\27[32m' .. DATA .. '\27[34m\t' .. R  .. '\27[0m'
     print (outline)
     resfile:write(outline.."\n")
     L = L + 1
