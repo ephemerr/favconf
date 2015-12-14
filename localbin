@@ -11,3 +11,5 @@ ln -sf $FAV/sfvf/vf     /usr/local/bin/vf
 ln -sf $FAV/tw/tw       /usr/local/bin/tw      
 ln -sf $FAV/tw/twa      /usr/local/bin/twa     
 ln -sf $FAV/vim/vims    /usr/local/bin/vims   
+ln -sf $FAV/djvu/page.sh /usr/local/bin/page.sh   
+ln -sf $FAV/djvu/allp.sh /usr/local/bin/allp.sh   
