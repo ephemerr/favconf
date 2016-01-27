@@ -2818,6 +2818,8 @@ bindkey "^[OB" down-line-or-search-prefix
 
 cd ~
 
+yandex-disk --auth=./tok.dex --dir=/media/sda3/Ydisk/ sync
+#
 #$HOME/.zshrc.local
 
 ## genrefcard.pl settings

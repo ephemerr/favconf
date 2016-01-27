@@ -1,20 +1,24 @@
+#!/bin/bash
+shopt -s -o xtrace
+
+IFS=$'\n'
 
 function files { 
-    find  -iname "*.djvu"  -printf "%p\n"
+    find  . -maxdepth 1 -iname "*.djvu"   -printf "%p\n"
 }
 
-function shots(f) {
-    for i = (1 .. 8)
+function shots {
+    for i in {1..12}
     do
-        page.sh $f $i
+        page.sh "$1" $i
     done
 }
 
-function batchshots {
+function folder {
     for file in `files`
     do
-        shots(file)
+        shots "$file"
     done
 }
 
-$1
+$1 "$2"
