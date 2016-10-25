@@ -2836,3 +2836,8 @@ cd ~
 # Local variables:
 # mode: sh
 # End:
+
+
+PATH=$PATH:$HOME/.opam/system/bin
+export PATH 
+

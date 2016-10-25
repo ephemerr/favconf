@@ -14,7 +14,7 @@
 
 char *tzargentina = "America/Buenos_Aires";
 char *tzutc = "UTC";
-char *tzmsk = "posix/Etc/GMT-3";
+char *tzmsk = "Europe/Moscow";
 
 static Display *dpy;
 
@@ -110,7 +110,7 @@ main(void)
 		avgs = loadavg();
 		tmar = mktimes("%H:%M", tzargentina);
 		tmutc = mktimes("%H:%M", tzutc);
-		tmlong = mktimes("%a %d %b %H:%M %Z %Y", tzmsk);
+		tmlong = mktimes("%a %d %b %H:%M %Z", tzmsk);
 
 		status = smprintf("%s", tmlong);
 		setstatus(status);

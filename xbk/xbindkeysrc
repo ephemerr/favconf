@@ -73,6 +73,9 @@
 #"wmctrl -r :ACTIVE: -b toggle,maximized_vert" 
 #    Mod4 + End 
 
+"scrot"
+    m:0x0 + c:107
+    Print
 
 #"xterm -geom 50x20+20+20"
 #   Shift+Mod2+alt + s
