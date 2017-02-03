@@ -2744,7 +2744,6 @@ export PDIR=~/projects
 export EDITOR=vim
 export PATH=$PATH:/usr/local/sbin:/usr/sbin:/sbin
 alias gt="gnome-terminal --tab --profile hold"
-alias make="colormake"
 setxkbmap -option "grp:alt_shift_toggle,grp_led:scroll" -layout "us,ru"
 
 # CCZE Colourize Config for Centos 
@@ -2794,7 +2793,8 @@ fi
 stty -ixon
 
 # vim one instance 
-alias vim=vims
+alias vim=vim
+alias make=make
 
 # open file
 alias op=xdg-open
