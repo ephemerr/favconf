@@ -2806,7 +2806,7 @@ up-line-or-search-prefix () {
   CURSOR=$CURSOR_before_search
 }
 zle -N up-line-or-search-prefix
-bindkey "^[OA" up-line-or-search-prefix
+bindkey "^[[A" up-line-or-search-prefix
 
 down-line-or-search-prefix () {
   local CURSOR_before_search=$CURSOR
@@ -2814,7 +2814,7 @@ down-line-or-search-prefix () {
   CURSOR=$CURSOR_before_search
 }
 zle -N down-line-or-search-prefix
-bindkey "^[OB" down-line-or-search-prefix
+bindkey "^[[B" down-line-or-search-prefix
 
 cd ~
 
