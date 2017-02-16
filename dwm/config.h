@@ -1,39 +1,46 @@
 /* See LICENSE file for copyright and license details. */
 
 /* appearance */
-static const char font[]            = "-*-terminus-medium-r-*-*-22-*-*-*-*-*-*-*";
+static const unsigned int borderpx  = 3;        /* border pixel of windows */
+static const unsigned int snap      = 32;       /* snap pixel */
+static const int showbar            = 1;        /* 0 means no bar */
+static const int topbar             = 1;        /* 0 means bottom bar */
+static const char *fonts[]          = { "terminus:size=16" };
+static const char dmenufont[]       = "terminus:size=16";
 static const char normbordercolor[] = "#444444";
 static const char normbgcolor[]     = "#226666";
 static const char normfgcolor[]     = "#bbdddd";
 static const char selbordercolor[]  = "#ffcc55";
 static const char selbgcolor[]      = "#668888";
 static const char selfgcolor[]      = "#bbdddd";
-static const unsigned int borderpx  = 3;        /* border pixel of windows */
 static const unsigned int gappx     = 3;        /* gap pixel between windows */
 static const unsigned int systrayspacing = 2;   /* systray spacing */
 static const Bool showsystray       = True;     /* false means no systray */
-static const unsigned int snap      = 32;       /* snap pixel */
-static const Bool showbar           = True;     /* False means no bar */
-static const Bool topbar            = True;     /* False means bottom bar */
-
+static const char *colors[][3]      = {
+	/*               fg         bg         border   */
+	[SchemeNorm] = { normfgcolor, normbgcolor, normbordercolor },
+	[SchemeSel] =  { selfgcolor,  selbgcolor,  selbordercolor  },
+};
 /* tagging */
 static const char *tags[] = { "1", "2", "3", "4", "5", "6", "7", "8" };
 
 static const Rule rules[] = {
 	/* class            instance    title       tags mask     isfloating   monitor */
-	{ "Gimp",           NULL,       NULL,       1 << 1,       True,        -1 },
 	{ "Dolphin",        NULL,       NULL,       1 << 1,       False,       -1 },
+	{ "Thunar",         NULL,       NULL,       1 << 1,       False,       -1 },
 	{ "Google",         NULL,       NULL,       1 << 2,       False,       -1 },
 	{ "google-chrome",  NULL,       NULL,       1 << 2,       False,       -1 },
 	{ "Firefox",        NULL,       NULL,       1 << 2,       False,       -1 },
 	{ "Qtcreator",      NULL,       NULL,       1 << 3,       False,       -1 },
 	{ "QtCreator",      NULL,       NULL,       1 << 3,       False,       -1 },
+	{ "VirtualBox",     NULL,       NULL,       1 << 4,       False,       -1 },
+	{ "Gimp",           NULL,       NULL,       1 << 5,       False,       -1 },
 };
 
 /* layout(s) */
-static const float mfact      = 0.5; /* factor of master area size [0.05..0.95] */
-static const int nmaster      = 1;    /* number of clients in master area */
-static const Bool resizehints = True; /* True means respect size hints in tiled resizals */
+static const float mfact     = 0.55; /* factor of master area size [0.05..0.95] */
+static const int nmaster     = 1;    /* number of clients in master area */
+static const int resizehints = 1;    /* 1 means respect size hints in tiled resizals */
 
 static const Layout layouts[] = {
 	/* symbol     arrange function */
@@ -54,8 +61,9 @@ static const Layout layouts[] = {
 #define SHCMD(cmd) { .v = (const char*[]){ "/bin/sh", "-c", cmd, NULL } }
 
 /* commands */
-static const char *dmenucmd[] = { "dmenu_run", "-fn", font, "-nb", normbgcolor, "-nf", normfgcolor, "-sb", selbgcolor, "-sf", selfgcolor, NULL };
-static const char *termcmd[]  = { "gnome-terminal", NULL };
+static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
+static const char *dmenucmd[] = { "dmenu_run", "m", dmenumon, "-fn", dmenufont, "-nb", normbgcolor, "-nf", normfgcolor, "-sb", selbgcolor, "-sf", selfgcolor, NULL };
+static const char *termcmd[]  = { "xterm", NULL };
 
 static Key keys[] = {
 	/* modifier                     key        function        argument */

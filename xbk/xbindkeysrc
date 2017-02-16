@@ -38,7 +38,7 @@
 #keystate_scrolllock= enable
 
 # Func keys
-"sudo poweroff"
+"systemctl suspend"
     XF86PowerOff
 "wireless_switch"
     Shift + F8
@@ -50,18 +50,18 @@
     Shift + F12
 
 # Main utils
-"gnome-terminal"
+"xfce4-terminal"
     Mod4 + F1
-"dolphin"
+"thunar"
     Mod4 + F2
-"google-chrome"
+"firefox"
     Mod4 + F3
-"qtc5"
+"qtcreator"
     Mod4 + F4
-"gnome-terminal -e htop"
+"virtualbox"
     Mod4 + F5
 "dmenu_run -fn '-*-courier-*-r-*-*-20-*-*-*-*-*-*-*'"
-    Mod4 + Menu
+    Mod1 + F2 
 
 # Window managment
 #"wmctrl -c :ACTIVE:"
