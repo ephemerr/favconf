@@ -58,9 +58,11 @@
     Mod4 + F3
 "qtcreator"
     Mod4 + F4
-"virtualbox"
+"pidgin"
     Mod4 + F5
-"dmenu_run -fn '-*-courier-*-r-*-*-20-*-*-*-*-*-*-*'"
+"virtualbox"
+    Mod4 + F6
+"dmenu_run -fn 'terminus:size=16'"
     Mod1 + F2 
 
 # Window managment
