@@ -7,25 +7,15 @@ call vundle#begin()
 " alternatively, pass a path where Vundle should install plugins
 "call vundle#begin('~/some/path/here')
 
-" let Vundle manage Vundle, required
-Plugin 'VundleVim/Vundle.vim'
-
-" The following are examples of different formats supported.
-" Keep Plugin commands between vundle#begin/end.
-" plugin on GitHub repo
+Plugin 'VundleVim/Vundle.vim'  " let Vundle manage Vundle, required
 Plugin 'tpope/vim-fugitive'
-" plugin from http://vim-scripts.org/vim/scripts.html
-Plugin 'L9'
-" Git plugin not hosted on GitHub
-Plugin 'git://git.wincent.com/command-t.git'
-" git repos on your local machine (i.e. when working on your own plugin)
-Plugin 'file:///home/gmarik/path/to/plugin'
-" The sparkup vim script is in a subdirectory of this repo called vim.
-" Pass the path to set the runtimepath properly.
+Plugin 'wincent/command-t'
 Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}
-" Install L9 and avoid a Naming conflict if you've already installed a
-" different version somewhere else.
-Plugin 'ascenator/L9', {'name': 'newL9'}
+"Plugin 'ascenator/L9', {'name': 'newL9'}
+Plugin 'Valloric/YouCompleteMe'
+Plugin 'harishnavnit/vim-qml'
+Plugin 'mileszs/ack.vim'
+Plugin 'scrooloose/nerdtree'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -42,6 +32,13 @@ filetype plugin indent on    " required
 " see :h vundle for more details or wiki for FAQ
 " Put your non-Plugin stuff after this line
 
+" Silver Search
+let g:ackprg = 'ag --vimgrep'                                                   
+cnoreabbrev ag Ack
+cnoreabbrev aG Ack
+cnoreabbrev Ag Ack
+cnoreabbrev AG Ack
+
 syntax on
 hi MatchParen   ctermbg=black ctermfg=blue
 hi Pmenu        ctermbg=black ctermfg=blue
@@ -51,6 +48,8 @@ hi PmenuThumb   ctermbg=white ctermfg=blue
 " If using a dark background within the editing area and syntax highlighting
 " turn on this option as well
 "set background=dark
+"colorscheme solarized
+"set t_Co=16
 
 " Uncomment the following to have Vim jump to the last position when
 " reopening a file
@@ -182,8 +181,8 @@ endif
 endfunction
 
 
-"command Rs call RS()
-"command Ss call SS()
+command Rs call RS()
+command Ss call SS()
 
 
 """""""" Automatically removing all trailing whitespace
@@ -193,3 +192,10 @@ autocmd FileType c,h,haml autocmd BufWritePre <buffer> :%s/\s\+$//e
 hi MatchParen cterm=none ctermbg=none ctermfg=blue
 
 au BufNewFile,BufRead *.less set filetype=less
+
+" NERDTree toggle
+map <C-n> :NERDTreeToggle<CR>
+" How can I close vim if the only window left open is a NERDTree?
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+
+

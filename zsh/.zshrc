@@ -2793,7 +2793,7 @@ fi
 stty -ixon
 
 # vim one instance 
-alias vim=vims
+#alias vim=vims
 alias make=colormake
 
 # open file
