@@ -1,3 +1,35 @@
 #!/bin/zsh
 
-#$HOME/favconf/ccze.sh
+# Enable <C-s> forward search in bash history.
+stty -ixon
+
+alias make=colormake 
+alias ctags=ctags -R --extra=+f
+alias sdcv=sdcv --color
+
+################ Search like vim
+up-line-or-search-prefix () {
+  local CURSOR_before_search=$CURSOR
+  zle up-line-or-search "$LBUFFER"
+  CURSOR=$CURSOR_before_search
+}
+zle -N up-line-or-search-prefix
+bindkey "^[[A" up-line-or-search-prefix
+
+down-line-or-search-prefix () {
+  local CURSOR_before_search=$CURSOR
+  zle down-line-or-search "$LBUFFER"
+  CURSOR=$CURSOR_before_search
+}
+zle -N down-line-or-search-prefix
+bindkey "^[[B" down-line-or-search-prefix
+
+############### Antigen
+source /usr/share/zsh/scripts/antigen/antigen.zsh
+
+############## Home/End fix
+bindkey   "^[[H" beginning-of-somewhere 
+bindkey   "^[[F" end-of-somewhere
+
+# Home
+cd ~ 

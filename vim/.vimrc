@@ -8,14 +8,13 @@ call vundle#begin()
 "call vundle#begin('~/some/path/here')
 
 Plugin 'VundleVim/Vundle.vim'  " let Vundle manage Vundle, required
-Plugin 'tpope/vim-fugitive'
 Plugin 'wincent/command-t'
-Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}
-"Plugin 'ascenator/L9', {'name': 'newL9'}
 Plugin 'Valloric/YouCompleteMe'
-Plugin 'harishnavnit/vim-qml'
 Plugin 'mileszs/ack.vim'
 Plugin 'scrooloose/nerdtree'
+" for languges
+Plugin 'harishnavnit/vim-qml'
+Plugin 'tpope/vim-unimpaired'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -32,41 +31,28 @@ filetype plugin indent on    " required
 " see :h vundle for more details or wiki for FAQ
 " Put your non-Plugin stuff after this line
 
-" Silver Search
-let g:ackprg = 'ag --vimgrep'                                                   
+" ============================================= PLUGINS 
+
+""""""""""""""""""""""" YouCompleteMe 
+let g:ycm_confirm_extra_conf = ''
+
+"""""""""""""""""" NERDTree
+map <C-n> :NERDTreeToggle<CR>
+" How can I close vim if the only window left open is a NERDTree?
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+
+"""""""""""""""""" Ack
+let g:ackprg = 'rg --vimgrep'
 cnoreabbrev ag Ack
 cnoreabbrev aG Ack
 cnoreabbrev Ag Ack
 cnoreabbrev AG Ack
+cnoreabbrev rg Ack
+nmap \s :Ack<Space>
 
-syntax on
-hi MatchParen   ctermbg=black ctermfg=blue
-hi Pmenu        ctermbg=black ctermfg=blue
-hi PmenuSel     ctermbg=white ctermfg=black
-hi PmenuBar     ctermbg=white ctermfg=blue
-hi PmenuThumb   ctermbg=white ctermfg=blue
-" If using a dark background within the editing area and syntax highlighting
-" turn on this option as well
-"set background=dark
-"colorscheme solarized
-"set t_Co=16
+" =============================================  GENERAL
 
-" Uncomment the following to have Vim jump to the last position when
-" reopening a file
-"if has("autocmd")
-"  au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
-"endif
-
-" The following are commented out as they cause vim to behave a lot
-" differently from regular Vi. They are highly recommended though.
-"set showcmd		" Show (partial) command in status line.
-"set showmatch		" Show matching brackets.
-"set ignorecase		" Do case insensitive matching
-"set smartcase		" Do smart case matching
-"set incsearch		" Incremental search
-"set mouse=a		" Enable mouse usage (all modes)
-
-" Source a global configuration file if available
+"""""""""""""""""""""" Source a global configuration file if available
 if filereadable("/etc/vim/vimrc.local")
   source /etc/vim/vimrc.local
 endif
@@ -79,25 +65,12 @@ set expandtab
 "set backspace=indent,eol
 set softtabstop=4
 
-""""""""""""""""""""" ctags key
-"map <C-[> [I:let nr = input("Which one: ")<Bar>exe "normal " . nr ."[\t"<CR>
-
-"""""""""""""""""""""
-set number " Show line numbers
-set cursorline " Highlight current line
-hi CursorLine cterm=bold ctermbg=none ctermfg=none
-
-""""""""""""""""""""
-set hlsearch " Highlight searched word
-
 """"""""""""""""""""""" Window managment
 set autowrite		" Automatically save before commands like :next and :make
-set hidden             " Hide buffers when they are abandoned
+set hidden          " Hide buffers when they are abandoned
 set splitbelow
 nmap _ :ls!<Return>
-map <C-l> :tabe ./
-map <S-F1> :tab help
-nmap <C-h> ggeegf   " Go to header
+map <C-l> :tabe 
 
 """"""""""""""""""""""""" Folding
 set foldmethod=syntax
@@ -106,24 +79,15 @@ set foldlevelstart=1
 
 """"""""""""""""""""""""" Compilation
 "au QuickfixCmdPost make splint %
-nmap <F8> :make
-nmap <F5> :%s=\s\+$==
+nmap <F8> :make -j4
 set makeprg=colormake
 
 """""""""""""""""""""""" Clipboard
-"nmap <C-v> :<C-r>"
-"imap <C-i> <Esc>"0P
-"nmap <C-P> "0P
-
-"""""""""""""""""""""""""" Tags
-nmap <S-Tab> <C-^>
-imap <C-_> <C-X><C-]>:buf<Space>
-map <C-F11>  :sp tags<CR>:%s/^\([^     :]*:\)\=\([^    ]*\).*/syntax keyword Tag \2/<CR>:wq! tags.vim<CR>/^<CR><F12>
-map <C-F12>  :so tags.vim<CR>
+set clipboard=unnamedplus " System clipboard
+set mouse=a		" Enable mouse usage (all modes)
 
 """""""""""""""""""""""""""" Disable Replace mode by second <Insert>
 imap <Insert> <Esc><Right>
-"imap <Esc> <Esc><Right>
 
 """""""""""""""""""""""""""" Line breaks
 set nowrap
@@ -131,71 +95,28 @@ set textwidth=0
 set wrapmargin=0
 set formatoptions=cq "t
 
-"""""""""""""""""""""""""""" Commenting blocks of code.
-augroup filetype_comments
-    autocmd!
-    autocmd FileType c,cpp,java,scala let b:comment_leader = '// '
-    autocmd FileType sh,ruby,python   let b:comment_leader = '# '
-    autocmd FileType conf,fstab       let b:comment_leader = '# '
-    autocmd FileType tex              let b:comment_leader = '% '
-    autocmd FileType mail             let b:comment_leader = '> '
-    autocmd FileType vim              let b:comment_leader = '" '
-augroup END
-
-"noremap <silent> <C-d> :silent s/^/<C-R>=escape(b:comment_leader,'\/')<CR>/<CR>:nohlsearch<CR>
-"noremap <silent> <C-D> :<C-B>silent <C-E>s/^\V<C-R>=escape(b:comment_leader,'\/')<CR>//e<CR>:nohlsearch<CR>
-
-
-"""""""""""""""""""""""""""" LATEX.
-" REQUIRED. This makes vim invoke Latex-Suite when you open a tex file.
-filetype plugin on
-
-" IMPORTANT: win32 users will need to have 'shellslash' set so that latex
-" can be called correctly.
-"set shellslash
-
-" IMPORTANT: grep will sometimes skip displaying the file name if you
-" search in a singe file. This will confuse Latex-Suite. Set your grep
-" program to always generate a file-name.
-set grepprg=grep\ -nH\ $*
-
-" OPTIONAL: This enables automatic indentation as you type.
-filetype indent on
-
-" OPTIONAL: Starting with Vim 7, the filetype of empty .tex files defaults to
-" 'plaintex' instead of 'tex', which results in vim-latex not being loaded.
-" The following changes the default filetype back to 'tex':
-let g:tex_flavor='latex'
-
-set iskeyword+=:
-
-"""""""""""""""""""""""""""" Sessions
-fu! SS()
-    execute 'mksession! ' . getcwd() . '/.session.vim'
-endfunction
-
-fu! RS()
-if filereadable(getcwd() . '/.session.vim')
-    execute 'so ' . getcwd() . '/.session.vim'
-endif
-endfunction
-
-
-command Rs call RS()
-command Ss call SS()
-
-
 """""""" Automatically removing all trailing whitespace
-autocmd FileType c,h,haml autocmd BufWritePre <buffer> :%s/\s\+$//e
+autocmd FileType haml autocmd BufWritePre <buffer> :%s/\s\+$//e
 
-""""""""""" Set vim bracket highlighting colors
+""""""""" Colors
+syntax on
+"Set vim bracket highlighting colors
 hi MatchParen cterm=none ctermbg=none ctermfg=blue
+set hlsearch " Highlight searched word
+set cursorline " Highlight current line
+hi CursorLine cterm=bold ctermbg=none ctermfg=none
 
-au BufNewFile,BufRead *.less set filetype=less
 
-" NERDTree toggle
-map <C-n> :NERDTreeToggle<CR>
-" How can I close vim if the only window left open is a NERDTree?
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+""""""""""""""""""""" OTHER
+
+set smartcase		" Do smart case matching
+
+set number " Show line numbers
+
+" Uncomment the following to have Vim jump to the last position when
+" reopening a file
+"if has("autocmd")
+"  au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
+"endif
 
 
