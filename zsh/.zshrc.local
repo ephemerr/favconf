@@ -3,9 +3,9 @@
 # Enable <C-s> forward search in bash history.
 stty -ixon
 
-alias make=colormake 
-alias ctags=ctags -R --extra=+f
-alias sdcv=sdcv --color
+alias make="colormake"
+alias ctags="ctags -R"
+alias sdcv="sdcv --color"
 
 ################ Search like vim
 up-line-or-search-prefix () {
