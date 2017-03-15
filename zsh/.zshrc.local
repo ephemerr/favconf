@@ -3,7 +3,7 @@
 # Enable <C-s> forward search in bash history.
 stty -ixon
 
-alias make="colormake"
+alias make="colormake -j4"
 alias ctags="ctags -R"
 alias sdcv="sdcv --color"
 
