@@ -128,7 +128,6 @@ set autoread
 set hidden          " Hide buffers when they are abandoned
 set splitright
 set splitbelow
-autocmd FileType help wincmd L " make help go right
 nmap _ :ls!<Return>
 nmap <c-l> :tabe<Space>
 :imap <C-w> <C-o><C-w> "not accidentally deleting words anymore :-)
@@ -175,7 +174,7 @@ hi MatchParen cterm=none ctermbg=none ctermfg=blue
 set background=dark
  
 """"""""""""""""""""" Fast vimrc update
-let $MYVIMRC="~/favconf/vim/.vimrc"
+let $MYVIMRC="/home/azzel/favconf/vim/.vimrc"
 nnoremap <leader>v :e $MYVIMRC<CR> 
 augroup reload_vimrc " {
     autocmd!
@@ -201,7 +200,6 @@ command! -nargs=1 HeaderguardAdd call g:MyAddGuard(<f-args>)
 inoremap \fn <C-R>=@%<CR> 
 inoremap \fh #include "<C-R>=expand("%:t:r").".h"<CR>"
 
-
 """"""""""""""""""""" OTHER
 set ignorecase   " Do smart case matching
 set smartcase    " Do smart case matching
@@ -209,7 +207,7 @@ set number " Show line numbers
 set noswapfile
 
 " copy line N to cursor position 
-nnoremap gp ggyy<c-o>p 
+nnoremap ll ggyy<c-o>p 
 
 map J <PageDown> 
 map K <PageUp> 
