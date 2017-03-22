@@ -9,8 +9,12 @@ Plug 'junegunn/fzf.vim'
 Plug 'junegunn/vim-easy-align'
 Plug 'junegunn/vim-slash'
 Plug 'junegunn/gv.vim'
+Plug 'junegunn/vim-fnr'
 Plug 'junegunn/vim-peekaboo'
-Plug 'kien/rainbow_parentheses.vim'
+Plug 'junegunn/vim-pseudocl'
+Plug 'junegunn/vim-fnr'
+"Plug 'junegunn/vim-after-object'
+Plug 'junegunn/rainbow_parentheses.vim'
 Plug 'bkad/CamelCaseMotion'
 Plug 'spolu/dwm.vim'
 Plug 'derekwyatt/vim-fswitch'
@@ -19,6 +23,7 @@ Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-unimpaired'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-endwise'
+Plug 'tpope/vim-repeat'
 "Plugin 'tpope/vim-dispatch'
 "Plugin 'chiel92/vim-autoformat'
 "Plugin 'vim-airline/vim-airline'
@@ -27,20 +32,24 @@ call plug#end()
 
 " ============================================= PLUGIN CONFIGURATION
 
-"""""""""""""""""""" vim-expand-region
+
+"" vim-expand-region
 vmap v <Plug>(expand_region_expand)
 vmap <C-v> <Plug>(expand_region_shrink)
 
-"""""""""""""""""""" CamelCaseMotion
+
+"" CamelCaseMotion
 map <silent> W <Plug>CamelCaseMotion_w
 map <silent> B <Plug>CamelCaseMotion_b
 map <silent> E <plug>camelcasemotion_e
 "map <silent> ge <Plug>CamelCaseMotion_ge
 
-"""""""""""""""""""" FSwitch
+
+"" FSwitch
 noremap <F4> :FSHere<CR>
 
-"""""""""""""""""""" AirLine
+
+"" AirLine
 set laststatus=2
 let g:airline_theme="base16_chalk"
 let g:airline_powerline_fonts=1
@@ -49,20 +58,24 @@ if !exists('g:airline_symbols')
 endif
 let g:airline_symbols.space = "\ua0"
 
-"""""""""""""""""""" multiple-cursors
+
+"" multiple-cursors
 let g:multi_cursor_use_default_mapping=0
 let g:multi_cursor_next_key='<C-f>'
 let g:multi_cursor_prev_key='<C-d>'
 let g:multi_cursor_skip_key='<C-s>'
 let g:multi_cursor_quit_key='<Esc>'
 
-"""""""""""""""""""" Autoformat
+
+"" Autoformat
 noremap <F3> :Autoformat<CR>
 
-"""""""""""""""""""" DWM
+
+"" DWM
 nmap <c-m> <c-w>o
 
-"""""""""""""""""""" FZF
+
+"" FZF
 command! -bang -nargs=* GGrep
       \ call fzf#vim#grep('git grep --line-number '.shellescape(<q-args>), 0, <bang>0)
 
@@ -99,29 +112,34 @@ nmap <leader>? :Helptags<CR>
 nmap <leader>i :Lines<CR>
 nmap <leader>t :Tags<CR>
 
-"""""""""""""""""""" Fugitive
+
+"" Fugitive
 nmap <leader>glog :Commits<CR>
 nmap <leader>gls :GFiles<CR>
 nmap <leader>gs :GFiles?<CR>
 
-"""""""""""""""""""" YouCompleteMe
+
+"" YouCompleteMe
 let g:ycm_confirm_extra_conf = ''
 let g:ycm_global_ycm_extra_conf = '~/.vim/.ycm_extra_conf.py'
 let g:ycm_autoclose_preview_window_after_completion = 1
 nnoremap <c-}> :YcmCompleter GoTo<CR>
 
-"""""""""""""""""""" NERDTree
+
+"" NERDTree
 map <F3> :NERDTreeToggle<CR>
 " How can I close vim if the only window left open is a NERDTree?
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
-"""""""""""""""""""" Unimpired
+
+"" Unimpired
 nmap [<Tab> gT
 nmap ]<Tab> gt
 
 "=============================================  GENERAL
 
-"""""""""""""""""""" Tabbing and indentation
+
+"" Tabbing and indentation
 set tabstop=2
 set shiftwidth=2
 set expandtab
@@ -129,7 +147,8 @@ set expandtab
 "set backspace=indent,eol
 set softtabstop=2
 
-"""""""""""""""""""" Window managment
+
+"" Window managment
 set autowrite   " Automatically save before commands like :next and :make
 set autoread
 set hidden          " Hide buffers when they are abandoned
@@ -143,36 +162,43 @@ if has("autocmd")
   au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
 endif
 
-"""""""""""""""""""" Folding
+
+"" Folding
 set foldmethod=syntax
 set foldnestmax=1
 set foldlevelstart=1
 hi Folded ctermbg=none
 
-"""""""""""""""""""" Compilation
+
+"" Compilation
 "au QuickfixCmdPost make splint %
 nmap <F8> :make
 autocmd QuickFixCmdPost [^l]* nested cwindow " open quikfix with errors
 autocmd QuickFixCmdPost    l* nested lwindow "
 
-"""""""""""""""""""" Clipboard
+
+"" Clipboard
 set clipboard=autoselect " System clipboard
 set mouse=a   " Enable mouse usage (all modes)
 
-"""""""""""""""""""" Disable Replace mode by second <Insert>
+
+"" Disable Replace mode by second <Insert>
 inoremap <Insert> <Esc><Right>
 inoremap jj <Esc><Right>
 
-"""""""""""""""""""" Line breaks
+
+"" Line breaks
 set nowrap
 set textwidth=0
 set wrapmargin=0
 set formatoptions=cq "t
 
-"""""""""""""""""""" Automatically removing all trailing whitespace
+
+"" Automatically removing all trailing whitespace
 autocmd BufWritePre <buffer> :%s/\s\+$//e
 
-"""""""""""""""""""" Colors
+
+"" Colors
 syntax on
 set hlsearch " Highlight searched word
 set cursorline " Highlight current line
@@ -180,7 +206,8 @@ hi CursorLine cterm=bold ctermbg=none ctermfg=none
 hi MatchParen cterm=none ctermbg=none ctermfg=blue
 set background=dark
 
-""""""""""""""""""""" Fast vimrc update
+
+"" Fast vimrc update
 let $MYVIMRC="/home/azzel/favconf/vim/.vimrc"
 nnoremap <leader>v :e $MYVIMRC<CR>
 augroup reload_vimrc " {
@@ -188,14 +215,16 @@ augroup reload_vimrc " {
     autocmd BufWritePost $MYVIMRC source $MYVIMRC
 augroup END " }
 
-""""""""""""""""""""" visual-at.vim
+
+"" visual-at.vim
 xnoremap @ :<C-u>call ExecuteMacroOverVisualRange()<CR>
 function! ExecuteMacroOverVisualRange()
   echo "@".getcmdline()
   execute ":'<,'>normal @".nr2char(getchar())
 endfunction
 
-""""""""""""""""""""" Header Guard for C/Cpp
+
+"" Header Guard for C/Cpp
 function! g:MyAddGuard(s)
   let b:macro=a:s . toupper(expand('%:t:gs/[^0-9a-zA-Z_]/_/g'))
   call append(0, ["#ifndef " . b:macro, "#define " . b:macro, ""])
@@ -206,16 +235,19 @@ command! -nargs=1 HeaderguardAdd call g:MyAddGuard(<f-args>)
 inoremap \fn <C-R>=@%<CR>
 inoremap \fh #include "<C-R>=expand("%:t:r").".h"<CR>"
 
-""""""""""""""""""""" Searching
+
+"" Searching
 set ignorecase   " Do smart case matching
 set smartcase    " Do smart case matching
 set nocompatible              " be iMproved, required
 vnoremap // y/<C-R>"<CR>        " Search for visual selection
+map ,* *:%s///gn<CR>
 
-""""""""""""""""""""" OTHER
-
+"" Essential
 set number " Show line numbers
 set noswapfile
+filetype plugin indent on
+set encoding=utf-8
 
 " copy line N to cursor position
 nnoremap gp ggyy<c-o>p
