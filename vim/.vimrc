@@ -8,19 +8,23 @@ call vundle#begin()
 Plugin 'VundleVim/Vundle.vim'  " let Vundle manage Vundle, required
 Plugin 'mhinz/vim-signify'
 Plugin 'majutsushi/tagbar'
+Plugin 'terryma/vim-expand-region'
 Plugin 'Valloric/YouCompleteMe'
+Plugin 'rdnetto/YCM-Generator'
 Plugin 'scrooloose/nerdtree'
-Plugin 'tpope/vim-commentary'
-Plugin 'tpope/vim-unimpaired'
-Plugin 'tpope/vim-fugitive'
-"Plugin 'tpope/vim-dispatch'
 Plugin 'junegunn/fzf.vim'
-"Plugin 'chiel92/vim-autoformat'
-"Plugin 'vim-airline/vim-airline'
-"Plugin 'vim-airline/vim-airline-themes'
+Plugin 'bkad/CamelCaseMotion'
 Plugin 'spolu/dwm.vim'
 Plugin 'derekwyatt/vim-fswitch'
 Plugin 'harishnavnit/vim-qml'
+Plugin 'tpope/vim-commentary'
+Plugin 'tpope/vim-unimpaired'
+Plugin 'tpope/vim-fugitive'
+Plugin 'tpope/vim-endwise'
+"Plugin 'tpope/vim-dispatch'
+"Plugin 'chiel92/vim-autoformat'
+"Plugin 'vim-airline/vim-airline'
+"Plugin 'vim-airline/vim-airline-themes'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -29,9 +33,19 @@ filetype plugin indent on    " required
 "filetype plugin on
 
 
-" ============================================= PLUGINS
+" ============================================= PLUGIN CONFIGURATION
 
-"""""""""""""""""""" FSwitch 
+"""""""""""""""""""" vim-expand-region
+vmap v <Plug>(expand_region_expand)
+vmap <C-v> <Plug>(expand_region_shrink)
+
+"""""""""""""""""""" CamelCaseMotion
+map <silent> W <Plug>CamelCaseMotion_w
+map <silent> B <Plug>CamelCaseMotion_b
+map <silent> E <plug>camelcasemotion_e
+"map <silent> ge <Plug>CamelCaseMotion_ge
+
+"""""""""""""""""""" FSwitch
 noremap <F4> :FSHere<CR>
 
 """""""""""""""""""" AirLine
@@ -101,10 +115,11 @@ nmap <leader>gs :GFiles?<CR>
 """""""""""""""""""" YouCompleteMe
 let g:ycm_confirm_extra_conf = ''
 let g:ycm_global_ycm_extra_conf = '~/.vim/.ycm_extra_conf.py'
-let g:ycm_autoclose_preview_window_after_completion = 1 
+let g:ycm_autoclose_preview_window_after_completion = 1
+nnoremap <c-}> :YcmCompleter GoTo<CR>
 
 """""""""""""""""""" NERDTree
-map <C-p> :NERDTreeToggle<CR>
+map <F3> :NERDTreeToggle<CR>
 " How can I close vim if the only window left open is a NERDTree?
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
@@ -155,27 +170,27 @@ set mouse=a   " Enable mouse usage (all modes)
 """""""""""""""""""" Disable Replace mode by second <Insert>
 inoremap <Insert> <Esc><Right>
 inoremap jj <Esc><Right>
-                 
+
 """""""""""""""""""" Line breaks
 set nowrap
 set textwidth=0
 set wrapmargin=0
 set formatoptions=cq "t
 
-""""""""""" """""""" Automatically removing all trailing whitespace
-autocmd FileType c,cpp,h,haml autocmd BufWritePre <buffer> :%s/\s\+$//e
+"""""""""""""""""""" Automatically removing all trailing whitespace
+autocmd BufWritePre <buffer> :%s/\s\+$//e
 
 """""""""""""""""""" Colors
 syntax on
 set hlsearch " Highlight searched word
 set cursorline " Highlight current line
 hi CursorLine cterm=bold ctermbg=none ctermfg=none
-hi MatchParen cterm=none ctermbg=none ctermfg=blue   
+hi MatchParen cterm=none ctermbg=none ctermfg=blue
 set background=dark
- 
+
 """"""""""""""""""""" Fast vimrc update
 let $MYVIMRC="/home/azzel/favconf/vim/.vimrc"
-nnoremap <leader>v :e $MYVIMRC<CR> 
+nnoremap <leader>v :e $MYVIMRC<CR>
 augroup reload_vimrc " {
     autocmd!
     autocmd BufWritePost $MYVIMRC source $MYVIMRC
@@ -183,7 +198,6 @@ augroup END " }
 
 """"""""""""""""""""" visual-at.vim
 xnoremap @ :<C-u>call ExecuteMacroOverVisualRange()<CR>
-
 function! ExecuteMacroOverVisualRange()
   echo "@".getcmdline()
   execute ":'<,'>normal @".nr2char(getchar())
@@ -197,17 +211,27 @@ function! g:MyAddGuard(s)
 endfunction
 command! -nargs=1 HeaderguardAdd call g:MyAddGuard(<f-args>)
 
-inoremap \fn <C-R>=@%<CR> 
+inoremap \fn <C-R>=@%<CR>
 inoremap \fh #include "<C-R>=expand("%:t:r").".h"<CR>"
 
-""""""""""""""""""""" OTHER
+""""""""""""""""""""" Searching
 set ignorecase   " Do smart case matching
 set smartcase    " Do smart case matching
+vnoremap // y/<C-R>"<CR>        " Search for visual selection
+
+""""""""""""""""""""" OTHER
+
 set number " Show line numbers
 set noswapfile
 
-" copy line N to cursor position 
-nnoremap ll ggyy<c-o>p 
+" copy line N to cursor position
+nnoremap gp ggyy<c-o>p
 
-map J <PageDown> 
-map K <PageUp> 
+map J <PageDown>
+map K <PageUp>
+
+" for gf jumps
+set path+=$PWD/**
+
+" Stop that stupid window from popping up
+map q: :q
