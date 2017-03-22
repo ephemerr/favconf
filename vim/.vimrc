@@ -112,7 +112,7 @@ autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isT
 nmap [<Tab> gT
 nmap ]<Tab> gt
 
-" =============================================  GENERAL
+"=============================================  GENERAL
 
 """""""""""""""""""" Tabbing and indentation
 set tabstop=2
@@ -152,7 +152,7 @@ autocmd QuickFixCmdPost    l* nested lwindow "
 """""""""""""""""""" Clipboard
 set clipboard=autoselect " System clipboard
 set mouse=a   " Enable mouse usage (all modes)
-j
+
 """""""""""""""""""" Disable Replace mode by second <Insert>
 inoremap <Insert> <Esc><Right>
 inoremap jj <Esc><Right>
@@ -173,9 +173,10 @@ set cursorline " Highlight current line
 hi CursorLine cterm=bold ctermbg=none ctermfg=none
 hi MatchParen cterm=none ctermbg=none ctermfg=blue   
 set background=dark
-
+ 
 """"""""""""""""""""" Fast vimrc update
-nnoremap <leader>v :e ~/.vimrc<CR> 
+let $MYVIMRC="~/favconf/vim/.vimrc"
+nnoremap <leader>v :e $MYVIMRC<CR> 
 augroup reload_vimrc " {
     autocmd!
     autocmd BufWritePost $MYVIMRC source $MYVIMRC
@@ -210,6 +211,5 @@ set noswapfile
 " copy line N to cursor position 
 nnoremap gp ggyy<c-o>p 
 
-nnoremap <C-J> <PageDown> 
-nnoremap <C-K> <PageUp> 
-
+map J <PageDown> 
+map K <PageUp> 
