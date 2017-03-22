@@ -1,37 +1,29 @@
-set nocompatible              " be iMproved, required
-filetype off                  " required
-
-" set the runtime path to include Vundle and initialize
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
-
-Plugin 'VundleVim/Vundle.vim'  " let Vundle manage Vundle, required
-Plugin 'mhinz/vim-signify'
-Plugin 'majutsushi/tagbar'
-Plugin 'terryma/vim-expand-region'
-Plugin 'Valloric/YouCompleteMe'
-Plugin 'rdnetto/YCM-Generator'
-Plugin 'scrooloose/nerdtree'
-Plugin 'junegunn/fzf.vim'
-Plugin 'bkad/CamelCaseMotion'
-Plugin 'spolu/dwm.vim'
-Plugin 'derekwyatt/vim-fswitch'
-Plugin 'harishnavnit/vim-qml'
-Plugin 'tpope/vim-commentary'
-Plugin 'tpope/vim-unimpaired'
-Plugin 'tpope/vim-fugitive'
-Plugin 'tpope/vim-endwise'
+call plug#begin('~/.vim/bundle')
+Plug 'mhinz/vim-signify'
+Plug 'majutsushi/tagbar'
+Plug 'terryma/vim-expand-region'
+Plug 'Valloric/YouCompleteMe'
+Plug 'rdnetto/YCM-Generator'
+Plug 'scrooloose/nerdtree'
+Plug 'junegunn/fzf.vim'
+Plug 'junegunn/vim-easy-align'
+Plug 'junegunn/vim-slash'
+Plug 'junegunn/gv.vim'
+Plug 'junegunn/vim-peekaboo'
+Plug 'kien/rainbow_parentheses.vim'
+Plug 'bkad/CamelCaseMotion'
+Plug 'spolu/dwm.vim'
+Plug 'derekwyatt/vim-fswitch'
+Plug 'harishnavnit/vim-qml'
+Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-unimpaired'
+Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-endwise'
 "Plugin 'tpope/vim-dispatch'
 "Plugin 'chiel92/vim-autoformat'
 "Plugin 'vim-airline/vim-airline'
 "Plugin 'vim-airline/vim-airline-themes'
-
-" All of your Plugins must be added before the following line
-call vundle#end()            " required
-filetype plugin indent on    " required
-" To ignore plugin indent changes, instead use:
-"filetype plugin on
-
+call plug#end()
 
 " ============================================= PLUGIN CONFIGURATION
 
@@ -217,6 +209,7 @@ inoremap \fh #include "<C-R>=expand("%:t:r").".h"<CR>"
 """"""""""""""""""""" Searching
 set ignorecase   " Do smart case matching
 set smartcase    " Do smart case matching
+set nocompatible              " be iMproved, required
 vnoremap // y/<C-R>"<CR>        " Search for visual selection
 
 """"""""""""""""""""" OTHER
