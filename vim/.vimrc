@@ -6,32 +6,41 @@ Plug 'Valloric/YouCompleteMe'
 Plug 'rdnetto/YCM-Generator'
 Plug 'scrooloose/nerdtree'
 Plug 'junegunn/fzf.vim'
-Plug 'junegunn/vim-easy-align'
+Plug 'junegunn/vim-easy-align', { 'on': ['<Plug>(EasyAlign)', 'EasyAlign'] }
 Plug 'junegunn/vim-slash'
 Plug 'junegunn/gv.vim'
-Plug 'junegunn/vim-fnr'
 Plug 'junegunn/vim-peekaboo'
-Plug 'junegunn/vim-pseudocl'
-Plug 'junegunn/vim-fnr'
+"Plug 'junegunn/vim-pseudocl'
+"plug 'junegunn/vim-fnr'
 "Plug 'junegunn/vim-after-object'
 Plug 'junegunn/rainbow_parentheses.vim'
 Plug 'bkad/CamelCaseMotion'
 Plug 'spolu/dwm.vim'
 Plug 'derekwyatt/vim-fswitch'
 Plug 'harishnavnit/vim-qml'
-Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-commentary', { 'on': '<Plug>Commentary' }
 Plug 'tpope/vim-unimpaired'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-endwise'
 Plug 'tpope/vim-repeat'
+Plug 'mbbill/undotree', { 'on': 'UndotreeToggle' }
+Plug 'vim-scripts/ReplaceWithRegister'
+Plug 'AndrewRadev/splitjoin.vim'
 "Plugin 'tpope/vim-dispatch'
 "Plugin 'chiel92/vim-autoformat'
 "Plugin 'vim-airline/vim-airline'
 "Plugin 'vim-airline/vim-airline-themes'
+Plug 'chriskempson/base16-vim'
 call plug#end()
 
 " ============================================= PLUGIN CONFIGURATION
 
+
+"" FNR
+nmap rr <Plug>(FNR)
+xmap rr <Plug>(FNR)
+nmap RR <Plug>(FNR%)
+xmap RR <Plug>(FNR%)
 
 "" vim-expand-region
 vmap v <Plug>(expand_region_expand)
@@ -240,7 +249,7 @@ inoremap \fh #include "<C-R>=expand("%:t:r").".h"<CR>"
 set ignorecase   " Do smart case matching
 set smartcase    " Do smart case matching
 set nocompatible              " be iMproved, required
-vnoremap // y/<C-R>"<CR>        " Search for visual selection
+vnoremap // y/<C-R>"<CR><C-o>     " Search for visual selectio
 map ,* *:%s///gn<CR>
 
 "" Essential
@@ -260,3 +269,4 @@ set path+=$PWD/**
 
 " Stop that stupid window from popping up
 map q: :q
+command! W w
