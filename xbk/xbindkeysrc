@@ -52,7 +52,7 @@
 # Main utils
 "xfce4-terminal"
     Mod4 + F1
-"thunar"
+"pcmanfm"
     Mod4 + F2
 "firefox"
     Mod4 + F3

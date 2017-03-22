@@ -4,8 +4,9 @@
 stty -ixon
 
 alias make="colormake -j4"
-alias ctags="ctags -R"
+alias ctags="ctags -R --extra=+f"
 alias sdcv="sdcv --color"
+alias fig="find . | grep"
 
 ################ Search like vim
 up-line-or-search-prefix () {
