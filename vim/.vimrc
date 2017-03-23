@@ -35,16 +35,27 @@ Plug 'chriskempson/base16-vim'
 
 "" Formats
 Plug 'harishnavnit/vim-qml'
+"Plug 'octol/vim-cpp-enhanced-highlight'
 
 call plug#end()
 
 " ============================================= PLUGIN CONFIGURATION
 
+
+"" vim-cpp-enhanced-highlight
+let g:cpp_class_scope_highlight = 1
+let g:cpp_member_variable_highlight = 1
+let g:cpp_experimental_template_highlight = 1
+let g:cpp_concepts_highlight = 1
+
+
 "" Commentary
 map -- gc
 
+
 "" RRrplaceWithRegister
 nmap rr gr
+
 
 "" vim-expand-region
 vmap v <Plug>(expand_region_expand)
@@ -62,31 +73,13 @@ map <silent> E <Plug>CamelCaseMotion_e
 noremap <F4> :FSHere<CR>
 
 
-"" AirLine
-set laststatus=2
-let g:airline_theme="base16_chalk"
-let g:airline_powerline_fonts=1
-if !exists('g:airline_symbols')
-  let g:airline_symbols = {}
-endif
-let g:airline_symbols.space = "\ua0"
-
-
-"" multiple-cursors
-let g:multi_cursor_use_default_mapping=0
-let g:multi_cursor_next_key='<C-f>'
-let g:multi_cursor_prev_key='<C-d>'
-let g:multi_cursor_skip_key='<C-s>'
-let g:multi_cursor_quit_key='<Esc>'
-
-
-"" Autoformat
-noremap <F3> :Autoformat<CR>
-
-
 "" DWM
-nmap <c-m> <c-w>o
-
+let g:dwm_map_keys=0
+nnoremap <C-M> <C-W>o
+nmap <C-Space> <Plug>DWMFocus
+nmap <C-C> <Plug>DWMClose
+nnoremap <C-J> <C-W>w
+nnoremap <C-K> <C-W>W
 
 "" FZF
 command! -bang -nargs=* GGrep
@@ -111,19 +104,11 @@ imap <c-x><c-l> <plug>(fzf-complete-line)
 " Advanced customization using autoload functions
 inoremap <expr> <c-x><c-k> fzf#vim#complete#word({'left': '15%'})
 
-nmap <leader>a :Ag<CR>
-nmap <leader>g :GGrep<CR>
-nmap <leader>o :Files<CR>
-nmap <leader>l :Locate<Space>
-nmap <leader>b :Buffers<CR>
-nmap <leader>h :History<CR>
-nmap <leader>e :History:<CR>
-nmap <leader>c :Commands<CR>
-nmap <leader>s :History/<CR>
-nmap <leader>? :Helptags<CR>
-nmap <leader>i :Lines<CR>
-nmap <leader>t :Tags<CR>
-
+nmap <c-g> :Ggrep<Space>
+nmap <c-f> :Ag<CR>
+nmap <c-l> :Files<CR>
+nmap <c-h> :History<CR>
+nmap <Space> :Buffers<CR>
 
 "" Fugitive
 nmap <leader>glog :Commits<CR>
@@ -164,10 +149,9 @@ set softtabstop=2
 set autowrite   " Automatically save before commands like :next and :make
 set autoread
 set hidden          " Hide buffers when they are abandoned
-set splitright
+set nosplitright
 set splitbelow
 nmap _ :ls!<Return>
-nmap <c-l> :tabe<Space>
 :imap <C-w> <C-o><C-w> "not accidentally deleting words anymore :-)
 " Jump to the last position when reopening a file
 if has("autocmd")
@@ -273,3 +257,6 @@ set path+=$PWD/**
 " Stop that stupid window from popping up
 map q: :q
 command! W w
+
+set tags=./tags;/
+
