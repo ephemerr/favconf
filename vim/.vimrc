@@ -1,46 +1,50 @@
 call plug#begin('~/.vim/bundle')
-Plug 'mhinz/vim-signify'
-Plug 'majutsushi/tagbar'
+
+"" Text
+Plug 'tpope/vim-repeat'
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-endwise'
+Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-unimpaired'
 Plug 'terryma/vim-expand-region'
-Plug 'Valloric/YouCompleteMe'
-Plug 'rdnetto/YCM-Generator'
-Plug 'scrooloose/nerdtree'
-Plug 'junegunn/fzf.vim'
 Plug 'junegunn/vim-easy-align', { 'on': ['<Plug>(EasyAlign)', 'EasyAlign'] }
-Plug 'junegunn/vim-slash'
-Plug 'junegunn/gv.vim'
-Plug 'junegunn/vim-peekaboo'
-"Plug 'junegunn/vim-pseudocl'
-"plug 'junegunn/vim-fnr'
-"Plug 'junegunn/vim-after-object'
-Plug 'junegunn/rainbow_parentheses.vim'
 Plug 'bkad/CamelCaseMotion'
+Plug 'junegunn/vim-peekaboo'
+Plug 'vim-scripts/ReplaceWithRegister'
+Plug 'Valloric/YouCompleteMe'
+Plug 'mbbill/undotree', { 'on': 'UndotreeToggle' }
+"Plug 'junegunn/rainbow_parentheses.vim', {'on': 'RainbowParentheses'}
+"Plug 'junegunn/vim-after-object'
+"Plug 'AndrewRadev/splitjoin.vim'
+"Plug 'chiel92/vim-autoformat'
+
+"" Buffers
+Plug 'junegunn/fzf.vim'
 Plug 'spolu/dwm.vim'
 Plug 'derekwyatt/vim-fswitch'
-Plug 'harishnavnit/vim-qml'
-Plug 'tpope/vim-commentary', { 'on': '<Plug>Commentary' }
-Plug 'tpope/vim-unimpaired'
+Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
+Plug 'majutsushi/tagbar', { 'on': 'TagbarToggle' }
+
+"" Git
 Plug 'tpope/vim-fugitive'
-Plug 'tpope/vim-endwise'
-Plug 'tpope/vim-repeat'
-Plug 'mbbill/undotree', { 'on': 'UndotreeToggle' }
-Plug 'vim-scripts/ReplaceWithRegister'
-Plug 'AndrewRadev/splitjoin.vim'
-"Plugin 'tpope/vim-dispatch'
-"Plugin 'chiel92/vim-autoformat'
-"Plugin 'vim-airline/vim-airline'
-"Plugin 'vim-airline/vim-airline-themes'
+Plug 'mhinz/vim-signify'
+Plug 'junegunn/gv.vim'
+
+"" Themes
 Plug 'chriskempson/base16-vim'
+
+"" Formats
+Plug 'harishnavnit/vim-qml'
+
 call plug#end()
 
 " ============================================= PLUGIN CONFIGURATION
 
+"" Commentary
+map -- gc
 
-"" FNR
-nmap rr <Plug>(FNR)
-xmap rr <Plug>(FNR)
-nmap RR <Plug>(FNR%)
-xmap RR <Plug>(FNR%)
+"" RRrplaceWithRegister
+nmap rr gr
 
 "" vim-expand-region
 vmap v <Plug>(expand_region_expand)
@@ -50,7 +54,7 @@ vmap <C-v> <Plug>(expand_region_shrink)
 "" CamelCaseMotion
 map <silent> W <Plug>CamelCaseMotion_w
 map <silent> B <Plug>CamelCaseMotion_b
-map <silent> E <plug>camelcasemotion_e
+map <silent> E <Plug>CamelCaseMotion_e
 "map <silent> ge <Plug>CamelCaseMotion_ge
 
 
@@ -87,7 +91,6 @@ nmap <c-m> <c-w>o
 "" FZF
 command! -bang -nargs=* GGrep
       \ call fzf#vim#grep('git grep --line-number '.shellescape(<q-args>), 0, <bang>0)
-
 
 let g:fzf_action = {
   \ 'ctrl-t': 'tab split',
@@ -246,11 +249,11 @@ inoremap \fh #include "<C-R>=expand("%:t:r").".h"<CR>"
 
 
 "" Searching
-set ignorecase   " Do smart case matching
-set smartcase    " Do smart case matching
-set nocompatible              " be iMproved, required
+set  ignorecase   " Do smart case matching
+set  smartcase    " Do smart case matching
+set  nocompatible " be iMproved, required
 vnoremap // y/<C-R>"<CR><C-o>     " Search for visual selectio
-map ,* *:%s///gn<CR>
+map ** *:%s///gn<CR>2<C-o>
 
 "" Essential
 set number " Show line numbers
