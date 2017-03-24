@@ -1,4 +1,14 @@
+"" Fast vimrc update
+let $MYVIMRC="/home/azzel/favconf/vim/.vimrc"
+nnoremap <leader>v :e $MYVIMRC<CR>
+augroup vimrc " {
+    autocmd!
+    autocmd BufWritePost $MYVIMRC source $MYVIMRC
+augroup END " }
+
 call plug#begin('~/.vim/bundle')
+
+" ============================================= PLUGINS
 
 "" Text
 Plug 'tpope/vim-repeat'
@@ -17,6 +27,7 @@ Plug 'mbbill/undotree', { 'on': 'UndotreeToggle' }
 "Plug 'junegunn/vim-after-object'
 "Plug 'AndrewRadev/splitjoin.vim'
 "Plug 'chiel92/vim-autoformat'
+"Plug 'svermeulen/vim-easyclip'
 
 "" Buffers
 Plug 'junegunn/fzf.vim'
@@ -41,14 +52,6 @@ call plug#end()
 
 " ============================================= PLUGIN CONFIGURATION
 
-
-"" vim-cpp-enhanced-highlight
-let g:cpp_class_scope_highlight = 1
-let g:cpp_member_variable_highlight = 1
-let g:cpp_experimental_template_highlight = 1
-let g:cpp_concepts_highlight = 1
-
-
 "" Commentary
 map -- gc
 
@@ -70,30 +73,25 @@ map <silent> E <Plug>CamelCaseMotion_e
 
 
 "" FSwitch
-noremap <F4> :FSHere<CR>
+noremap <F4> :FSSplitLeft<CR>
 
 
 "" DWM
 let g:dwm_map_keys=0
 nnoremap <C-M> <C-W>o
-nmap <C-Space> <Plug>DWMFocus
 nmap <C-C> <Plug>DWMClose
+nmap <NUL> <Plug>DWMFocus
 nnoremap <C-J> <C-W>w
 nnoremap <C-K> <C-W>W
 
 "" FZF
 command! -bang -nargs=* GGrep
-      \ call fzf#vim#grep('git grep --line-number '.shellescape(<q-args>), 0, <bang>0)
+      \ call fzf#vim#grep('git grep -I --line-number '.shellescape(<q-args>), 0, <bang>0)
 
 let g:fzf_action = {
   \ 'ctrl-t': 'tab split',
   \ 'ctrl-x': 'split',
   \ 'ctrl-v': 'topleft vsplit' }
-
-" Mapping selecting mappings
-nmap <leader><tab> <plug>(fzf-maps-n)
-xmap <leader><tab> <plug>(fzf-maps-x)
-omap <leader><tab> <plug>(fzf-maps-o)
 
 " Insert mode completion
 imap <c-x><c-k> <plug>(fzf-complete-word)
@@ -106,7 +104,7 @@ inoremap <expr> <c-x><c-k> fzf#vim#complete#word({'left': '15%'})
 
 nmap <c-g> :Ggrep<Space>
 nmap <c-f> :Ag<CR>
-nmap <c-l> :Files<CR>
+nmap <c-l> :Files<Space>
 nmap <c-h> :History<CR>
 nmap <Space> :Buffers<CR>
 
@@ -114,14 +112,14 @@ nmap <Space> :Buffers<CR>
 nmap <leader>glog :Commits<CR>
 nmap <leader>gls :GFiles<CR>
 nmap <leader>gs :GFiles?<CR>
-
+set statusline=%<%f\ %h%m%r%{fugitive#statusline()}%=%-14.(%l,%c%V%)\ %P
 
 "" YouCompleteMe
 let g:ycm_confirm_extra_conf = ''
 let g:ycm_global_ycm_extra_conf = '~/.vim/.ycm_extra_conf.py'
 let g:ycm_autoclose_preview_window_after_completion = 1
-nnoremap <c-}> :YcmCompleter GoTo<CR>
-
+autocmd vimrc FileType c,cpp,go nnoremap <buffer> ]d :YcmCompleter GoTo<CR>
+autocmd vimrc FileType c,cpp nnoremap <buffer> K :YcmCompleter GetType<CR>
 
 "" NERDTree
 map <F3> :NERDTreeToggle<CR>
@@ -203,13 +201,6 @@ hi MatchParen cterm=none ctermbg=none ctermfg=blue
 set background=dark
 
 
-"" Fast vimrc update
-let $MYVIMRC="/home/azzel/favconf/vim/.vimrc"
-nnoremap <leader>v :e $MYVIMRC<CR>
-augroup reload_vimrc " {
-    autocmd!
-    autocmd BufWritePost $MYVIMRC source $MYVIMRC
-augroup END " }
 
 
 "" visual-at.vim
@@ -235,21 +226,22 @@ inoremap \fh #include "<C-R>=expand("%:t:r").".h"<CR>"
 "" Searching
 set  ignorecase   " Do smart case matching
 set  smartcase    " Do smart case matching
-set  nocompatible " be iMproved, required
 vnoremap // y/<C-R>"<CR><C-o>     " Search for visual selectio
 map ** *:%s///gn<CR>2<C-o>
 
 "" Essential
+set nocompatible " be iMproved, required
 set number " Show line numbers
 set noswapfile
 filetype plugin indent on
 set encoding=utf-8
+set laststatus=2
 
 " copy line N to cursor position
 nnoremap gp ggyy<c-o>p
 
-map J <PageDown>
-map K <PageUp>
+"map J <PageDown>
+"map K <PageUp>
 
 " for gf jumps
 set path+=$PWD/**
@@ -259,4 +251,3 @@ map q: :q
 command! W w
 
 set tags=./tags;/
-
