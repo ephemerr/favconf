@@ -1,6 +1,6 @@
 "" Fast vimrc update
 let $MYVIMRC="/home/azzel/favconf/vim/.vimrc"
-nnoremap <leader>v :e $MYVIMRC<CR>
+nnoremap <leader>v :tabe $MYVIMRC<CR>
 augroup vimrc " {
     autocmd!
     autocmd BufWritePost $MYVIMRC source $MYVIMRC
@@ -10,6 +10,9 @@ call plug#begin('~/.vim/bundle')
 
 " ============================================= PLUGINS
 
+"" General
+Plug 'drmikehenry/vim-fixkey'
+
 "" Text
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
@@ -17,17 +20,19 @@ Plug 'tpope/vim-endwise'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-unimpaired'
 Plug 'terryma/vim-expand-region'
-Plug 'junegunn/vim-easy-align', { 'on': ['<Plug>(EasyAlign)', 'EasyAlign'] }
 Plug 'bkad/CamelCaseMotion'
+Plug 'junegunn/vim-easy-align', { 'on': ['<Plug>(EasyAlign)', 'EasyAlign'] }
 Plug 'junegunn/vim-peekaboo'
 Plug 'vim-scripts/ReplaceWithRegister'
-Plug 'Valloric/YouCompleteMe'
 Plug 'mbbill/undotree', { 'on': 'UndotreeToggle' }
+Plug 'Valloric/YouCompleteMe'
 "Plug 'junegunn/rainbow_parentheses.vim', {'on': 'RainbowParentheses'}
 "Plug 'junegunn/vim-after-object'
 "Plug 'AndrewRadev/splitjoin.vim'
 "Plug 'chiel92/vim-autoformat'
 "Plug 'svermeulen/vim-easyclip'
+Plug 'vim-syntastic/syntastic'
+Plug 'brooth/far.vim'
 
 "" Buffers
 Plug 'junegunn/fzf.vim'
@@ -46,8 +51,8 @@ Plug 'chriskempson/base16-vim'
 
 "" Formats
 Plug 'harishnavnit/vim-qml'
-"Plug 'octol/vim-cpp-enhanced-highlight'
-
+Plug 'octol/vim-cpp-enhanced-highlight'
+"Plug 'justinmk/vim-syntax-extra'
 call plug#end()
 
 " ============================================= PLUGIN CONFIGURATION
@@ -73,7 +78,8 @@ map <silent> E <Plug>CamelCaseMotion_e
 
 
 "" FSwitch
-noremap <F4> :FSSplitLeft<CR>
+noremap <F4> :FSHere<CR>
+noremap <S-F4> :FSSplitLeft<CR>
 
 
 "" DWM
@@ -86,7 +92,7 @@ nnoremap <C-K> <C-W>W
 
 "" FZF
 command! -bang -nargs=* GGrep
-      \ call fzf#vim#grep('git grep -I --line-number '.shellescape(<q-args>), 0, <bang>0)
+      \ call fzf#vim#grep('git grep -I --recurse-submodules --line-number '.shellescape(<q-args>), 0, <bang>0)
 
 let g:fzf_action = {
   \ 'ctrl-t': 'tab split',
@@ -199,7 +205,7 @@ set cursorline " Highlight current line
 hi CursorLine cterm=bold ctermbg=none ctermfg=none
 hi MatchParen cterm=none ctermbg=none ctermfg=blue
 set background=dark
-
+nnoremap <C-s> :noh<CR>
 
 
 
@@ -247,7 +253,7 @@ nnoremap gp ggyy<c-o>p
 set path+=$PWD/**
 
 " Stop that stupid window from popping up
-map q: :q
+m:ap q: :q
 command! W w
 
 set tags=./tags;/
