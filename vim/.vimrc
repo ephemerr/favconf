@@ -24,7 +24,6 @@ Plug 'bkad/CamelCaseMotion'
 Plug 'junegunn/vim-easy-align', { 'on': ['<Plug>(EasyAlign)', 'EasyAlign'] }
 Plug 'junegunn/vim-peekaboo'
 Plug 'vim-scripts/ReplaceWithRegister'
-Plug 'mbbill/undotree', { 'on': 'UndotreeToggle' }
 Plug 'Valloric/YouCompleteMe'
 "Plug 'junegunn/rainbow_parentheses.vim', {'on': 'RainbowParentheses'}
 "Plug 'junegunn/vim-after-object'
@@ -32,6 +31,7 @@ Plug 'Valloric/YouCompleteMe'
 "Plug 'chiel92/vim-autoformat'
 "Plug 'svermeulen/vim-easyclip'
 Plug 'vim-syntastic/syntastic'
+Plug 'mbbill/undotree', { 'on': 'UndotreeToggle' }
 Plug 'brooth/far.vim'
 
 "" Buffers
@@ -253,7 +253,7 @@ nnoremap gp ggyy<c-o>p
 set path+=$PWD/**
 
 " Stop that stupid window from popping up
-m:ap q: :q
+map q: :q
 command! W w
 
 set tags=./tags;/
