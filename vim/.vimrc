@@ -8,6 +8,13 @@ augroup END " }
 
 call plug#begin('~/.vim/bundle')
 
+"" Alias command
+fun! SetupCommandAlias(from, to)
+  exec 'cnoreabbrev <expr> '.a:from
+        \ .' ((getcmdtype() is# ":" && getcmdline() is# "'.a:from.'")'
+        \ .'? ("'.a:to.'") : ("'.a:from.'"))'
+endfun
+
 " ============================================= PLUGINS
 
 "" General
@@ -17,8 +24,9 @@ Plug 'drmikehenry/vim-fixkey'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-endwise'
-Plug 'tpope/vim-commentary'
+"Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-unimpaired'
+Plug 'tomtom/tcomment_vim'
 Plug 'terryma/vim-expand-region'
 Plug 'bkad/CamelCaseMotion'
 Plug 'junegunn/vim-easy-align', { 'on': ['<Plug>(EasyAlign)', 'EasyAlign'] }
@@ -33,6 +41,7 @@ Plug 'Valloric/YouCompleteMe'
 Plug 'vim-syntastic/syntastic'
 Plug 'mbbill/undotree', { 'on': 'UndotreeToggle' }
 Plug 'brooth/far.vim'
+Plug 'jeaye/color_coded'
 
 "" Buffers
 Plug 'junegunn/fzf.vim'
@@ -51,7 +60,7 @@ Plug 'chriskempson/base16-vim'
 
 "" Formats
 Plug 'harishnavnit/vim-qml'
-Plug 'octol/vim-cpp-enhanced-highlight'
+"Plug 'octol/vim-cpp-enhanced-highlight'
 "Plug 'justinmk/vim-syntax-extra'
 call plug#end()
 
@@ -92,7 +101,7 @@ nnoremap <C-K> <C-W>W
 
 "" FZF
 command! -bang -nargs=* GGrep
-      \ call fzf#vim#grep('git grep -I --recurse-submodules --line-number '.shellescape(<q-args>), 0, <bang>0)
+      \ call fzf#vim#grep('git gr --line-number '.shellescape(<q-args>), 0, <bang>0)
 
 let g:fzf_action = {
   \ 'ctrl-t': 'tab split',
@@ -108,13 +117,14 @@ imap <c-x><c-l> <plug>(fzf-complete-line)
 " Advanced customization using autoload functions
 inoremap <expr> <c-x><c-k> fzf#vim#complete#word({'left': '15%'})
 
-nmap <c-g> :Ggrep<Space>
+nmap <c-g> :Gr<Space>
 nmap <c-f> :Ag<CR>
 nmap <c-l> :Files<Space>
 nmap <c-h> :History<CR>
 nmap <Space> :Buffers<CR>
 
 "" Fugitive
+call SetupCommandAlias("Gr","Ggrep -I --recurse-submodules")
 nmap <leader>glog :Commits<CR>
 nmap <leader>gls :GFiles<CR>
 nmap <leader>gs :GFiles?<CR>
@@ -257,3 +267,8 @@ map q: :q
 command! W w
 
 set tags=./tags;/
+
+"" Keep selection after indentation move
+:vnoremap < <gv
+:vnoremap > >gv
+
