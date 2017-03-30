@@ -63,17 +63,19 @@
 "virtualbox"
     Mod4 + F6
 "dmenu_run -fn 'terminus:size=16'"
-    Mod1 + F2 
+    Mod1 + F2
+"slock"
+    Mod1 + F10
 
 # Window managment
 #"wmctrl -c :ACTIVE:"
 #    Mod1 + F4
 "p2right"
-    Mod4 + Next 
+    Mod4 + Next
 "p2left"
-    Mod4 + Prior 
-#"wmctrl -r :ACTIVE: -b toggle,maximized_vert" 
-#    Mod4 + End 
+    Mod4 + Prior
+#"wmctrl -r :ACTIVE: -b toggle,maximized_vert"
+#    Mod4 + End
 
 "scrot"
     m:0x0 + c:107

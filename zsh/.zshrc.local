@@ -29,8 +29,10 @@ bindkey "^[[B" down-line-or-search-prefix
 source /usr/share/zsh/scripts/antigen/antigen.zsh
 
 ############## Home/End fix
-bindkey   "^[[H" beginning-of-somewhere 
+bindkey   "^[[H" beginning-of-somewhere
 bindkey   "^[[F" end-of-somewhere
 
+#/home/azzel/soft/base16-builder-php/templates/gnome-terminal/color-scripts/base16-darktooth.zsh
+
 # Home
-cd ~ 
+cd ~

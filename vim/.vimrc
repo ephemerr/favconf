@@ -1,12 +1,15 @@
 "" Fast vimrc update
 let $MYVIMRC="/home/azzel/favconf/vim/.vimrc"
+let $COLORFILE="/home/azzel/favconf/vim/darktooth.vim"
+let $ZSHFILE="/home/azzel/favconf/zsh/.zshrc.local"
 nnoremap <leader>v :tabe $MYVIMRC<CR>
+nnoremap <leader>z :tabe $ZSHFILE<CR>
 augroup vimrc " {
     autocmd!
     autocmd BufWritePost $MYVIMRC source $MYVIMRC
+    autocmd BufWritePost $MYVIMRC source $COLORFILE
 augroup END " }
 
-call plug#begin('~/.vim/bundle')
 
 "" Alias command
 fun! SetupCommandAlias(from, to)
@@ -15,18 +18,26 @@ fun! SetupCommandAlias(from, to)
         \ .'? ("'.a:to.'") : ("'.a:from.'"))'
 endfun
 
+
+"" Silent clear
+command! -nargs=1 Silent execute ':silent '.<q-args> | execute ':redraw!'
+
 " ============================================= PLUGINS
+
+call plug#begin('~/.vim/bundle')
 
 "" General
 Plug 'drmikehenry/vim-fixkey'
+"Plug 'tpope/vim-dispatch'
+Plug 'neomake/neomake'
 
 "" Text
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-endwise'
-"Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-unimpaired'
-Plug 'tomtom/tcomment_vim'
+"Plug 'tomtom/tcomment_vim'
 Plug 'terryma/vim-expand-region'
 Plug 'bkad/CamelCaseMotion'
 Plug 'junegunn/vim-easy-align', { 'on': ['<Plug>(EasyAlign)', 'EasyAlign'] }
@@ -38,10 +49,10 @@ Plug 'Valloric/YouCompleteMe'
 "Plug 'AndrewRadev/splitjoin.vim'
 "Plug 'chiel92/vim-autoformat'
 "Plug 'svermeulen/vim-easyclip'
+"" Fast vimrc update
 Plug 'vim-syntastic/syntastic'
 Plug 'mbbill/undotree', { 'on': 'UndotreeToggle' }
 Plug 'brooth/far.vim'
-Plug 'jeaye/color_coded'
 
 "" Buffers
 Plug 'junegunn/fzf.vim'
@@ -55,13 +66,13 @@ Plug 'tpope/vim-fugitive'
 Plug 'mhinz/vim-signify'
 Plug 'junegunn/gv.vim'
 
-"" Themes
+"" Formats & colors
 Plug 'chriskempson/base16-vim'
-
-"" Formats
-Plug 'harishnavnit/vim-qml'
+Plug 'jeaye/color_coded'
 "Plug 'octol/vim-cpp-enhanced-highlight'
-"Plug 'justinmk/vim-syntax-extra'
+Plug 'justinmk/vim-syntax-extra'
+Plug 'harishnavnit/vim-qml'
+
 call plug#end()
 
 " ============================================= PLUGIN CONFIGURATION
@@ -94,10 +105,11 @@ noremap <S-F4> :FSSplitLeft<CR>
 "" DWM
 let g:dwm_map_keys=0
 nnoremap <C-M> <C-W>o
-nmap <C-C> <Plug>DWMClose
+nmap <C-C> <C-W>c
+nmap <C-N> :vnew<CR>
+nmap <S-C-C> :bd<CR>
 nmap <NUL> <Plug>DWMFocus
-nnoremap <C-J> <C-W>w
-nnoremap <C-K> <C-W>W
+
 
 "" FZF
 command! -bang -nargs=* GGrep
@@ -108,34 +120,27 @@ let g:fzf_action = {
   \ 'ctrl-x': 'split',
   \ 'ctrl-v': 'topleft vsplit' }
 
-" Insert mode completion
-imap <c-x><c-k> <plug>(fzf-complete-word)
-imap <c-x><c-f> <plug>(fzf-complete-path)
-imap <c-x><c-j> <plug>(fzf-complete-file-ag)
-imap <c-x><c-l> <plug>(fzf-complete-line)
-
-" Advanced customization using autoload functions
-inoremap <expr> <c-x><c-k> fzf#vim#complete#word({'left': '15%'})
-
-nmap <c-g> :Gr<Space>
-nmap <c-f> :Ag<CR>
 nmap <c-l> :Files<Space>
 nmap <c-h> :History<CR>
 nmap <Space> :Buffers<CR>
 
+
 "" Fugitive
 call SetupCommandAlias("Gr","Ggrep -I --recurse-submodules")
+nmap <c-g> :Gr<Space>
 nmap <leader>glog :Commits<CR>
 nmap <leader>gls :GFiles<CR>
 nmap <leader>gs :GFiles?<CR>
 set statusline=%<%f\ %h%m%r%{fugitive#statusline()}%=%-14.(%l,%c%V%)\ %P
 
+
 "" YouCompleteMe
 let g:ycm_confirm_extra_conf = ''
 let g:ycm_global_ycm_extra_conf = '~/.vim/.ycm_extra_conf.py'
 let g:ycm_autoclose_preview_window_after_completion = 1
-autocmd vimrc FileType c,cpp,go nnoremap <buffer> ]d :YcmCompleter GoTo<CR>
+autocmd vimrc FileType c,cpp nnoremap <buffer> ]d :YcmCompleter GoTo<CR>
 autocmd vimrc FileType c,cpp nnoremap <buffer> K :YcmCompleter GetType<CR>
+
 
 "" NERDTree
 map <F3> :NERDTreeToggle<CR>
@@ -143,9 +148,11 @@ map <F3> :NERDTreeToggle<CR>
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
 
-"" Unimpired
-nmap [<Tab> gT
-nmap ]<Tab> gt
+"" Easy Align
+" Start interactive EasyAlign in visual mode (e.g. vipga)
+xmap ga <Plug>(EasyAlign)
+" Start interactive EasyAlign for a motion/text object (e.g. gaip)
+nmap ga <Plug>(EasyAlign)
 
 "=============================================  GENERAL
 
@@ -157,21 +164,23 @@ set expandtab
 "set cindent
 "set backspace=indent,eol
 set softtabstop=2
+filetype plugin indent on
 
 
-"" Window managment
+"" Windows & buffers
 set autowrite   " Automatically save before commands like :next and :make
 set autoread
 set hidden          " Hide buffers when they are abandoned
 set nosplitright
 set splitbelow
 nmap _ :ls!<Return>
-:imap <C-w> <C-o><C-w> "not accidentally deleting words anymore :-)
+imap <C-w> <C-o><C-w> "not accidentally deleting words anymore :-)
 " Jump to the last position when reopening a file
 if has("autocmd")
   au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
 endif
-
+autocmd FileType help wincmd H
+autocmd WinNew wincmd H
 
 "" Folding
 set foldmethod=syntax
@@ -182,9 +191,11 @@ hi Folded ctermbg=none
 
 "" Compilation
 "au QuickfixCmdPost make splint %
-nmap <F8> :make
+nmap <F8> :Neomake!
 autocmd QuickFixCmdPost [^l]* nested cwindow " open quikfix with errors
 autocmd QuickFixCmdPost    l* nested lwindow "
+autocmd QuickFixCmdPost l* wincmd L
+autocmd BufWritePost <buffer> :Neomake!
 
 
 "" Clipboard
@@ -207,16 +218,13 @@ set formatoptions=cq "t
 "" Automatically removing all trailing whitespace
 autocmd BufWritePre <buffer> :%s/\s\+$//e
 
-
 "" Colors
 syntax on
 set hlsearch " Highlight searched word
 set cursorline " Highlight current line
-hi CursorLine cterm=bold ctermbg=none ctermfg=none
-hi MatchParen cterm=none ctermbg=none ctermfg=blue
+let base16colorspace=256 " Access colors present in 256 colorspace
+set t_Co=256 " 256 color mode
 set background=dark
-nnoremap <C-s> :noh<CR>
-
 
 
 "" visual-at.vim
@@ -244,31 +252,35 @@ set  ignorecase   " Do smart case matching
 set  smartcase    " Do smart case matching
 vnoremap // y/<C-R>"<CR><C-o>     " Search for visual selectio
 map ** *:%s///gn<CR>2<C-o>
+autocmd BufReadPost quickfix nnoremap <buffer> <CR> :.cc<CR><C-W><C-W>
+" search in files word under cursor uses fugitive, vv and **
+nmap <c-f> vvy**<c-g><c-r>"<CR>
 
-"" Essential
-set nocompatible " be iMproved, required
-set number " Show line numbers
-set noswapfile
-filetype plugin indent on
-set encoding=utf-8
-set laststatus=2
 
 " copy line N to cursor position
 nnoremap gp ggyy<c-o>p
 
-"map J <PageDown>
-"map K <PageUp>
 
-" for gf jumps
+" for jumps
 set path+=$PWD/**
+set tags=./tags;/
 
-" Stop that stupid window from popping up
+
+"" Stop that stupid window from popping up
 map q: :q
 command! W w
 
-set tags=./tags;/
 
 "" Keep selection after indentation move
-:vnoremap < <gv
-:vnoremap > >gv
+vnoremap < <gv
+vnoremap > >gv
 
+
+"" Essential
+set nocompatible " be iMproved
+set number " Show line numbers
+set noswapfile
+set encoding=utf-8
+set laststatus=2
+set history=1024
+set viminfo='256
