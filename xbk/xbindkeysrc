@@ -65,7 +65,7 @@
 "dmenu_run -fn 'terminus:size=16'"
     Mod1 + F2
 "slock"
-    Mod1 + F10
+    Mod4 + F10
 
 # Window managment
 #"wmctrl -c :ACTIVE:"

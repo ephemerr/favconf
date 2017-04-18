@@ -19,6 +19,15 @@ fun! SetupCommandAlias(from, to)
 endfun
 
 
+""
+fun! DeleteHiddenBuffers()
+    let tpbl=[]
+    call map(range(1, tabpagenr('$')), 'extend(tpbl, tabpagebuflist(v:val))')
+    for buf in filter(range(1, bufnr('$')), 'bufexists(v:val) && index(tpbl, v:val)==-1')
+        silent execute 'bwipeout' buf
+    endfor
+endfunction
+
 "" Silent clear
 command! -nargs=1 Silent execute ':silent '.<q-args> | execute ':redraw!'
 
@@ -28,8 +37,8 @@ call plug#begin('~/.vim/bundle')
 
 "" General
 Plug 'drmikehenry/vim-fixkey'
-"Plug 'tpope/vim-dispatch'
-Plug 'neomake/neomake'
+Plug 'tpope/vim-dispatch'
+Plug 'skywind3000/asyncrun.vim'
 
 "" Text
 Plug 'tpope/vim-repeat'
@@ -42,23 +51,23 @@ Plug 'terryma/vim-expand-region'
 Plug 'bkad/CamelCaseMotion'
 Plug 'junegunn/vim-easy-align', { 'on': ['<Plug>(EasyAlign)', 'EasyAlign'] }
 Plug 'junegunn/vim-peekaboo'
-Plug 'vim-scripts/ReplaceWithRegister'
+"Plug 'vim-scripts/ReplaceWithRegister'
 Plug 'Valloric/YouCompleteMe'
 "Plug 'junegunn/rainbow_parentheses.vim', {'on': 'RainbowParentheses'}
 "Plug 'junegunn/vim-after-object'
 "Plug 'AndrewRadev/splitjoin.vim'
-"Plug 'chiel92/vim-autoformat'
-"Plug 'svermeulen/vim-easyclip'
-"" Fast vimrc update
-Plug 'vim-syntastic/syntastic'
+Plug 'chiel92/vim-autoformat'
+"Plug 'vim-syntastic/syntastic'
 Plug 'mbbill/undotree', { 'on': 'UndotreeToggle' }
 Plug 'brooth/far.vim'
+Plug 'metakirby5/codi.vim'
 
 "" Buffers
 Plug 'junegunn/fzf.vim'
-Plug 'spolu/dwm.vim'
+"Plug 'spolu/dwm.vim'
 Plug 'derekwyatt/vim-fswitch'
 Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
+Plug 'jistr/vim-nerdtree-tabs', { 'on': 'NERDTreeToggle' }
 Plug 'majutsushi/tagbar', { 'on': 'TagbarToggle' }
 
 "" Git
@@ -72,17 +81,16 @@ Plug 'jeaye/color_coded'
 "Plug 'octol/vim-cpp-enhanced-highlight'
 Plug 'justinmk/vim-syntax-extra'
 Plug 'harishnavnit/vim-qml'
+"Plug 'python-mode/python-mode'
+Plug 'mattn/emmet-vim'
 
 call plug#end()
 
 " ============================================= PLUGIN CONFIGURATION
 
+
 "" Commentary
 map -- gc
-
-
-"" RRrplaceWithRegister
-nmap rr gr
 
 
 "" vim-expand-region
@@ -105,9 +113,9 @@ noremap <S-F4> :FSSplitLeft<CR>
 "" DWM
 let g:dwm_map_keys=0
 nnoremap <C-M> <C-W>o
+nnoremap <C-L> <C-W>o
 nmap <C-C> <C-W>c
 nmap <C-N> :vnew<CR>
-nmap <S-C-C> :bd<CR>
 nmap <NUL> <Plug>DWMFocus
 
 
@@ -120,8 +128,9 @@ let g:fzf_action = {
   \ 'ctrl-x': 'split',
   \ 'ctrl-v': 'topleft vsplit' }
 
-nmap <c-l> :Files<Space>
-nmap <c-h> :History<CR>
+nmap <C-L> :Files ~<CR>
+nmap <C-P> :Files<CR>
+nmap <C-H> :History<CR>
 nmap <Space> :Buffers<CR>
 
 
@@ -160,27 +169,29 @@ nmap ga <Plug>(EasyAlign)
 "" Tabbing and indentation
 set tabstop=2
 set shiftwidth=2
+set softtabstop=2
 set expandtab
 "set cindent
 "set backspace=indent,eol
-set softtabstop=2
 filetype plugin indent on
 
 
 "" Windows & buffers
 set autowrite   " Automatically save before commands like :next and :make
-set autoread
+"set autoread
 set hidden          " Hide buffers when they are abandoned
+set sessionoptions=folds,tabpages,winsize "no buffers
 set nosplitright
 set splitbelow
-nmap _ :ls!<Return>
-imap <C-w> <C-o><C-w> "not accidentally deleting words anymore :-)
+nnoremap <c-t> :tabe<CR>
+nnoremap <leader>d :tabe .<CR>
 " Jump to the last position when reopening a file
 if has("autocmd")
   au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
 endif
 autocmd FileType help wincmd H
 autocmd WinNew wincmd H
+autocmd BufWinEnter wincmd H
 
 "" Folding
 set foldmethod=syntax
@@ -191,17 +202,25 @@ hi Folded ctermbg=none
 
 "" Compilation
 "au QuickfixCmdPost make splint %
-nmap <F8> :Neomake!
+nmap <F8> :AsyncRun make<CR>
+nmap <F5> :Make!<CR>
 autocmd QuickFixCmdPost [^l]* nested cwindow " open quikfix with errors
 autocmd QuickFixCmdPost    l* nested lwindow "
-autocmd QuickFixCmdPost l* wincmd L
-autocmd BufWritePost <buffer> :Neomake!
+autocmd QuickFixCmdPost wincmd L
 
 
 "" Clipboard
-set clipboard=autoselect " System clipboard
+set clipboard=autoselect "  clipboard
 set mouse=a   " Enable mouse usage (all modes)
-
+noremap <Delete> "_d<Right>
+inoremap <Backspace> <Left><Delete>
+" annihilating
+noremap xx "_dd
+noremap x "_d
+noremap X "_D
+" for multiple replaces
+vnoremap p p:let @"=@0<CR>
+vnoremap P P:let @"=@0<CR>
 
 "" Disable Replace mode by second <Insert>
 inoremap <Insert> <Esc><Right>
@@ -250,11 +269,11 @@ inoremap \fh #include "<C-R>=expand("%:t:r").".h"<CR>"
 "" Searching
 set  ignorecase   " Do smart case matching
 set  smartcase    " Do smart case matching
-vnoremap // y/<C-R>"<CR><C-o>     " Search for visual selectio
+vnoremap // y/<C-R>"<CR><C-o>     " Search for visual selection
 map ** *:%s///gn<CR>2<C-o>
 autocmd BufReadPost quickfix nnoremap <buffer> <CR> :.cc<CR><C-W><C-W>
 " search in files word under cursor uses fugitive, vv and **
-nmap <c-f> vvy**<c-g><c-r>"<CR>
+nmap <c-f> viwy**<c-g><c-r>"<CR>
 
 
 " copy line N to cursor position
@@ -266,8 +285,12 @@ set path+=$PWD/**
 set tags=./tags;/
 
 
+nnoremap <C-J> <PageDown>
+nnoremap <C-K> <PageUp>
+
+
 "" Stop that stupid window from popping up
-map q: :q
+noremap q: :q
 command! W w
 
 

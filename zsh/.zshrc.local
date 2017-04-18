@@ -6,7 +6,7 @@ stty -ixon
 alias make="colormake -j4"
 alias ctags="ctags -R --extra=+f"
 alias sdcv="sdcv --color"
-alias fig="find . | grep"
+alias figr="find . | grep"
 
 ################ Search like vim
 up-line-or-search-prefix () {
@@ -33,6 +33,21 @@ bindkey   "^[[H" beginning-of-somewhere
 bindkey   "^[[F" end-of-somewhere
 
 #/home/azzel/soft/base16-builder-php/templates/gnome-terminal/color-scripts/base16-darktooth.zsh
+
+############# Remove CupsLock
+setxkbmap -option ctrl:nocaps
+
+codi() {
+  local syntax="${1:-python}"
+  shift
+  vim -c \
+    "let g:startify_disable_at_vimenter = 1 |\
+    set bt=nofile ls=0 noru nonu nornu |\
+    hi ColorColumn ctermbg=NONE |\
+    hi VertSplit ctermbg=NONE |\
+    hi NonText ctermfg=0 |\
+    Codi $syntax" "$@"
+}
 
 # Home
 cd ~

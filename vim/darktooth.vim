@@ -1,15 +1,17 @@
-hi Normal     ctermfg = lightgray
-hi CursorLine ctermfg = cyan        cterm = bold
-hi MatchParen ctermfg = blue        cterm = none
-hi Identifier ctermfg = green       cterm = NONE
-hi Type       ctermfg = cyan        cterm = none
+hi CursorLine ctermfg = none        cterm = bold
+hi Normal     ctermfg = LightGray
+hi MatchParen ctermfg = Blue        cterm = none    ctermbg = none 
+hi Identifier ctermfg = Green       cterm = NONE
+hi Type       ctermfg = Cyan        cterm = none
 hi PreProc    ctermfg = Magenta     cterm = none
-hi Constant   ctermfg = red         cterm = NONE
-hi Comment    ctermfg = lightgray   cterm = NONE
-hi Ignore     ctermfg = black       cterm = NONE
+hi Constant   ctermfg = Red         cterm = NONE
+hi Comment    ctermfg = DarkGray    cterm = NONE
+hi Ignore     ctermfg = Black       cterm = NONE
 hi Special    ctermfg = Magenta     cterm = NONE
-hi Statement  ctermfg = white       cterm = NONE
-hi Delimiter  ctermfg = cyan        cterm = NONE
+hi Statement  ctermfg = White       cterm = NONE
+hi Delimiter  ctermfg = Cyan        cterm = NONE
+hi Visual     ctermfg = none        cterm = NONE    ctermbg = blue 
+
 
 hi link Function     Identifier
 hi link Member       Identifier
