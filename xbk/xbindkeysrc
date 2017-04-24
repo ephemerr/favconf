@@ -62,10 +62,13 @@
     Mod4 + F5
 "virtualbox"
     Mod4 + F6
-"dmenu_run -fn 'terminus:size=16'"
-    Mod1 + F2
+"telegram"
+    Mod4 + F8
 "slock"
     Mod4 + F10
+
+"dmenu_run -fn 'terminus:size=16'"
+    Mod1 + F2
 
 # Window managment
 #"wmctrl -c :ACTIVE:"

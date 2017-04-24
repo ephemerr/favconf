@@ -131,7 +131,7 @@ let g:fzf_action = {
 nmap <C-L> :Files ~<CR>
 nmap <C-P> :Files<CR>
 nmap <C-H> :History<CR>
-nmap <Space> :Buffers<CR>
+nmap <C-B> :Buffers<CR>
 
 
 "" Fugitive
