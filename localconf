@@ -1,14 +1,7 @@
 #!/bin/bash
 declare -r FAV=~/favconf
-mkdir ~/.dwm
-mkdir ~/.config/openbox
-ln -sf $FAV/colormake/colormakerc   ~/.colormakerc
-ln -sf $FAV/dwm/config.h            ~/projects/dwm-6.0/
-ln -sf $FAV/dwm/dwmstatus.c         ~/projects/dwmstatus/
-ln -sf $FAV/dwm/autostart.sh        ~/.dwm/
 ln -sf $FAV/git/.gitignore          ~/
 ln -sf $FAV/vim/.vimrc              ~/
-ln -sf $FAV/xbk/xbindkeysrc         ~/.xbindkeysrc 
-ln -sf $FAV/zsh/.zshrc              ~/.zshrc
-ln -sf $FAV/openbox/work.xml        ~/.config/openbox/
-ln -sf $FAV/openbox/lubuntu-rc.xml  ~/.config/openbox/
+ln -sf $FAV/vim/darktooth.vim       ~/.vim/after/plugin/darktooth.vim
+ln -sf $FAV/xbk/xbindkeysrc         ~/.xbindkeysrc
+ln -sf $FAV/zsh/.zshrc.local        ~/.zshrc.local
