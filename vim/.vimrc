@@ -157,6 +157,8 @@ map <F3> :NERDTreeToggle<CR>
 " How can I close vim if the only window left open is a NERDTree?
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
+"" TagBar
+map <F2> :TagbarToggle<CR>
 
 "" Easy Align
 " Start interactive EasyAlign in visual mode (e.g. vipga)
