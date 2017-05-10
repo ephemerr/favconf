@@ -9,7 +9,7 @@ augroup vimrc " {
     autocmd BufWritePost $MYVIMRC source $MYVIMRC
     autocmd BufWritePost $MYVIMRC source $COLORFILE
 augroup END " }
-
+syntax enable
 
 "" Alias command
 fun! SetupCommandAlias(from, to)
@@ -37,8 +37,8 @@ call plug#begin('~/.vim/bundle')
 
 "" General
 Plug 'drmikehenry/vim-fixkey'
-Plug 'tpope/vim-dispatch'
-Plug 'skywind3000/asyncrun.vim'
+"Plug 'tpope/vim-dispatch'
+"Plug 'skywind3000/asyncrun.vim'
 
 "" Text
 Plug 'tpope/vim-repeat'
@@ -46,25 +46,20 @@ Plug 'tpope/vim-surround'
 Plug 'tpope/vim-endwise'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-unimpaired'
-"Plug 'tomtom/tcomment_vim'
 Plug 'terryma/vim-expand-region'
 Plug 'bkad/CamelCaseMotion'
 Plug 'junegunn/vim-easy-align', { 'on': ['<Plug>(EasyAlign)', 'EasyAlign'] }
 Plug 'junegunn/vim-peekaboo'
-"Plug 'vim-scripts/ReplaceWithRegister'
 Plug 'Valloric/YouCompleteMe'
-"Plug 'junegunn/rainbow_parentheses.vim', {'on': 'RainbowParentheses'}
 "Plug 'junegunn/vim-after-object'
-"Plug 'AndrewRadev/splitjoin.vim'
-Plug 'chiel92/vim-autoformat'
+"Plug 'chiel92/vim-autoformat'
 "Plug 'vim-syntastic/syntastic'
 Plug 'mbbill/undotree', { 'on': 'UndotreeToggle' }
-Plug 'brooth/far.vim'
-Plug 'metakirby5/codi.vim'
+"Plug 'brooth/far.vim'
+"Plug 'metakirby5/codi.vim'
 
 "" Buffers
 Plug 'junegunn/fzf.vim'
-"Plug 'spolu/dwm.vim'
 Plug 'derekwyatt/vim-fswitch'
 Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
 Plug 'jistr/vim-nerdtree-tabs', { 'on': 'NERDTreeToggle' }
@@ -73,17 +68,16 @@ Plug 'mkitt/tabline.vim'
 
 "" Git
 Plug 'tpope/vim-fugitive'
-Plug 'mhinz/vim-signify'
+"Plug 'mhinz/vim-signify'
 Plug 'junegunn/gv.vim'
 
 "" Formats & colors
 Plug 'chriskempson/base16-vim'
-Plug 'jeaye/color_coded'
-"Plug 'octol/vim-cpp-enhanced-highlight'
+"Plug 'jeaye/color_coded'
 Plug 'justinmk/vim-syntax-extra'
 Plug 'harishnavnit/vim-qml'
 "Plug 'python-mode/python-mode'
-Plug 'mattn/emmet-vim'
+"Plug 'mattn/emmet-vim' " HTML
 
 call plug#end()
 
@@ -327,4 +321,3 @@ nnoremap t5 5gt
 nnoremap t6 6gt
 nnoremap t7 7gt
 nnoremap t8 8gt
-
