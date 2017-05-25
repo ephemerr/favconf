@@ -1,0 +1,6 @@
+*.svg
+*.map
+*.js
+*.css
+*.js.map
+*.min.js.map
