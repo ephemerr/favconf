@@ -7,6 +7,11 @@ alias make="colormake -j4"
 alias ctags="ctags -R --extra=+f"
 alias sdcv="sdcv --color"
 alias figr="find . | grep"
+alias lsd="ls /dev/sd*"
+alias ag="ag -p ~/favconf/ag/agignore"
+alias gitl="git log --pretty=format:'%C(yellow)%h %Cred%ad %Cblue%an%Cgreen%d %Creset%s' --date=short"
+alias locate-docker="locate -d /home/Docker/locate.db"
+alias locate-home="locate -d ~/locate.db"
 
 ################ Search like vim
 up-line-or-search-prefix () {

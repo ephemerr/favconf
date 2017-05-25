@@ -18,7 +18,6 @@ fun! SetupCommandAlias(from, to)
         \ .'? ("'.a:to.'") : ("'.a:from.'"))'
 endfun
 
-
 ""
 fun! DeleteHiddenBuffers()
     let tpbl=[]
@@ -30,6 +29,7 @@ endfunction
 
 "" Silent clear
 command! -nargs=1 Silent execute ':silent '.<q-args> | execute ':redraw!'
+
 
 " ============================================= PLUGINS
 
@@ -53,36 +53,61 @@ Plug 'junegunn/vim-peekaboo'
 Plug 'Valloric/YouCompleteMe'
 "Plug 'junegunn/vim-after-object'
 "Plug 'chiel92/vim-autoformat'
-"Plug 'vim-syntastic/syntastic'
 Plug 'mbbill/undotree', { 'on': 'UndotreeToggle' }
-"Plug 'brooth/far.vim'
-"Plug 'metakirby5/codi.vim'
+" Plug 'brooth/far.vim', { 'on': 'Far' }
+" Plug 'metakirby5/codi.vim'
 
 "" Buffers
 Plug 'junegunn/fzf.vim'
-Plug 'derekwyatt/vim-fswitch'
+Plug 'derekwyatt/vim-fswitch', { 'on': 'FSHere' }
 Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
 Plug 'jistr/vim-nerdtree-tabs', { 'on': 'NERDTreeToggle' }
 Plug 'majutsushi/tagbar', { 'on': 'TagbarToggle' }
 Plug 'mkitt/tabline.vim'
+Plug 'Valloric/ListToggle'
 
 "" Git
 Plug 'tpope/vim-fugitive'
-"Plug 'mhinz/vim-signify'
 Plug 'junegunn/gv.vim'
 
 "" Formats & colors
-Plug 'chriskempson/base16-vim'
-"Plug 'jeaye/color_coded'
+Plug 'vim-syntastic/syntastic', {'on': 'SyntasticToggleMode' }
+Plug 'davidhalter/jedi-vim'
 Plug 'justinmk/vim-syntax-extra'
 Plug 'harishnavnit/vim-qml'
-"Plug 'python-mode/python-mode'
 "Plug 'mattn/emmet-vim' " HTML
 
 call plug#end()
 
 " ============================================= PLUGIN CONFIGURATION
 
+"" ListToggle
+let g:lt_location_list_toggle_map = '<leader>l'
+let g:lt_quickfix_list_toggle_map = '<leader>q'
+
+"" Codi
+let g:codi#interpreters = {
+  \ 'python': {
+    \ 'bin': 'python',
+    \ 'prompt': '^\(>>>\|\.\.\.\) ',
+  \ },
+\ }
+
+let g:codi#aliases = {
+  \ '*.py': 'python',
+\ }
+
+let g:codi#log = '/tmp/codi.log'
+
+function! s:AllowCodi()
+   if empty(glob('/tmp/cmd'))
+       call system('touch /tmp/cmd')
+   endif
+
+   call system('chmod u+x /tmp/cmd')
+endfunction
+
+autocmd VimEnter * call s:AllowCodi()
 
 "" Commentary
 map -- gc
@@ -101,8 +126,8 @@ map <silent> E <Plug>CamelCaseMotion_e
 
 
 "" FSwitch
-noremap <F4> :FSHere<CR>
-noremap <S-F4> :FSSplitLeft<CR>
+noremap <F2> :FSHere<CR>
+noremap <S-F2> :FSSplitLeft<CR>
 
 
 "" DWM
@@ -147,12 +172,12 @@ autocmd vimrc FileType c,cpp nnoremap <buffer> K :YcmCompleter GetType<CR>
 
 
 "" NERDTree
-map <F3> :NERDTreeToggle<CR>
+map <F4> :NERDTreeToggle<CR>
 " How can I close vim if the only window left open is a NERDTree?
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
 "" TagBar
-map <F2> :TagbarToggle<CR>
+map <F3> :TagbarToggle<CR>
 
 "" Easy Align
 " Start interactive EasyAlign in visual mode (e.g. vipga)
@@ -290,6 +315,9 @@ nnoremap <C-K> <PageUp>
 noremap q: :q
 command! W w
 
+"" Allow saving of files as sudo when I forgot to start vim using sudo.
+cmap w!! w !sudo tee > /dev/null %
+
 
 "" Keep selection after indentation move
 vnoremap < <gv
@@ -304,7 +332,10 @@ set encoding=utf-8
 set laststatus=2
 set history=1024
 set viminfo='256
+set virtualedit=block
+set lazyredraw
 
+"" tab-navigation
 nnoremap th  :tabfirst<CR>
 nnoremap tk  :tabnext<CR>
 nnoremap tj  :tabprev<CR>
@@ -321,3 +352,49 @@ nnoremap t5 5gt
 nnoremap t6 6gt
 nnoremap t7 7gt
 nnoremap t8 8gt
+
+
+" <tab> / <s-tab> | Circular windows navigation
+nnoremap <tab>   <c-w>w
+nnoremap <S-tab> <c-w>W
+
+" Movement in insert mode
+inoremap <C-h> <C-o>h
+inoremap <C-l> <C-o>a
+inoremap <C-j> <C-o>j
+inoremap <C-k> <C-o>k
+inoremap <C-^> <C-o><C-^>
+
+" Last inserted text
+nnoremap g. :normal! `[v`]<cr><left>
+
+" Make Y behave like other capitals
+nnoremap Y y$
+
+" qq to record, Q to replay
+nnoremap Q @q
+
+" ----------------------------------------------------------------------------
+" Open FILENAME:LINE:COL
+" ----------------------------------------------------------------------------
+function! s:goto_line()
+  let tokens = split(expand('%'), ':')
+  if len(tokens) <= 1 || !filereadable(tokens[0])
+    return
+  endif
+
+  let file = tokens[0]
+  let rest = map(tokens[1:], 'str2nr(v:val)')
+  let line = get(rest, 0, 1)
+  let col  = get(rest, 1, 1)
+  bd!
+  silent execute 'e' file
+  execute printf('normal! %dG%d|', line, col)
+endfunction
+
+autocmd vimrc BufNewFile * nested call s:goto_line()
+
+
+let mapleader      = ' '
+let maplocalleader = ' '
+
