@@ -9,7 +9,6 @@ alias sdcv="sdcv --color"
 alias figr="find . | grep"
 alias lsd="ls /dev/sd*"
 alias ag="ag -p ~/favconf/ag/agignore"
-alias gitl="git log --pretty=format:'%C(yellow)%h %Cred%ad %Cblue%an%Cgreen%d %Creset%s' --date=short"
 alias locate-docker="locate -d /home/Docker/locate.db"
 alias locate-home="locate -d ~/locate.db"
 
@@ -41,18 +40,6 @@ bindkey   "^[[F" end-of-somewhere
 
 ############# Remove CupsLock
 setxkbmap -option ctrl:nocaps
-
-codi() {
-  local syntax="${1:-python}"
-  shift
-  vim -c \
-    "let g:startify_disable_at_vimenter = 1 |\
-    set bt=nofile ls=0 noru nonu nornu |\
-    hi ColorColumn ctermbg=NONE |\
-    hi VertSplit ctermbg=NONE |\
-    hi NonText ctermfg=0 |\
-    Codi $syntax" "$@"
-}
 
 # Home
 cd ~
