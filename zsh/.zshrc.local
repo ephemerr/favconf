@@ -11,6 +11,10 @@ alias lsd="ls /dev/sd*"
 alias ag="ag -p ~/favconf/ag/agignore"
 alias locate-docker="locate -d /home/Docker/locate.db"
 alias locate-home="locate -d ~/locate.db"
+alias dd="sudo dd bs=64K conv=noerror,sync status=progress"
+alias cp="rsync -avh --progress" 
+alias ls=l
+alias fzf='fzf --preview="head -$LINES {}"' 
 
 ################ Search like vim
 up-line-or-search-prefix () {

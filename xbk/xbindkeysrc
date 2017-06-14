@@ -66,6 +66,8 @@
     Mod4 + F8
 "slock"
     Mod4 + F10
+"systemctl suspend"
+    Mod4 + F11
 
 "dmenu_run -fn 'terminus:size=16'"
     Mod1 + F2

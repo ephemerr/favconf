@@ -59,7 +59,7 @@ Plug 'mbbill/undotree', { 'on': 'UndotreeToggle' }
 
 "" Buffers
 Plug 'junegunn/fzf.vim'
-Plug 'derekwyatt/vim-fswitch', { 'on': 'FSHere' }
+Plug 'derekwyatt/vim-fswitch' ", { 'on': 'FSHere' }
 Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
 Plug 'jistr/vim-nerdtree-tabs', { 'on': 'NERDTreeToggle' }
 Plug 'majutsushi/tagbar', { 'on': 'TagbarToggle' }
@@ -316,7 +316,7 @@ noremap q: :q
 command! W w
 
 "" Allow saving of files as sudo when I forgot to start vim using sudo.
-cmap w!! w !sudo tee > /dev/null %
+cmap ww w !sudo tee > /dev/null %
 
 
 "" Keep selection after indentation move
@@ -364,6 +364,7 @@ inoremap <C-l> <C-o>a
 inoremap <C-j> <C-o>j
 inoremap <C-k> <C-o>k
 inoremap <C-^> <C-o><C-^>
+inoremap <C-v> <Esc><C-v>
 
 " Last inserted text
 nnoremap g. :normal! `[v`]<cr><left>
