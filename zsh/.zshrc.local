@@ -16,6 +16,7 @@ alias cp="rsync -avh --progress"
 alias ls=l
 alias fzf='fzf --preview="head -$LINES {}"' 
 
+
 ################ Search like vim
 up-line-or-search-prefix () {
   local CURSOR_before_search=$CURSOR

@@ -1,0 +1,20 @@
+[user]
+	name = Alexander Zheleznov
+	email = a.zheleznov@gmail.com
+[push]
+	default = current
+[gui]
+	encoding = utf-8
+[core]
+	editor = vim
+	excludesfile = /home/azzel/.config/git/ignore
+	pager = cat
+[alias]
+	gr = grep -I --recurse-submodules
+	whatadded = log --diff-filter=A
+	pre = log -1 --pretty=format:'%C(yellow)%h %Cred%ad %Cblue%an%Cgreen%d %Creset%s' --date=short
+	subs = "submodule foreach --recursive 'pwd; git pre -1'"
+  # the acronym stands for "subtree add"
+  spush = "!f() { git subtree push --prefix $2 $1 ;}; f"
+  # the acronym stands for "subtree update"
+  spull = "!f() { git subtree pull --squash --prefix $2 $1 ; }; f"

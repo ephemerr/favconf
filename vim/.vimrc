@@ -133,10 +133,8 @@ noremap <S-F2> :FSSplitLeft<CR>
 "" DWM
 let g:dwm_map_keys=0
 nnoremap <C-M> <C-W>o
-nnoremap <C-L> <C-W>o
 nmap <C-C> <C-W>c
 nmap <C-N> :vnew<CR>
-nmap <NUL> <Plug>DWMFocus
 
 
 "" FZF
@@ -355,7 +353,7 @@ nnoremap t8 8gt
 
 
 " <tab> / <s-tab> | Circular windows navigation
-nnoremap <tab>   <c-w>w
+" nnoremap <tab>   <c-w>w
 nnoremap <S-tab> <c-w>W
 
 " Movement in insert mode

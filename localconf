@@ -1,6 +1,7 @@
 #!/bin/bash
 declare -r FAV=~/favconf
 ln -sf $FAV/git/.gitignore          ~/
+ln -sf $FAV/git/gitconfig          ~/.gitconfig
 ln -sf $FAV/vim/.vimrc              ~/
 ln -sf $FAV/vim/darktooth.vim       ~/.vim/after/plugin/darktooth.vim
 ln -sf $FAV/vim/darktooth.vim       ~/.vim/colors
