@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -x
 
 # forward traffic on the same $IF for one particular $ADDR, acting as gateway
 

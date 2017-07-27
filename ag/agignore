@@ -1,7 +1,8 @@
+*.svm
 *.svg
 *.html
 *.map
 *.js
 *.css
 *.js.map
-*.min.js.map
+*.min.js*

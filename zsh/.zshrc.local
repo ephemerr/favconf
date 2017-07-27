@@ -7,15 +7,19 @@ alias make="colormake -j4"
 alias ctags="ctags -R --extra=+f"
 alias sdcv="sdcv --color"
 alias figr="find . | grep"
-alias lsd="ls /dev/sd*"
-alias ag="ag -p ~/favconf/ag/agignore"
+alias ag="ag --vimgrep -p ~/favconf/ag/agignore"
 alias locate-docker="locate -d /home/Docker/locate.db"
 alias locate-home="locate -d ~/locate.db"
 alias dd="sudo dd bs=64K conv=noerror,sync status=progress"
 alias cp="rsync -avh --progress" 
 alias ls=l
 alias fzf='fzf --preview="head -$LINES {}"' 
-
+alias ssh='ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no'
+alias scp='scp -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no'
+alias vi=vim
+alias qm54="~/Qt5.4.2/5.4/gcc_64/bin/qmake -r"
+alias pj='python -mjson.tool'
+alias op='xdg-open'
 
 ################ Search like vim
 up-line-or-search-prefix () {
@@ -40,6 +44,29 @@ source /usr/share/zsh/scripts/antigen/antigen.zsh
 ############## Home/End fix
 bindkey   "^[[H" beginning-of-somewhere
 bindkey   "^[[F" end-of-somewhere
+
+
+############## ALT-BACKSPACE
+backward-kill-dir () {
+    local WORDCHARS=${WORDCHARS/\/}
+    zle backward-kill-word
+}
+zle -N backward-kill-dir
+bindkey '^[^?' backward-kill-dir
+
+tcsh-backward-word() {
+  local WORDCHARS=${WORDCHARS/\/}
+  zle backward-word
+}
+zle -N tcsh-backward-word
+bindkey '^[[1;3D' backward-word
+
+tcsh-forward-word() {
+  local WORDCHARS=${WORDCHARS/\/}
+  zle forward-word
+}
+zle -N tcsh-forward-word
+bindkey '^[[1;3C' forward-word
 
 #/home/azzel/soft/base16-builder-php/templates/gnome-terminal/color-scripts/base16-darktooth.zsh
 

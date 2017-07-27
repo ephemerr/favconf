@@ -167,7 +167,7 @@ let g:ycm_global_ycm_extra_conf = '~/.vim/.ycm_extra_conf.py'
 let g:ycm_autoclose_preview_window_after_completion = 1
 autocmd vimrc FileType c,cpp nnoremap <buffer> ]d :YcmCompleter GoTo<CR>
 autocmd vimrc FileType c,cpp nnoremap <buffer> K :YcmCompleter GetType<CR>
-
+hi YcmErrorSection ctermfg=White ctermbg=Red
 
 "" NERDTree
 map <F4> :NERDTreeToggle<CR>
@@ -205,6 +205,7 @@ set nosplitright
 set splitbelow
 nnoremap <c-t> :tabe<CR>
 nnoremap <leader>d :tabe .<CR>
+nnoremap <leader>f :tabe "~/favconf"<CR>
 " Jump to the last position when reopening a file
 if has("autocmd")
   au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
@@ -215,8 +216,8 @@ autocmd BufWinEnter wincmd H
 
 "" Folding
 set foldmethod=syntax
-set foldnestmax=1
-set foldlevelstart=1
+set foldnestmax=20
+set foldlevelstart=99
 hi Folded ctermbg=none
 
 
@@ -230,7 +231,7 @@ autocmd QuickFixCmdPost wincmd L
 
 
 "" Clipboard
-set clipboard=autoselect "  clipboard
+set clipboard=unnamedplus "  clipboard
 set mouse=a   " Enable mouse usage (all modes)
 noremap <Delete> "_d<Right>
 inoremap <Backspace> <Left><Delete>
@@ -242,7 +243,7 @@ noremap X "_D
 vnoremap p p:let @"=@0<CR>
 vnoremap P P:let @"=@0<CR>
 
-"" Disable Replace mode by second <Insert>
+"" Disable Replace mode by second <Insert> or jj
 inoremap <Insert> <Esc><Right>
 inoremap jj <Esc><Right>
 
@@ -293,7 +294,7 @@ vnoremap // y/<C-R>"<CR><C-o>     " Search for visual selection
 map ** *:%s///gn<CR>2<C-o>
 autocmd BufReadPost quickfix nnoremap <buffer> <CR> :.cc<CR><C-W><C-W>
 " search in files word under cursor uses fugitive, vv and **
-nmap <c-f> viwy**<c-g><c-r>"<CR>
+nmap <c-f> <c-m>viwy**<c-g><c-r>"<CR>
 
 
 " copy line N to cursor position
@@ -308,6 +309,8 @@ set tags=./tags;/
 nnoremap <C-J> <PageDown>
 nnoremap <C-K> <PageUp>
 
+" vnoremap <S-Up> <Up>
+" vnoremap <S-Down> <Down>
 
 "" Stop that stupid window from popping up
 noremap q: :q
@@ -364,6 +367,9 @@ inoremap <C-k> <C-o>k
 inoremap <C-^> <C-o><C-^>
 inoremap <C-v> <Esc><C-v>
 
+" Select brace-to-brace
+nnoremap <c-%> V%
+
 " Last inserted text
 nnoremap g. :normal! `[v`]<cr><left>
 
@@ -372,6 +378,19 @@ nnoremap Y y$
 
 " qq to record, Q to replay
 nnoremap Q @q
+
+" <>
+
+
+" ----------------------------------------------------------------------------
+" Move the current line, or a selected block of lines.
+" ----------------------------------------------------------------------------
+nnoremap <c-s-j> :m .+1<CR>==
+nnoremap <c-s-k> :m .-2<CR>==
+inoremap <c-s-j> <Esc>:m .+1<CR>==gi
+inoremap <c-s-k> <Esc>:m .-2<CR>==gi
+vnoremap <c-s-j> :m '>+1<CR>gv=gv
+vnoremap <c-s-k> :m '<-2<CR>gv=gv
 
 " ----------------------------------------------------------------------------
 " Open FILENAME:LINE:COL
@@ -392,8 +411,4 @@ function! s:goto_line()
 endfunction
 
 autocmd vimrc BufNewFile * nested call s:goto_line()
-
-
-let mapleader      = ' '
-let maplocalleader = ' '
 

@@ -962,7 +962,7 @@ done; unset rh
 if zrcautoload compinit ; then
     compinit || print 'Notice: no compinit available :('
 else
-    print 'Notice: no compinit available :('
+    print 'Notice: no compinit available :('completion
     function zstyle { }
     function compdef { }
 fi

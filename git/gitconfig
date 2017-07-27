@@ -11,8 +11,9 @@
 	pager = cat
 [alias]
 	gr = grep -I --recurse-submodules
-	whatadded = log --diff-filter=A
 	pre = log -1 --pretty=format:'%C(yellow)%h %Cred%ad %Cblue%an%Cgreen%d %Creset%s' --date=short
+	who-added = log --diff-filter=A 
+  who-changed = log -1 --diff-filter=M  
 	subs = "submodule foreach --recursive 'pwd; git pre -1'"
   # the acronym stands for "subtree add"
   spush = "!f() { git subtree push --prefix $2 $1 ;}; f"
