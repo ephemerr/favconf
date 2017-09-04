@@ -12,10 +12,11 @@
 [alias]
 	gr = grep -I --recurse-submodules
 	pre = log -1 --pretty=format:'%C(yellow)%h %Cred%ad %Cblue%an%Cgreen%d %Creset%s' --date=short
-	who-added = log --diff-filter=A 
-  who-changed = log -1 --diff-filter=M  
+	who-added = log --diff-filter=A
+  who-changed = log -1 --diff-filter=M
 	subs = "submodule foreach --recursive 'pwd; git pre -1'"
-  # the acronym stands for "subtree add"
-  spush = "!f() { git subtree push --prefix $2 $1 ;}; f"
-  # the acronym stands for "subtree update"
-  spull = "!f() { git subtree pull --squash --prefix $2 $1 ; }; f"
+  sr-ls = "!git subrepo status -A | sed -rn 's|Git subrepo([^[:alnum:]]*)([[:alnum:]'\"_-/~\"']*)|\\2|p' | sed 's|'\"':\"'||'"
+  sr-foreach = "!f() { for REPO in $(git sr-ls); do echo $REPO; $@ $REPO ;  done }; f"
+  sr-reinit = "!sr-reinit.sh $1"
+  sr-reremote = "!sr-reremote.sh $1"
+  sr = "subrepo"

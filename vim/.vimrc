@@ -2,9 +2,12 @@
 let $MYVIMRC="/home/azzel/favconf/vim/.vimrc"
 let $COLORFILE="/home/azzel/favconf/vim/darktooth.vim"
 let $ZSHFILE="/home/azzel/favconf/zsh/.zshrc.local"
+let $GITCONFIG="/home/azzel/.gitconfig"
 nnoremap <leader>v :tabe $MYVIMRC<CR>
 nnoremap <leader>z :tabe $ZSHFILE<CR>
-augroup vimrc " {
+nnoremap <leader>g :tabe $GITCONFIG<CR>
+
+augroup vimrc" {
     autocmd!
     autocmd BufWritePost $MYVIMRC source $MYVIMRC
     autocmd BufWritePost $MYVIMRC source $COLORFILE
@@ -30,6 +33,11 @@ endfunction
 "" Silent clear
 command! -nargs=1 Silent execute ':silent '.<q-args> | execute ':redraw!'
 
+function! BuildYCM(info)
+  if a:info.status == 'installed' || a:info.force
+    !./install.py --clang-completer
+  endif
+endfunction
 
 " ============================================= PLUGINS
 
@@ -40,42 +48,38 @@ Plug 'drmikehenry/vim-fixkey'
 "Plug 'tpope/vim-dispatch'
 "Plug 'skywind3000/asyncrun.vim'
 
-"" Text
+"" Text & movement
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
-Plug 'tpope/vim-endwise'
-Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-unimpaired'
+Plug 'tomtom/tcomment_vim'
 Plug 'terryma/vim-expand-region'
 Plug 'bkad/CamelCaseMotion'
+Plug 'justinmk/vim-sneak'
 Plug 'junegunn/vim-easy-align', { 'on': ['<Plug>(EasyAlign)', 'EasyAlign'] }
 Plug 'junegunn/vim-peekaboo'
-Plug 'Valloric/YouCompleteMe'
-"Plug 'junegunn/vim-after-object'
-"Plug 'chiel92/vim-autoformat'
-Plug 'mbbill/undotree', { 'on': 'UndotreeToggle' }
+Plug 'Valloric/YouCompleteMe', { 'for': ['c', 'cpp'], 'do': function('BuildYCM') }
 " Plug 'brooth/far.vim', { 'on': 'Far' }
-" Plug 'metakirby5/codi.vim'
 
 "" Buffers
 Plug 'junegunn/fzf.vim'
-Plug 'derekwyatt/vim-fswitch' ", { 'on': 'FSHere' }
-Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
-Plug 'jistr/vim-nerdtree-tabs', { 'on': 'NERDTreeToggle' }
+Plug 'derekwyatt/vim-fswitch'
+" Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
+" Plug 'jistr/vim-nerdtree-tabs', { 'on': 'NERDTreeToggle' }
 Plug 'majutsushi/tagbar', { 'on': 'TagbarToggle' }
 Plug 'mkitt/tabline.vim'
 Plug 'Valloric/ListToggle'
+Plug 'justinmk/vim-dirvish'
 
 "" Git
 Plug 'tpope/vim-fugitive'
 Plug 'junegunn/gv.vim'
 
 "" Formats & colors
-Plug 'vim-syntastic/syntastic', {'on': 'SyntasticToggleMode' }
 Plug 'davidhalter/jedi-vim'
 Plug 'justinmk/vim-syntax-extra'
 Plug 'harishnavnit/vim-qml'
-"Plug 'mattn/emmet-vim' " HTML
+Plug 'artoj/qmake-syntax-vim'
 
 call plug#end()
 
@@ -109,9 +113,13 @@ endfunction
 
 autocmd VimEnter * call s:AllowCodi()
 
-"" Commentary
-map -- gc
-
+"" T-comment
+map -- gcc<Esc>
+" let g:tcommentMapLeaderOp2
+" let g:tcommentMapLeaderOp2
+au BufRead,BufNewFile, *.pro   set filetype=qmake
+au BufRead,BufNewFile, *.pri   set filetype=qmake
+call tcomment#DefineType('qmake','# %s')
 
 "" vim-expand-region
 vmap v <Plug>(expand_region_expand)
@@ -119,9 +127,9 @@ vmap <C-v> <Plug>(expand_region_shrink)
 
 
 "" CamelCaseMotion
-map <silent> W <Plug>CamelCaseMotion_w
-map <silent> B <Plug>CamelCaseMotion_b
-map <silent> E <Plug>CamelCaseMotion_e
+" map <silent> W <Plug>CamelCaseMotion_w
+map <silent> <M-Left> <Plug>CamelCaseMotion_b
+map <silent> <M-Right> <Plug>CamelCaseMotion_e
 "map <silent> ge <Plug>CamelCaseMotion_ge
 
 
@@ -155,9 +163,6 @@ nmap <C-B> :Buffers<CR>
 "" Fugitive
 call SetupCommandAlias("Gr","Ggrep -I --recurse-submodules")
 nmap <c-g> :Gr<Space>
-nmap <leader>glog :Commits<CR>
-nmap <leader>gls :GFiles<CR>
-nmap <leader>gs :GFiles?<CR>
 set statusline=%<%f\ %h%m%r%{fugitive#statusline()}%=%-14.(%l,%c%V%)\ %P
 
 
@@ -205,7 +210,7 @@ set nosplitright
 set splitbelow
 nnoremap <c-t> :tabe<CR>
 nnoremap <leader>d :tabe .<CR>
-nnoremap <leader>f :tabe "~/favconf"<CR>
+nnoremap <leader>c :tabe ~/favconf<CR>
 " Jump to the last position when reopening a file
 if has("autocmd")
   au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
@@ -231,7 +236,7 @@ autocmd QuickFixCmdPost wincmd L
 
 
 "" Clipboard
-set clipboard=unnamedplus "  clipboard
+set clipboard=autoselect "  clipboard
 set mouse=a   " Enable mouse usage (all modes)
 noremap <Delete> "_d<Right>
 inoremap <Backspace> <Left><Delete>
@@ -240,8 +245,9 @@ noremap xx "_dd
 noremap x "_d
 noremap X "_D
 " for multiple replaces
-vnoremap p p:let @"=@0<CR>
-vnoremap P P:let @"=@0<CR>
+vnoremap p p:let @"=@0 <CR>
+vnoremap P P:let @"=@0 <CR>
+noremap <leader>p :!echo <C-r>*
 
 "" Disable Replace mode by second <Insert> or jj
 inoremap <Insert> <Esc><Right>
@@ -284,6 +290,7 @@ endfunction
 command! -nargs=1 HeaderguardAdd call g:MyAddGuard(<f-args>)
 
 inoremap \fn <C-R>=@%<CR>
+noremap  <leader>f :let @*=@%<CR>
 inoremap \fh #include "<C-R>=expand("%:t:r").".h"<CR>"
 
 
@@ -291,10 +298,10 @@ inoremap \fh #include "<C-R>=expand("%:t:r").".h"<CR>"
 set  ignorecase   " Do smart case matching
 set  smartcase    " Do smart case matching
 vnoremap // y/<C-R>"<CR><C-o>     " Search for visual selection
-map ** *:%s///gn<CR>2<C-o>
+"map ** *:%s///gn<CR>2<C-o>
 autocmd BufReadPost quickfix nnoremap <buffer> <CR> :.cc<CR><C-W><C-W>
 " search in files word under cursor uses fugitive, vv and **
-nmap <c-f> <c-m>viwy**<c-g><c-r>"<CR>
+nmap <c-f> :cclose<CR>viwy**<c-g><c-r>"<CR><leader>q<leader>q
 
 
 " copy line N to cursor position
@@ -306,8 +313,8 @@ set path+=$PWD/**
 set tags=./tags;/
 
 
-nnoremap <C-J> <PageDown>
-nnoremap <C-K> <PageUp>
+nnoremap <C-j> <PageDown>
+nnoremap <C-k> <PageUp>
 
 " vnoremap <S-Up> <Up>
 " vnoremap <S-Down> <Down>
@@ -315,6 +322,11 @@ nnoremap <C-K> <PageUp>
 "" Stop that stupid window from popping up
 noremap q: :q
 command! W w
+
+"" Stop unwanted scrolling during selection
+vnoremap <S-up> <up>
+vnoremap <S-down> <down>
+
 
 "" Allow saving of files as sudo when I forgot to start vim using sudo.
 cmap ww w !sudo tee > /dev/null %
@@ -336,6 +348,7 @@ set viminfo='256
 set virtualedit=block
 set lazyredraw
 
+
 "" tab-navigation
 nnoremap th  :tabfirst<CR>
 nnoremap tk  :tabnext<CR>
@@ -354,21 +367,12 @@ nnoremap t6 6gt
 nnoremap t7 7gt
 nnoremap t8 8gt
 
+nnoremap t- :-tabmove<CR>
+nnoremap t= :+tabmove<CR>
 
 " <tab> / <s-tab> | Circular windows navigation
 " nnoremap <tab>   <c-w>w
 nnoremap <S-tab> <c-w>W
-
-" Movement in insert mode
-inoremap <C-h> <C-o>h
-inoremap <C-l> <C-o>a
-inoremap <C-j> <C-o>j
-inoremap <C-k> <C-o>k
-inoremap <C-^> <C-o><C-^>
-inoremap <C-v> <Esc><C-v>
-
-" Select brace-to-brace
-nnoremap <c-%> V%
 
 " Last inserted text
 nnoremap g. :normal! `[v`]<cr><left>
@@ -379,18 +383,15 @@ nnoremap Y y$
 " qq to record, Q to replay
 nnoremap Q @q
 
-" <>
-
-
 " ----------------------------------------------------------------------------
 " Move the current line, or a selected block of lines.
 " ----------------------------------------------------------------------------
-nnoremap <c-s-j> :m .+1<CR>==
-nnoremap <c-s-k> :m .-2<CR>==
-inoremap <c-s-j> <Esc>:m .+1<CR>==gi
-inoremap <c-s-k> <Esc>:m .-2<CR>==gi
-vnoremap <c-s-j> :m '>+1<CR>gv=gv
-vnoremap <c-s-k> :m '<-2<CR>gv=gv
+nnoremap <C-S-J> :m .+1<CR>==
+nnoremap <C-S-K> :m .-2<CR>==
+inoremap <C-S-J> <Esc>:m .+1<CR>==gi
+inoremap <C-S-K> <Esc>:m .-2<CR>==gi
+vnoremap <C-S-J> :m '>+1<CR>gv=gv
+vnoremap <C-S-K> :m '<-2<CR>gv=gv
 
 " ----------------------------------------------------------------------------
 " Open FILENAME:LINE:COL
