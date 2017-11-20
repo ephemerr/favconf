@@ -56,10 +56,6 @@
     Mod4 + F2
 "chromium"
     Mod4 + F3
-"qtcreator"
-    Mod4 + F4
-"pidgin"
-    Mod4 + F5
 "virtualbox"
     Mod4 + F7
 "telegram-desktop"
@@ -68,6 +64,9 @@
     Mod4 + F10
 "systemctl suspend"
     Mod4 + F11
+
+"pkill python"
+    Mod4 + Shift + p
 
 "dmenu_run -fn 'terminus:size=16'"
     Mod1 + F2

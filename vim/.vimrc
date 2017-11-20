@@ -1,4 +1,4 @@
-"" Fast vimrc update
+let $FAVHOME="/home/azzel/favconf"
 let $MYVIMRC="/home/azzel/favconf/vim/.vimrc"
 let $COLORFILE="/home/azzel/favconf/vim/darktooth.vim"
 let $ZSHFILE="/home/azzel/favconf/zsh/.zshrc.local"
@@ -6,7 +6,9 @@ let $GITCONFIG="/home/azzel/.gitconfig"
 nnoremap <leader>v :tabe $MYVIMRC<CR>
 nnoremap <leader>z :tabe $ZSHFILE<CR>
 nnoremap <leader>g :tabe $GITCONFIG<CR>
+nnoremap <leader>a :tabe $FAVHOME/ag/agignore"<CR>
 
+"" Fast vimrc update
 augroup vimrc" {
     autocmd!
     autocmd BufWritePost $MYVIMRC source $MYVIMRC
@@ -43,10 +45,12 @@ endfunction
 
 call plug#begin('~/.vim/bundle')
 
+
 "" General
 Plug 'drmikehenry/vim-fixkey'
 "Plug 'tpope/vim-dispatch'
-"Plug 'skywind3000/asyncrun.vim'
+Plug 'skywind3000/asyncrun.vim'
+
 
 "" Text & movement
 Plug 'tpope/vim-repeat'
@@ -55,39 +59,58 @@ Plug 'tpope/vim-unimpaired'
 Plug 'tomtom/tcomment_vim'
 Plug 'terryma/vim-expand-region'
 Plug 'bkad/CamelCaseMotion'
-Plug 'justinmk/vim-sneak'
 Plug 'junegunn/vim-easy-align', { 'on': ['<Plug>(EasyAlign)', 'EasyAlign'] }
 Plug 'junegunn/vim-peekaboo'
-Plug 'Valloric/YouCompleteMe', { 'for': ['c', 'cpp'], 'do': function('BuildYCM') }
 " Plug 'brooth/far.vim', { 'on': 'Far' }
+
 
 "" Buffers
 Plug 'junegunn/fzf.vim'
 Plug 'derekwyatt/vim-fswitch'
-" Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
-" Plug 'jistr/vim-nerdtree-tabs', { 'on': 'NERDTreeToggle' }
 Plug 'majutsushi/tagbar', { 'on': 'TagbarToggle' }
 Plug 'mkitt/tabline.vim'
 Plug 'Valloric/ListToggle'
 Plug 'justinmk/vim-dirvish'
 
+
 "" Git
 Plug 'tpope/vim-fugitive'
 Plug 'junegunn/gv.vim'
 
+
 "" Formats & colors
-Plug 'davidhalter/jedi-vim'
+" Plug 'davidhalter/jedi-vim'
 Plug 'justinmk/vim-syntax-extra'
-Plug 'harishnavnit/vim-qml'
+Plug 'peterhoeg/vim-qml'
 Plug 'artoj/qmake-syntax-vim'
+Plug 'Valloric/YouCompleteMe', {'on': 'YcmRestartServer'}
+" Plug 'bbchung/clighter8'
+" Plug 'vim-syntastic/syntastic' "{'on': 'SyntasticToggleMode'}
 
 call plug#end()
 
 " ============================================= PLUGIN CONFIGURATION
 
+
+"" clighter
+nmap <silent> <Leader>r :call clighter#Rename()<CR>
+
+
+"" Syntastic
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+
+
 "" ListToggle
 let g:lt_location_list_toggle_map = '<leader>l'
 let g:lt_quickfix_list_toggle_map = '<leader>q'
+
 
 "" Codi
 let g:codi#interpreters = {
@@ -113,6 +136,7 @@ endfunction
 
 autocmd VimEnter * call s:AllowCodi()
 
+
 "" T-comment
 map -- gcc<Esc>
 " let g:tcommentMapLeaderOp2
@@ -121,6 +145,7 @@ au BufRead,BufNewFile, *.pro   set filetype=qmake
 au BufRead,BufNewFile, *.pri   set filetype=qmake
 call tcomment#DefineType('qmake','# %s')
 
+
 "" vim-expand-region
 vmap v <Plug>(expand_region_expand)
 vmap <C-v> <Plug>(expand_region_shrink)
@@ -128,8 +153,10 @@ vmap <C-v> <Plug>(expand_region_shrink)
 
 "" CamelCaseMotion
 " map <silent> W <Plug>CamelCaseMotion_w
-map <silent> <M-Left> <Plug>CamelCaseMotion_b
-map <silent> <M-Right> <Plug>CamelCaseMotion_e
+map <silent> <M-b> <Plug>CamelCaseMotion_b
+map <silent> <M-e> <Plug>CamelCaseMotion_e
+imap <silent> <M-Left> <C-o><Plug>CamelCaseMotion_b
+imap <silent> <M-Right> <C-o><Plug>CamelCaseMotion_e
 "map <silent> ge <Plug>CamelCaseMotion_ge
 
 
@@ -156,6 +183,7 @@ let g:fzf_action = {
 
 nmap <C-L> :Files ~<CR>
 nmap <C-P> :Files<CR>
+nmap <C-Q> :Ag<CR>
 nmap <C-H> :History<CR>
 nmap <C-B> :Buffers<CR>
 
@@ -174,13 +202,14 @@ autocmd vimrc FileType c,cpp nnoremap <buffer> ]d :YcmCompleter GoTo<CR>
 autocmd vimrc FileType c,cpp nnoremap <buffer> K :YcmCompleter GetType<CR>
 hi YcmErrorSection ctermfg=White ctermbg=Red
 
-"" NERDTree
-map <F4> :NERDTreeToggle<CR>
-" How can I close vim if the only window left open is a NERDTree?
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
 "" TagBar
 map <F3> :TagbarToggle<CR>
+
+
+"" Dirvish
+map <F4> <Plug>(dirvish_up)
+
 
 "" Easy Align
 " Start interactive EasyAlign in visual mode (e.g. vipga)
@@ -219,6 +248,7 @@ autocmd FileType help wincmd H
 autocmd WinNew wincmd H
 autocmd BufWinEnter wincmd H
 
+
 "" Folding
 set foldmethod=syntax
 set foldnestmax=20
@@ -227,9 +257,11 @@ hi Folded ctermbg=none
 
 
 "" Compilation
+noremap <F5> :AsyncStop<CR>:AsyncRun make run <CR>
+noremap <F7> :YcmRestartServer<CR>
+noremap <F8> :w<CR>:AsyncStop<CR>:AsyncRun qmake -r; make notify<CR>
+
 "au QuickfixCmdPost make splint %
-nmap <F8> :AsyncRun make<CR>
-nmap <F5> :Make!<CR>
 autocmd QuickFixCmdPost [^l]* nested cwindow " open quikfix with errors
 autocmd QuickFixCmdPost    l* nested lwindow "
 autocmd QuickFixCmdPost wincmd L
@@ -248,10 +280,17 @@ noremap X "_D
 vnoremap p p:let @"=@0 <CR>
 vnoremap P P:let @"=@0 <CR>
 noremap <leader>p :!echo <C-r>*
+nnoremap <M-p> "*P
+
 
 "" Disable Replace mode by second <Insert> or jj
 inoremap <Insert> <Esc><Right>
 inoremap jj <Esc><Right>
+
+
+" Unset paste on InsertLeave
+au InsertLeave * silent! set nopaste
+set pastetoggle=<F9>
 
 
 "" Line breaks
@@ -263,6 +302,7 @@ set formatoptions=cq "t
 
 "" Automatically removing all trailing whitespace
 autocmd BufWritePre <buffer> :%s/\s\+$//e
+
 
 "" Colors
 syntax on
@@ -302,10 +342,12 @@ vnoremap // y/<C-R>"<CR><C-o>     " Search for visual selection
 autocmd BufReadPost quickfix nnoremap <buffer> <CR> :.cc<CR><C-W><C-W>
 " search in files word under cursor uses fugitive, vv and **
 nmap <c-f> :cclose<CR>viwy**<c-g><c-r>"<CR><leader>q<leader>q
+vmap <c-f> y:cclose<CR><c-g>'<c-r>"'<CR><leader>q<leader>q
+" nnoremap cgn cgn<c-r>"<c-left>
 
 
 " copy line N to cursor position
-nnoremap gp ggyy<c-o>p
+nnoremap gp ggyy<c-o>pkJa<CR><Esc>
 
 
 " for jumps
@@ -412,4 +454,7 @@ function! s:goto_line()
 endfunction
 
 autocmd vimrc BufNewFile * nested call s:goto_line()
+
+
+silent! call repeat#set("\<Plug>MyWonderfulMap", v:count)
 

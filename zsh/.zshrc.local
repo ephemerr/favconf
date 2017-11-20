@@ -4,9 +4,14 @@
 stty -ixon
 
 export PATH=$PATH:~/projects/hf/reps
+export PATH="/usr/lib/ccache/bin/:$PATH"
+export PATH="/usr/lib/colorgcc/bin/:$PATH"
+
+export CCACHE_PATH="/usr/bin"   
+export CCACHE_DIR="/mnt/fast/ccache"
 
 alias make="colormake -j4"
-alias ctags="ctags -R --extra=+f"
+alias ctags="ctags -R --extra=+f --exclude=.gitignore"
 alias sdcv="sdcv --color"
 alias figr="find . | grep"
 alias ag="ag --vimgrep -p ~/favconf/ag/agignore"
