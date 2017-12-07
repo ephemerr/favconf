@@ -19,3 +19,8 @@ hi link Variable     Identifier
 hi link Delimiter    Statement
 hi link Namespace    Type
 hi link EnumConstant Constant
+
+hi DiffAdd	  ctermfg = Black
+hi DiffChange ctermfg = Black
+hi DiffText   ctermfg = Black
+hi DiffDelete ctermfg = Black 

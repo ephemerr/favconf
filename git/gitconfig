@@ -10,6 +10,8 @@
 	excludesfile = /home/azzel/.config/git/ignore
 	pager = cat
 [alias]
+  co = checkout 
+  pick = cherry-pick 
   br = branch --sort=committerdate -v
 	gr = grep -I --recurse-submodules
 	pre = log -10 --pretty=format:'%C(yellow)%h %Cred%ad %Cblue%an%Cgreen%d %Creset%s' --date=short

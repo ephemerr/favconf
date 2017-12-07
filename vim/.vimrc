@@ -67,7 +67,7 @@ Plug 'junegunn/vim-peekaboo'
 "" Buffers
 Plug 'junegunn/fzf.vim'
 Plug 'derekwyatt/vim-fswitch'
-Plug 'majutsushi/tagbar', { 'on': 'TagbarToggle' }
+Plug 'majutsushi/tagbar' ", { 'on': 'TagbarToggle' }
 Plug 'mkitt/tabline.vim'
 Plug 'Valloric/ListToggle'
 Plug 'justinmk/vim-dirvish'
@@ -75,11 +75,13 @@ Plug 'justinmk/vim-dirvish'
 
 "" Git
 Plug 'tpope/vim-fugitive'
+Plug 'gregsexton/gitv', {'on': ['Gitv']}
 Plug 'junegunn/gv.vim'
 
 
 "" Formats & colors
 " Plug 'davidhalter/jedi-vim'
+Plug 'brookhong/cscope.vim'
 Plug 'justinmk/vim-syntax-extra'
 Plug 'peterhoeg/vim-qml'
 Plug 'artoj/qmake-syntax-vim'
@@ -91,6 +93,8 @@ call plug#end()
 
 " ============================================= PLUGIN CONFIGURATION
 
+"" Cscope
+nnoremap <leader>fa :call CscopeFindInteractive(expand('<cword>'))<CR>
 
 "" clighter
 nmap <silent> <Leader>r :call clighter#Rename()<CR>
@@ -175,6 +179,8 @@ nmap <C-N> :vnew<CR>
 "" FZF
 command! -bang -nargs=* GGrep
       \ call fzf#vim#grep('git gr --line-number '.shellescape(<q-args>), 0, <bang>0)
+command! -bang -nargs=? -complete=dir Files
+  \ call fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0)
 
 let g:fzf_action = {
   \ 'ctrl-t': 'tab split',
@@ -205,6 +211,7 @@ hi YcmErrorSection ctermfg=White ctermbg=Red
 
 "" TagBar
 map <F3> :TagbarToggle<CR>
+autocmd filetype cpp nested TagbarOpen
 
 
 "" Dirvish
@@ -258,14 +265,13 @@ hi Folded ctermbg=none
 
 "" Compilation
 noremap <F5> :AsyncStop<CR>:AsyncRun make run <CR>
-noremap <F7> :YcmRestartServer<CR>
+noremap <F7> :!pkill python<CR>:YcmRestartServer<CR>
 noremap <F8> :w<CR>:AsyncStop<CR>:AsyncRun qmake -r; make notify<CR>
 
 "au QuickfixCmdPost make splint %
 autocmd QuickFixCmdPost [^l]* nested cwindow " open quikfix with errors
 autocmd QuickFixCmdPost    l* nested lwindow "
 autocmd QuickFixCmdPost wincmd L
-
 
 "" Clipboard
 set clipboard=autoselect "  clipboard
@@ -328,6 +334,18 @@ function! g:MyAddGuard(s)
   call append(line("$"), ["#endif /*" . b:macro . "*/"])
 endfunction
 command! -nargs=1 HeaderguardAdd call g:MyAddGuard(<f-args>)
+
+
+""
+function! g:GCompare_(rev)
+  let b:line_number=line(".")
+  normal zz
+  vnew
+  b#
+  exe "Gedit ".a:rev.":%"
+  normal b:line_number."ggzz"
+endfunction
+command! -nargs=1 GCompare call g:GCompare_(<f-args>)
 
 inoremap \fn <C-R>=@%<CR>
 noremap  <leader>f :let @*=@%<CR>
