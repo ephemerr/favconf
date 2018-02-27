@@ -1,3 +1,4 @@
+# /home/azzel/favconf/xbk/xbindkeysrc
 # For the benefit of emacs users: -*- shell-script -*-
 ###########################
 # xbindkeys configuration #
@@ -65,8 +66,8 @@
 "systemctl suspend"
     Mod4 + F11
 
-"pkill python"
-    Mod4 + Shift + p
+"pkill python; pkill virtualbox"
+   Mod4 + Shift + p
 
 "dmenu_run -fn 'terminus:size=16'"
     Mod1 + F2

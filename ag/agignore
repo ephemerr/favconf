@@ -1,9 +1,12 @@
+lib*.so
 */.obj/*
+*.png
+*.ttf
+*.bin
 *.svm
 *.svg
 *.html
 *.map
-*.js
 *.css
 *.js.map
 *.min.js*

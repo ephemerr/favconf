@@ -7,6 +7,7 @@ nnoremap <leader>v :tabe $MYVIMRC<CR>
 nnoremap <leader>z :tabe $ZSHFILE<CR>
 nnoremap <leader>g :tabe $GITCONFIG<CR>
 nnoremap <leader>a :tabe $FAVHOME/ag/agignore"<CR>
+nnoremap <leader>x :tabe $FAVHOME/xbk/xbindkeysrc"<CR>
 
 "" Fast vimrc update
 augroup vimrc" {
@@ -48,9 +49,7 @@ call plug#begin('~/.vim/bundle')
 
 "" General
 Plug 'drmikehenry/vim-fixkey'
-"Plug 'tpope/vim-dispatch'
 Plug 'skywind3000/asyncrun.vim'
-
 
 "" Text & movement
 Plug 'tpope/vim-repeat'
@@ -61,7 +60,7 @@ Plug 'terryma/vim-expand-region'
 Plug 'bkad/CamelCaseMotion'
 Plug 'junegunn/vim-easy-align', { 'on': ['<Plug>(EasyAlign)', 'EasyAlign'] }
 Plug 'junegunn/vim-peekaboo'
-" Plug 'brooth/far.vim', { 'on': 'Far' }
+Plug 'brooth/far.vim', { 'on': 'Far' }
 
 
 "" Buffers
@@ -71,21 +70,23 @@ Plug 'majutsushi/tagbar' ", { 'on': 'TagbarToggle' }
 Plug 'mkitt/tabline.vim'
 Plug 'Valloric/ListToggle'
 Plug 'justinmk/vim-dirvish'
-
+Plug 'itchyny/lightline.vim'
+Plug 'mileszs/ack.vim'
 
 "" Git
 Plug 'tpope/vim-fugitive'
-Plug 'gregsexton/gitv', {'on': ['Gitv']}
 Plug 'junegunn/gv.vim'
 
 
 "" Formats & colors
 " Plug 'davidhalter/jedi-vim'
-Plug 'brookhong/cscope.vim'
+Plug 'bronson/vim-trailing-whitespace'
 Plug 'justinmk/vim-syntax-extra'
 Plug 'peterhoeg/vim-qml'
 Plug 'artoj/qmake-syntax-vim'
 Plug 'Valloric/YouCompleteMe', {'on': 'YcmRestartServer'}
+Plug 'vim-scripts/AnsiEsc.vim'
+Plug 'othree/xml.vim'
 " Plug 'bbchung/clighter8'
 " Plug 'vim-syntastic/syntastic' "{'on': 'SyntasticToggleMode'}
 
@@ -93,8 +94,13 @@ call plug#end()
 
 " ============================================= PLUGIN CONFIGURATION
 
-"" Cscope
-nnoremap <leader>fa :call CscopeFindInteractive(expand('<cword>'))<CR>
+"" Ack
+let g:ackprg = 'rg --vimgrep --ignore-file ~/favconf/ag/agignore'
+" let g:ackprg = 'ag --vimgrep -p ~/favconf/ag/agignore'
+
+
+"" Lightline
+let g:lightline = {'colorscheme': 'wombat' }
 
 "" clighter
 nmap <silent> <Leader>r :call clighter#Rename()<CR>
@@ -109,11 +115,6 @@ let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
-
-
-"" ListToggle
-let g:lt_location_list_toggle_map = '<leader>l'
-let g:lt_quickfix_list_toggle_map = '<leader>q'
 
 
 "" Codi
@@ -156,9 +157,11 @@ vmap <C-v> <Plug>(expand_region_shrink)
 
 
 "" CamelCaseMotion
-" map <silent> W <Plug>CamelCaseMotion_w
+map <silent> <M-w> <Plug>CamelCaseMotion_w
 map <silent> <M-b> <Plug>CamelCaseMotion_b
 map <silent> <M-e> <Plug>CamelCaseMotion_e
+map <silent> <M-Left>  <Plug>CamelCaseMotion_b
+map <silent> <M-Right> <Plug>CamelCaseMotion_e
 imap <silent> <M-Left> <C-o><Plug>CamelCaseMotion_b
 imap <silent> <M-Right> <C-o><Plug>CamelCaseMotion_e
 "map <silent> ge <Plug>CamelCaseMotion_ge
@@ -172,20 +175,17 @@ noremap <S-F2> :FSSplitLeft<CR>
 "" DWM
 let g:dwm_map_keys=0
 nnoremap <C-M> <C-W>o
-nmap <C-C> <C-W>c
+nmap <C-C> :TagbarClose<CR><C-W>c
 nmap <C-N> :vnew<CR>
 
 
 "" FZF
 command! -bang -nargs=* GGrep
       \ call fzf#vim#grep('git gr --line-number '.shellescape(<q-args>), 0, <bang>0)
+command! -bang -nargs=* Rg
+      \ call fzf#vim#grep('rg --vimgrep '.shellescape(<q-args>), 0, <bang>0)
 command! -bang -nargs=? -complete=dir Files
   \ call fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0)
-
-let g:fzf_action = {
-  \ 'ctrl-t': 'tab split',
-  \ 'ctrl-x': 'split',
-  \ 'ctrl-v': 'topleft vsplit' }
 
 nmap <C-L> :Files ~<CR>
 nmap <C-P> :Files<CR>
@@ -194,9 +194,27 @@ nmap <C-H> :History<CR>
 nmap <C-B> :Buffers<CR>
 
 
+" CTRL-A CTRL-Q to select all and build quickfix list
+
+function! s:build_quickfix_list(lines)
+  call setqflist(map(copy(a:lines), '{ "filename": v:val }'))
+  copen
+  cc
+endfunction
+
+let g:fzf_action = {
+  \ 'ctrl-q': function('s:build_quickfix_list'),
+  \ 'ctrl-t': 'tab split',
+  \ 'ctrl-x': 'split',
+  \ 'ctrl-v': 'vsplit' }
+
+let $FZF_DEFAULT_OPTS = '--bind ctrl-a:select-all'
+
+
+
 "" Fugitive
 call SetupCommandAlias("Gr","Ggrep -I --recurse-submodules")
-nmap <c-g> :Gr<Space>
+nmap <c-g> :Ack<Space>
 set statusline=%<%f\ %h%m%r%{fugitive#statusline()}%=%-14.(%l,%c%V%)\ %P
 
 
@@ -211,11 +229,14 @@ hi YcmErrorSection ctermfg=White ctermbg=Red
 
 "" TagBar
 map <F3> :TagbarToggle<CR>
-autocmd filetype cpp nested TagbarOpen
+" autocmd filetype cpp nested TagbarOpen
 
 
 "" Dirvish
 map <F4> <Plug>(dirvish_up)
+map <F6> :let $VIM_DIR=expand('%:p:h')<CR>:terminal<CR>cd $VIM_DIR; reset<CR>
+tmap jj <c-\><c-n>
+set termkey=CTRL-\
 
 
 "" Easy Align
@@ -235,6 +256,7 @@ set expandtab
 "set cindent
 "set backspace=indent,eol
 filetype plugin indent on
+filetype plugin on
 
 
 "" Windows & buffers
@@ -255,7 +277,6 @@ autocmd FileType help wincmd H
 autocmd WinNew wincmd H
 autocmd BufWinEnter wincmd H
 
-
 "" Folding
 set foldmethod=syntax
 set foldnestmax=20
@@ -263,15 +284,22 @@ set foldlevelstart=99
 hi Folded ctermbg=none
 
 
-"" Compilation
-noremap <F5> :AsyncStop<CR>:AsyncRun make run <CR>
+"" Quickfix
+noremap <F5> :AsyncStop<CR>:AsyncRun make run<CR>
 noremap <F7> :!pkill python<CR>:YcmRestartServer<CR>
-noremap <F8> :w<CR>:AsyncStop<CR>:AsyncRun qmake -r; make notify<CR>
-
-"au QuickfixCmdPost make splint %
-autocmd QuickFixCmdPost [^l]* nested cwindow " open quikfix with errors
+noremap <F8> :wa<CR>:AsyncStop<CR>:AsyncRun qmake -r; make notify<CR>:copen<CR>G<C-w><C-w>
+" autocmd QuickfixCmdPost make splint %
 autocmd QuickFixCmdPost    l* nested lwindow "
-autocmd QuickFixCmdPost wincmd L
+autocmd QuickFixCmdPost [^l]* nested cwindow " open quikfix with errors
+
+augroup QuickfixWindow
+    autocmd!
+    autocmd FileType qf wincmd J
+    au!
+    au WinEnter * if winnr('$') == 1 && getbufvar(winbufnr(winnr()), "&buftype") == "quickfix"|q|endif
+augroup end
+noremap [s :colder<CR>
+noremap ]s :cnewer<CR>:QToggle<CR>
 
 "" Clipboard
 set clipboard=autoselect "  clipboard
@@ -287,7 +315,9 @@ vnoremap p p:let @"=@0 <CR>
 vnoremap P P:let @"=@0 <CR>
 noremap <leader>p :!echo <C-r>*
 nnoremap <M-p> "*P
-
+" Make shift-insert work like in Xterm
+map <S-Insert> <MiddleMouse>
+map! <S-Insert> <MiddleMouse>
 
 "" Disable Replace mode by second <Insert> or jj
 inoremap <Insert> <Esc><Right>
@@ -305,10 +335,9 @@ set textwidth=0
 set wrapmargin=0
 set formatoptions=cq "t
 
-
-"" Automatically removing all trailing whitespace
-autocmd BufWritePre <buffer> :%s/\s\+$//e
-
+" Trailing-whitespace
+hi ExtraWhitespace ctermbg=DarkGrey
+autocmd FileType qml,c,cpp,java,php,ruby,python autocmd BufWritePre <buffer> :FixWhitespace
 
 "" Colors
 syntax on
@@ -359,9 +388,17 @@ vnoremap // y/<C-R>"<CR><C-o>     " Search for visual selection
 "map ** *:%s///gn<CR>2<C-o>
 autocmd BufReadPost quickfix nnoremap <buffer> <CR> :.cc<CR><C-W><C-W>
 " search in files word under cursor uses fugitive, vv and **
+nmap <M-f> :cclose<CR>viwy**:Ag <c-r>"<CR>
+vmap <M-f> y:cclose<CR>:Ag <c-r>"<CR>
 nmap <c-f> :cclose<CR>viwy**<c-g><c-r>"<CR><leader>q<leader>q
 vmap <c-f> y:cclose<CR><c-g>'<c-r>"'<CR><leader>q<leader>q
 " nnoremap cgn cgn<c-r>"<c-left>
+
+
+" Cursor
+let &t_SI = "\<Esc>[6 q"
+let &t_SR = "\<Esc>[4 q"
+let &t_EI = "\<Esc>[2 q"
 
 
 " copy line N to cursor position
@@ -407,7 +444,7 @@ set history=1024
 set viminfo='256
 set virtualedit=block
 set lazyredraw
-
+set showtabline=2
 
 "" tab-navigation
 nnoremap th  :tabfirst<CR>

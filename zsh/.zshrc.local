@@ -7,26 +7,33 @@ export PATH=$PATH:~/projects/hf/reps
 export PATH="/usr/lib/ccache/bin/:$PATH"
 export PATH="/usr/lib/colorgcc/bin/:$PATH"
 
-export CCACHE_PATH="/usr/bin"   
+export CCACHE_PATH="/usr/bin"
 export CCACHE_DIR="/mnt/fast/ccache"
+
+export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python2
+source /usr/bin/virtualenvwrapper.sh
+
 
 alias make="colormake -j4"
 alias ctags="ctags -R --extra=+f --exclude=.gitignore"
 alias sdcv="sdcv --color"
 alias figr="find . | grep"
 alias ag="ag --vimgrep -p ~/favconf/ag/agignore"
+alias rg="rg --vimgrep --ignore-file ~/favconf/ag/agignore"
 alias locate-docker="locate -d /home/Docker/locate.db"
 alias locate-home="locate -d ~/locate.db"
 alias dd="sudo dd bs=64K conv=noerror,sync status=progress"
-alias cp="rsync -avh --progress" 
+alias cp="rsync -avh --progress"
 alias ls=l
-alias fzf='fzf --preview="head -$LINES {}"' 
+alias fzf='fzf --preview="head -$LINES {}"'
 alias ssh='ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no'
 alias scp='scp -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no'
 alias vi=vim
 alias qm54="~/Qt5.4.2/5.4/gcc_64/bin/qmake -r"
 alias pj='python -mjson.tool'
 alias op='xdg-open'
+alias decolor="perl -pe 's/\x1b\[[0-9;]*m//g'"
+alias tac="perl -e 'print reverse <>'"
 
 ################ Search like vim
 up-line-or-search-prefix () {
@@ -35,7 +42,7 @@ up-line-or-search-prefix () {
   CURSOR=$CURSOR_before_search
 }
 zle -N up-line-or-search-prefix
-bindkey "^[[A" up-line-or-search-prefix
+bindkey "^[OA" up-line-or-search-prefix
 
 down-line-or-search-prefix () {
   local CURSOR_before_search=$CURSOR
@@ -43,10 +50,7 @@ down-line-or-search-prefix () {
   CURSOR=$CURSOR_before_search
 }
 zle -N down-line-or-search-prefix
-bindkey "^[[B" down-line-or-search-prefix
-
-############### Antigen
-source /usr/share/zsh/scripts/antigen/antigen.zsh
+bindkey "^[OB" down-line-or-search-prefix
 
 ############## Home/End fix
 bindkey   "^[[H" beginning-of-somewhere
@@ -76,8 +80,6 @@ zle -N tcsh-forward-word
 bindkey '^[[1;3C' tcsh-forward-word
 
 
-#/home/azzel/soft/base16-builder-php/templates/gnome-terminal/color-scripts/base16-darktooth.zsh
-
 ############# Remove CupsLock
 setxkbmap -option ctrl:nocaps
 
@@ -86,29 +88,24 @@ export FZF_DEFAULT_COMMAND='
    find . -path "*/\.*" -prune -o -type f -print -o -type l -print |
       sed s/^..//) 2> /dev/null'
 
-# source /usr/share/zsh/scripts/zplug/init.zsh
+# source ~/.zplug/init.zsh
 
-source ~/.zplug/init.zsh
+# zplug "marzocchi/zsh-notify"
+# zplug "sevanteri/zsh-dir-scroller"
 
-zplug "marzocchi/zsh-notify"
-zplug "sevanteri/zsh-dir-scroller"
+#
+# zstyle ':notify:*' error-icon "https://media3.giphy.com/media/10ECejNtM1GyRy/200_s.gif"
+# zstyle ':notify:*' error-title "wow such #fail"
+# zstyle ':notify:*' success-icon "https://s-media-cache-ak0.pinimg.com/564x/b5/5a/18/b55a1805f5650495a74202279036ecd2.jpg"
+# zstyle ':notify:*' success-title "very #success. wow"
+#
+# zplug load
 
-
-zstyle ':notify:*' error-icon "https://media3.giphy.com/media/10ECejNtM1GyRy/200_s.gif"
-zstyle ':notify:*' error-title "wow such #fail"
-zstyle ':notify:*' success-icon "https://s-media-cache-ak0.pinimg.com/564x/b5/5a/18/b55a1805f5650495a74202279036ecd2.jpg"
-zstyle ':notify:*' success-title "very #success. wow"
-
-
-zplug load
-
-# dir-scroller: 
-bindkey '^[[1;5A' _dir_scroller_prev
-bindkey '^[[1;5B' _dir_scroller_next
+# dir-scroller:
 
 
 source ~/soft/git-subrepo/.rc
 
 # Home
-cd ~
+# cd ~
 
