@@ -235,8 +235,10 @@ map <F3> :TagbarToggle<CR>
 "" Dirvish
 map <F4> <Plug>(dirvish_up)
 map <F6> :let $VIM_DIR=expand('%:p:h')<CR>:terminal<CR>cd $VIM_DIR; reset<CR>
-tmap jj <c-\><c-n>
-set termkey=CTRL-\
+if has("terminal")
+  tmap jj <c-\><c-n>
+  set termkey=CTRL-\
+endif 
 
 
 "" Easy Align
@@ -342,7 +344,7 @@ autocmd FileType qml,c,cpp,java,php,ruby,python autocmd BufWritePre <buffer> :Fi
 "" Colors
 syntax on
 set hlsearch " Highlight searched word
-set cursorline " Highlight current line
+" set cursorline " Highlight current line
 let base16colorspace=256 " Access colors present in 256 colorspace
 set t_Co=256 " 256 color mode
 set background=dark
