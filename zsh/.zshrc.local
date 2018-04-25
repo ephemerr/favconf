@@ -13,6 +13,7 @@ export CCACHE_DIR="/mnt/fast/ccache"
 export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python2
 source /usr/bin/virtualenvwrapper.sh
 
+export  JAVA_HOME=/usr/lib/jvm/java-8-openjdk/
 
 alias make="colormake -j4"
 alias ctags="ctags -R --extra=+f --exclude=.gitignore"
@@ -83,10 +84,14 @@ bindkey '^[[1;3C' tcsh-forward-word
 ############# Remove CupsLock
 setxkbmap -option ctrl:nocaps
 
-export FZF_DEFAULT_COMMAND='
-  (git ls-tree -r --name-only HEAD ||
-   find . -path "*/\.*" -prune -o -type f -print -o -type l -print |
-      sed s/^..//) 2> /dev/null'
+export FZF_DEFAULT_COMMAND='ag --nocolor -g "" -p ~/favconf/ag/agignore'
+export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+export FZF_ALT_C_COMMAND="$FZF_DEFAULT_COMMAND"
+
+# export FZF_DEFAULT_COMMAND='
+#   (git ls-tree -r --name-only HEAD ||
+#    find . -path "*/\.*" -prune -o -type f -print -o -type l -print |
+#       sed s/^..//) 2> /dev/null'
 
 # source ~/.zplug/init.zsh
 
@@ -105,6 +110,7 @@ export FZF_DEFAULT_COMMAND='
 
 
 source ~/soft/git-subrepo/.rc
+
 
 # Home
 # cd ~

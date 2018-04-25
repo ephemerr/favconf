@@ -1,5 +1,8 @@
 lib*.so
 */.obj/*
+tests/*
+util/*
+fftw/*
 *.png
 *.ttf
 *.bin

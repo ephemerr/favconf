@@ -13,6 +13,7 @@
   check = checkout
   pick = cherry-pick
   br = branch --sort=committerdate -v
+  has = branch --sort=committerdate -v --contains
 	gr = grep -I --recurse-submodules
 	pre = log -10 --pretty=format:'%C(yellow)%h %Cred%ad %Cblue%an%Cgreen%d %Creset%s' --date=short
 	who-added = log --diff-filter=A
@@ -23,9 +24,11 @@
   sr-reinit = "!sr-reinit.sh $1"
   sr-reremote = "!sr-reremote.sh $1"
   sr = "subrepo"
+  forere = "rerere forget"
 [status]
-	submoduleSummary = true
+	# submoduleSummary = true
 [diff]
-	submodule = diff
+	# submodule = diff
+	tool = vimdiff
 [rerere]
 	enabled = true

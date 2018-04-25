@@ -61,7 +61,7 @@ Plug 'bkad/CamelCaseMotion'
 Plug 'junegunn/vim-easy-align', { 'on': ['<Plug>(EasyAlign)', 'EasyAlign'] }
 Plug 'junegunn/vim-peekaboo'
 Plug 'brooth/far.vim', { 'on': 'Far' }
-
+Plug 'AndrewRadev/splitjoin.vim'
 
 "" Buffers
 Plug 'junegunn/fzf.vim'
@@ -72,6 +72,7 @@ Plug 'Valloric/ListToggle'
 Plug 'justinmk/vim-dirvish'
 Plug 'itchyny/lightline.vim'
 Plug 'mileszs/ack.vim'
+" Plug 'dkprice/vim-easygrep'
 
 "" Git
 Plug 'tpope/vim-fugitive'
@@ -94,9 +95,15 @@ call plug#end()
 
 " ============================================= PLUGIN CONFIGURATION
 
+"" splitjoin
+let g:splitjoin_split_mapping = ''
+let g:splitjoin_join_mapping = ''
+nnoremap gss :SplitjoinSplit<cr>
+nnoremap gsj :SplitjoinJoin<cr>
+
 "" Ack
-let g:ackprg = 'rg --vimgrep --ignore-file ~/favconf/ag/agignore'
-" let g:ackprg = 'ag --vimgrep -p ~/favconf/ag/agignore'
+"let g:ackprg = 'rg --vimgrep --ignore-file ~/favconf/ag/agignore'
+let g:ackprg = 'ag --vimgrep -p ~/favconf/ag/agignore'
 
 
 "" Lightline
@@ -148,7 +155,7 @@ map -- gcc<Esc>
 " let g:tcommentMapLeaderOp2
 au BufRead,BufNewFile, *.pro   set filetype=qmake
 au BufRead,BufNewFile, *.pri   set filetype=qmake
-call tcomment#DefineType('qmake','# %s')
+call tcomment#type#Define('qmake','# %s')
 
 
 "" vim-expand-region
@@ -337,7 +344,7 @@ set formatoptions=cq "t
 
 " Trailing-whitespace
 hi ExtraWhitespace ctermbg=DarkGrey
-autocmd FileType qml,c,cpp,java,php,ruby,python autocmd BufWritePre <buffer> :FixWhitespace
+autocmd FileType js,qml,c,cpp,java,php,ruby,python autocmd BufWritePre <buffer> :FixWhitespace
 
 "" Colors
 syntax on
@@ -346,7 +353,9 @@ set cursorline " Highlight current line
 let base16colorspace=256 " Access colors present in 256 colorspace
 set t_Co=256 " 256 color mode
 set background=dark
-
+if &diff
+  colorscheme desert
+end
 
 "" visual-at.vim
 xnoremap @ :<C-u>call ExecuteMacroOverVisualRange()<CR>
