@@ -42,6 +42,7 @@ function! BuildYCM(info)
   endif
 endfunction
 
+
 " ============================================= PLUGINS
 
 call plug#begin('~/.vim/bundle')
@@ -61,7 +62,7 @@ Plug 'bkad/CamelCaseMotion'
 Plug 'junegunn/vim-easy-align', { 'on': ['<Plug>(EasyAlign)', 'EasyAlign'] }
 Plug 'junegunn/vim-peekaboo'
 Plug 'brooth/far.vim', { 'on': 'Far' }
-Plug 'AndrewRadev/splitjoin.vim'
+" Plug 'AndrewRadev/splitjoin.vim'
 
 "" Buffers
 Plug 'junegunn/fzf.vim'
@@ -72,11 +73,12 @@ Plug 'Valloric/ListToggle'
 Plug 'justinmk/vim-dirvish'
 Plug 'itchyny/lightline.vim'
 Plug 'mileszs/ack.vim'
+Plug 'albfan/ag.vim'
 " Plug 'dkprice/vim-easygrep'
 
 "" Git
 Plug 'tpope/vim-fugitive'
-Plug 'junegunn/gv.vim'
+" Plug 'junegunn/gv.vim'
 
 
 "" Formats & colors
@@ -85,7 +87,7 @@ Plug 'bronson/vim-trailing-whitespace'
 Plug 'justinmk/vim-syntax-extra'
 Plug 'peterhoeg/vim-qml'
 Plug 'artoj/qmake-syntax-vim'
-Plug 'Valloric/YouCompleteMe', {'on': 'YcmRestartServer'}
+Plug 'Valloric/YouCompleteMe', {'on': 'YcmRestartServer', 'do': './install.py --clang-completer'}
 Plug 'vim-scripts/AnsiEsc.vim'
 Plug 'othree/xml.vim'
 " Plug 'bbchung/clighter8'
@@ -105,6 +107,22 @@ nnoremap gsj :SplitjoinJoin<cr>
 "let g:ackprg = 'rg --vimgrep --ignore-file ~/favconf/ag/agignore'
 let g:ackprg = 'ag --vimgrep -p ~/favconf/ag/agignore'
 
+"" Ag
+" let g:ag={}
+" let g:ag.ignore_list="/home/azzel/favconf/ag/agignore"
+" let g:ag.prg="ag --vimgrep --smart-case -p /home/azzel/favconf/ag/agignore"
+" let g:ag.highlight=1
+" let g:ag.format="%f:%l:%m"
+" let g:ag.apply_lmappings=0
+" let g:ag.apply_qmappings=0
+" let g:ag.lhandler="botright lopen"
+" let g:ag.qhandler="copen 20"
+" let g:ag.nhandler="topleft new"
+" let g:ag.mapping_message=0
+" let g:ag.goto_exact_line=0
+" let g:ag.jump_in_preview=0
+" let g:ag.toggle={}
+" let g:ag.toggle.mappings_to_cmd_history=1
 
 "" Lightline
 let g:lightline = {'colorscheme': 'wombat' }
@@ -243,7 +261,6 @@ map <F3> :TagbarToggle<CR>
 map <F4> <Plug>(dirvish_up)
 map <F6> :let $VIM_DIR=expand('%:p:h')<CR>:terminal<CR>cd $VIM_DIR; reset<CR>
 tmap jj <c-\><c-n>
-set termkey=CTRL-\
 
 
 "" Easy Align

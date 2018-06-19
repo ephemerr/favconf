@@ -26,3 +26,4 @@ highlight DiffDelete cterm=bold ctermfg=Black ctermbg=Grey gui=none guifg=bg gui
 highlight DiffChange cterm=bold ctermfg=Black ctermbg=Grey gui=none guifg=bg guibg=Red
 highlight DiffText   cterm=bold ctermfg=Black ctermbg=Red gui=none guifg=bg guibg=Red
 
+" let g:ag.ignore_list="/home/azzel/favconf/ag/agignore"
