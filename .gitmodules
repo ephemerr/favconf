@@ -1,0 +1,3 @@
+[submodule "lawk"]
+	path = lawk
+	url = git@github.com:ephemerr/lawk.git

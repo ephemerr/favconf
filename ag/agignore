@@ -1,0 +1,17 @@
+lib*.so
+*/.obj/*
+tests/*
+util/*
+fftw/*
+bower_components/*
+*.png
+*.ttf
+*.bin
+*.svm
+*.svg
+*.html
+*.map
+*.css
+*.js.map
+*.min.js*
+*.orig

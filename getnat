@@ -1,0 +1,26 @@
+#!/bin/bash -x
+
+# forward traffic on the same $IF for one particular $ADDR, acting as gateway
+
+modprobe nf_conntrack
+modprobe nf_conntrack_ipv4
+modprobe nf_nat
+modprobe iptable_nat
+
+IF="enp3s0"
+ADDR="172.29.21.$1"
+
+echo "1" > /proc/sys/net/ipv4/ip_forward
+echo "1" > /proc/sys/net/ipv4/ip_dynaddr
+
+iptables -P INPUT ACCEPT
+iptables -F INPUT
+iptables -P OUTPUT ACCEPT
+iptables -F OUTPUT
+iptables -P FORWARD DROP
+iptables -F FORWARD
+iptables -t nat -F
+iptables -A FORWARD -i $IF -o $IF -d $ADDR -m state --state ESTABLISHED,RELATED -j ACCEPT
+iptables -A FORWARD -i $IF -o $IF -s $ADDR -j ACCEPT
+iptables -t nat -A POSTROUTING -s $ADDR -j MASQUERADE
+

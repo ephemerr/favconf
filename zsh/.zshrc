@@ -962,7 +962,7 @@ done; unset rh
 if zrcautoload compinit ; then
     compinit || print 'Notice: no compinit available :('
 else
-    print 'Notice: no compinit available :('
+    print 'Notice: no compinit available :('completion
     function zstyle { }
     function compdef { }
 fi
@@ -2744,7 +2744,6 @@ export PDIR=~/projects
 export EDITOR=vim
 export PATH=$PATH:/usr/local/sbin:/usr/sbin:/sbin
 alias gt="gnome-terminal --tab --profile hold"
-alias make="colormake"
 setxkbmap -option "grp:alt_shift_toggle,grp_led:scroll" -layout "us,ru"
 
 # CCZE Colourize Config for Centos 
@@ -2794,11 +2793,34 @@ fi
 stty -ixon
 
 # vim one instance 
-alias vim=vims
+#alias vim=vims
+alias make=colormake
 
 # open file
 alias op=xdg-open
 
+
+up-line-or-search-prefix () {
+  local CURSOR_before_search=$CURSOR
+  zle up-line-or-search "$LBUFFER"
+  CURSOR=$CURSOR_before_search
+}
+zle -N up-line-or-search-prefix
+bindkey "^[[A" up-line-or-search-prefix
+
+down-line-or-search-prefix () {
+  local CURSOR_before_search=$CURSOR
+  zle down-line-or-search "$LBUFFER"
+  CURSOR=$CURSOR_before_search
+}
+zle -N down-line-or-search-prefix
+bindkey "^[[B" down-line-or-search-prefix
+
+cd ~
+
+#yandex-disk --auth=./tok.dex --dir=/media/sda3/Ydisk/ sync
+
+#
 #$HOME/.zshrc.local
 
 ## genrefcard.pl settings
@@ -2814,3 +2836,9 @@ alias op=xdg-open
 # Local variables:
 # mode: sh
 # End:
+
+
+PATH=$PATH:$HOME/.opam/system/bin
+export PATH 
+
+alias decolor="perl -pe 's/\x1b\[[0-9;]*m//g'"

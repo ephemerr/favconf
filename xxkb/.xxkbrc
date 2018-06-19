@@ -1,0 +1,24 @@
+XXkb.mainwindow.type: tray
+XXkb.mainwindow.enable: yes
+
+#XXkb.group.base: 1
+
+#XXkb.group.alt: 2
+XXkb.mainwindow.label.enable: yes
+XXkb.mainwindow.label.font: -misc-*-r-*-14-*
+XXkb.mainwindow.label.background: grey
+XXkb.mainwindow.label.foreground: black
+XXkb.mainwindow.label.text.1: En
+XXkb.mainwindow.label.text.2: Ru
+XXkb.mainwindow.geometry: 24x24+2+2
+#XXkb.mainwindow.in_tray: yes
+XXkb.button.enable: no
+
+#XXkb.app_list.wm_class_name.start_alt: skype
+
+XXkb.controls.add_when_start: yes
+XXkb.controls.add_when_create: yes
+XXkb.controls.add_when_change: no
+XXkb.controls.focusout: no
+
+
