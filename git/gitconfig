@@ -17,7 +17,6 @@
   has = branch --sort=committerdate -va --contains
 	gr = grep -I --recurse-submodules
   wl = worktree list
-  wd = !cd $(git worktree list | fzf | awk '{print $1}')
 	pre = log -10 --pretty=format:'%C(yellow)%h %Cred%ad %Cblue%an%Cgreen%d %Creset%s' --date=short
 	who-added = log --diff-filter=A
   who-changed = log -1 --diff-filter=M

@@ -15,6 +15,12 @@ source /usr/bin/virtualenvwrapper.sh
 
 export  JAVA_HOME=/usr/lib/jvm/java-8-openjdk/
 
+
+function choose_workdir() {
+  NEW_DIR=$(git worktree list | fzf | awk '{print $1}')
+  echo ${NEW_DIR:-" . "}
+}
+
 alias make="colormake -j4"
 alias ctags="ctags -R --extra=+f --exclude=.gitignore"
 alias sdcv="sdcv --color"
@@ -35,6 +41,10 @@ alias pj='python -mjson.tool'
 alias op='xdg-open'
 alias decolor="perl -pe 's/\x1b\[[0-9;]*m//g'"
 alias tac="perl -e 'print reverse <>'"
+alias wl="git worktree list | fzf"
+alias wd='cd $(choose_workdir)'
+alias ggre="git pre -2000 | grep " 
+alias lfw="ls files/firmware -lart  | sed -r -e 's#.*(BIOSMART.*)#\1#' | tail -1"
 
 ################ Search like vim
 up-line-or-search-prefix () {
@@ -106,6 +116,17 @@ bindkey '^[[1;5A' _dir_scroller_prev
 bindkey '^[[1;5B' _dir_scroller_next
 
 source ~/soft/git-subrepo/.rc
+
+git_commit_hash() {
+  if [ -d .git ]; then
+    git log -1 --pretty=oneline | cut -c -8
+  fi
+}
+
+# fh - repeat history
+fh() {
+  eval $( ([ -n "$ZSH_NAME" ] && fc -l 1 || history) | fzf +s --tac | sed 's/ *[0-9]* *//')
+}
 
 
 # Home

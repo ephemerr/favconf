@@ -8,6 +8,7 @@ nnoremap <leader>z :tabe $ZSHFILE<CR>
 nnoremap <leader>g :tabe $GITCONFIG<CR>
 nnoremap <leader>a :tabe $FAVHOME/ag/agignore"<CR>
 nnoremap <leader>x :tabe $FAVHOME/xbk/xbindkeysrc"<CR>
+nnoremap <leader>p :tabe ~/.vim<CR>
 
 "" Fast vimrc update
 augroup vimrc" {
@@ -57,12 +58,12 @@ Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-unimpaired'
 Plug 'tomtom/tcomment_vim'
-Plug 'terryma/vim-expand-region'
-Plug 'bkad/CamelCaseMotion'
+" Plug 'terryma/vim-expand-region'
+" Plug 'bkad/CamelCaseMotion'
 Plug 'junegunn/vim-easy-align', { 'on': ['<Plug>(EasyAlign)', 'EasyAlign'] }
 Plug 'junegunn/vim-peekaboo'
-Plug 'brooth/far.vim', { 'on': 'Far' }
 " Plug 'AndrewRadev/splitjoin.vim'
+Plug 'pseewald/vim-anyfold'
 
 "" Buffers
 Plug 'junegunn/fzf.vim'
@@ -78,7 +79,7 @@ Plug 'albfan/ag.vim'
 
 "" Git
 Plug 'tpope/vim-fugitive'
-" Plug 'junegunn/gv.vim'
+Plug 'junegunn/gv.vim'
 
 
 "" Formats & colors
@@ -125,7 +126,13 @@ let g:ackprg = 'ag --vimgrep -p ~/favconf/ag/agignore'
 " let g:ag.toggle.mappings_to_cmd_history=1
 
 "" Lightline
-let g:lightline = {'colorscheme': 'wombat' }
+let g:lightline = {
+      \ 'colorscheme': 'wombat',
+      \ 'active': {
+      \   'left': [ [ 'mode', 'paste' ],
+      \             [ 'readonly', 'absolutepath', 'modified' ] ]
+      \ },
+      \ }
 
 "" clighter
 nmap <silent> <Leader>r :call clighter#Rename()<CR>
@@ -174,6 +181,7 @@ map -- gcc<Esc>
 au BufRead,BufNewFile, *.pro   set filetype=qmake
 au BufRead,BufNewFile, *.pri   set filetype=qmake
 call tcomment#type#Define('qmake','# %s')
+call tcomment#type#Define('ini',';%s') 
 
 
 "" vim-expand-region
@@ -303,8 +311,8 @@ autocmd BufWinEnter wincmd H
 
 "" Folding
 set foldmethod=syntax
-set foldnestmax=20
-set foldlevelstart=99
+set foldnestmax=1
+set foldlevelstart=1
 hi Folded ctermbg=none
 
 
@@ -312,6 +320,10 @@ hi Folded ctermbg=none
 noremap <F5> :AsyncStop<CR>:AsyncRun make run<CR>
 noremap <F7> :!pkill python<CR>:YcmRestartServer<CR>
 noremap <F8> :wa<CR>:AsyncStop<CR>:AsyncRun qmake -r; make notify<CR>:copen<CR>G<C-w><C-w>
+noremap <M-F8> :wa<CR>:AsyncStop<CR>:AsyncRun qmake -r; make <CR>:copen<CR>G<C-w><C-w>
+noremap <C-F8> :wa<CR>:AsyncRun cd '%:p:h'; qmake -r; make<CR>
+
+
 " autocmd QuickfixCmdPost make splint %
 autocmd QuickFixCmdPost    l* nested lwindow "
 autocmd QuickFixCmdPost [^l]* nested cwindow " open quikfix with errors

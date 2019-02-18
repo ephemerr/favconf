@@ -1386,7 +1386,13 @@ ${BLUE}%n${NO_COLOUR}@%m %40<...<%B%~%b%<< "
     fi
 fi
 
-PROMPT="${PROMPT}"'${vcs_info_msg_0_}'"%# "
+function git_prompt_short_sha() {
+  if [ -d .git ]; then
+    git log -1 --pretty=oneline | cut -c -8
+  fi
+}
+
+PROMPT="${PROMPT}"'${vcs_info_msg_0_}''$(git_prompt_short_sha)'"A%# "
 
 # if we are inside a grml-chroot set a specific prompt theme
 if [[ -n "$GRML_CHROOT" ]] ; then

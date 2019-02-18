@@ -3,7 +3,7 @@
 # forward traffic on the same $IF for one particular $ADDR, acting as gateway
 
 modprobe nf_conntrack
-modprobe nf_conntrack_ipv4
+# modprobe nf_conntrack_ipv4
 modprobe nf_nat
 modprobe iptable_nat
 
