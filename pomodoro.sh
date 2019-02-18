@@ -6,7 +6,7 @@ function my_beep {
 
 for((;;))
 do
-  # sleep 1500
+  sleep 1500
   my_beep
   zenity --forms --text="Pomodoro calls to rest"
   if [ $? -ne 0 ]; then break; fi
