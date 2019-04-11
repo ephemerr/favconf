@@ -6,14 +6,15 @@ stty -ixon
 export PATH=$PATH:~/projects/hf/reps
 export PATH="/usr/lib/ccache/bin/:$PATH"
 export PATH="/usr/lib/colorgcc/bin/:$PATH"
+export PATH="/home/azzel/.cargo/bin/:$PATH"
 
 export CCACHE_PATH="/usr/bin"
 export CCACHE_DIR="/mnt/fast/ccache"
 
 export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python2
-source /usr/bin/virtualenvwrapper.sh
+# source /usr/bin/virtualenvwrapper.sh
 
-export  JAVA_HOME=/usr/lib/jvm/java-8-openjdk/
+export JAVA_HOME=/usr/lib/jvm/java-8-openjdk/
 
 
 function choose_workdir() {
@@ -24,7 +25,7 @@ function choose_workdir() {
 alias make="colormake -j4"
 alias ctags="ctags -R --extra=+f --exclude=.gitignore"
 alias sdcv="sdcv --color"
-alias figr="find . | grep"
+alias figr="fd . | grep"
 alias ag="ag --vimgrep -p ~/favconf/ag/agignore"
 alias rg="rg --vimgrep --ignore-file ~/favconf/ag/agignore"
 alias locate-docker="locate -d /home/Docker/locate.db"
@@ -45,6 +46,7 @@ alias wl="git worktree list | fzf"
 alias wd='cd $(choose_workdir)'
 alias ggre="git pre -2000 | grep " 
 alias lfw="ls files/firmware -lart  | sed -r -e 's#.*(BIOSMART.*)#\1#' | tail -1"
+alias find=fd
 
 ################ Search like vim
 up-line-or-search-prefix () {
