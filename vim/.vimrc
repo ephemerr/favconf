@@ -2,9 +2,11 @@ let $FAVHOME="/home/azzel/favconf"
 let $MYVIMRC="/home/azzel/favconf/vim/.vimrc"
 let $COLORFILE="/home/azzel/favconf/vim/darktooth.vim"
 let $ZSHFILE="/home/azzel/favconf/zsh/.zshrc.local"
+let $FISHFILE="/home/azzel/favconf/config.fish"
 let $GITCONFIG="/home/azzel/.gitconfig"
 nnoremap <leader>v :tabe $MYVIMRC<CR>
 nnoremap <leader>z :tabe $ZSHFILE<CR>
+nnoremap <leader>f :tabe $FISHFILE<CR>
 nnoremap <leader>g :tabe $GITCONFIG<CR>
 nnoremap <leader>a :tabe $FAVHOME/ag/agignore"<CR>
 nnoremap <leader>x :tabe $FAVHOME/xbk/xbindkeysrc"<CR>
@@ -50,7 +52,6 @@ call plug#begin('~/.vim/bundle')
 
 
 "" General
-Plug 'drmikehenry/vim-fixkey'
 Plug 'skywind3000/asyncrun.vim'
 
 "" Text & movement
@@ -62,8 +63,7 @@ Plug 'tomtom/tcomment_vim'
 " Plug 'bkad/CamelCaseMotion'
 Plug 'junegunn/vim-easy-align', { 'on': ['<Plug>(EasyAlign)', 'EasyAlign'] }
 Plug 'junegunn/vim-peekaboo'
-" Plug 'AndrewRadev/splitjoin.vim'
-Plug 'pseewald/vim-anyfold'
+" Plug 'pseewald/vim-anyfold'
 
 "" Buffers
 Plug 'junegunn/fzf.vim'
@@ -74,7 +74,7 @@ Plug 'Valloric/ListToggle'
 Plug 'justinmk/vim-dirvish'
 Plug 'itchyny/lightline.vim'
 Plug 'mileszs/ack.vim'
-Plug 'albfan/ag.vim'
+" Plug 'albfan/ag.vim'
 " Plug 'dkprice/vim-easygrep'
 
 "" Git
@@ -83,47 +83,81 @@ Plug 'junegunn/gv.vim'
 
 
 "" Formats & colors
-" Plug 'davidhalter/jedi-vim'
 Plug 'bronson/vim-trailing-whitespace'
-Plug 'justinmk/vim-syntax-extra'
-Plug 'peterhoeg/vim-qml'
-Plug 'artoj/qmake-syntax-vim'
-Plug 'Valloric/YouCompleteMe', {'on': 'YcmRestartServer', 'do': './install.py --clang-completer'}
+" Plug 'Valloric/YouCompleteMe', {'on': 'YcmRestartServer', 'do': './install.py --clang-completer'}
 Plug 'vim-scripts/AnsiEsc.vim'
-Plug 'othree/xml.vim'
-" Plug 'bbchung/clighter8'
 " Plug 'vim-syntastic/syntastic' "{'on': 'SyntasticToggleMode'}
+Plug 'ludovicchabant/vim-gutentags'
+" Plug 'autozimu/LanguageClient-neovim', { 'branch': 'next', 'do': '/bin/bash install.sh'}
+Plug 'ajh17/VimCompletesMe'
+Plug 'sheerun/vim-polyglot'
+
+Plug 'prabirshrestha/vim-lsp'
+Plug 'prabirshrestha/async.vim' "  
+" Plug 'prabirshrestha/asyncomplete.vim'
+" Plug 'prabirshrestha/asyncomplete-lsp.vim'
+" Plug 'prabirshrestha/asyncomplete-tags.vim'
+
+if !has('nvim')
+  Plug 'drmikehenry/vim-fixkey'
+endif
 
 call plug#end()
 
 " ============================================= PLUGIN CONFIGURATION
 
-"" splitjoin
-let g:splitjoin_split_mapping = ''
-let g:splitjoin_join_mapping = ''
-nnoremap gss :SplitjoinSplit<cr>
-nnoremap gsj :SplitjoinJoin<cr>
+"" vim-lsp
+if executable('clangd')
+    au User lsp_setup call lsp#register_server({
+        \ 'name': 'clangd',
+        \ 'cmd': {server_info->['clangd', '-background-index']},
+        \ 'whitelist': ['c', 'cpp', 'objc', 'objcpp'],
+        \ })
+endif
+
+if executable('rls')
+    au User lsp_setup call lsp#register_server({
+        \ 'name': 'rls',
+        \ 'cmd': {server_info->['rustup', 'run', 'stable', 'rls']},
+        \ 'workspace_config': {'rust': {'clippy_preference': 'on'}},
+        \ 'whitelist': ['rust'],
+        \ })
+endif
+"" asyncomplete
+inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+inoremap <expr> <cr>    pumvisible() ? "\<C-y>" : "\<cr>"
+
+
+"" vim-mucomplete
+set complete=.,w,b,u,k
+set completeopt=menuone,noselect
+let g:mucomplete#enable_auto_at_startup = 1
+let g:mucomplete#chains = {}
+let g:mucomplete#chains.default = ['omni', 'c-n', 'path', 'tags', 'dict']
+let s:cpp_cond = { t -> t =~# '\%(->\|::\|\.\)$' }
+let g:mucomplete#can_complete = {}
+let g:mucomplete#can_complete.cpp = { 'omni': s:cpp_cond }
+
+"" Deoplete
+let g:deoplete#enable_at_startup = 1
+
+"" LSP client
+let g:LanguageClient_serverCommands = {
+    \ 'rust':   ['rustup', 'run', 'stable', 'rls'],
+    \ 'cpp':    ['clangd'],
+    \ }
+
+nnoremap <F5> :call LanguageClient_contextMenu()<CR>
+" Or map each action separately
+nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>
+nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
+nnoremap <silent> <F2> :call LanguageClient#textDocument_rename()<CR>
+
 
 "" Ack
 "let g:ackprg = 'rg --vimgrep --ignore-file ~/favconf/ag/agignore'
 let g:ackprg = 'ag --vimgrep -p ~/favconf/ag/agignore'
-
-"" Ag
-" let g:ag={}
-" let g:ag.ignore_list="/home/azzel/favconf/ag/agignore"
-" let g:ag.prg="ag --vimgrep --smart-case -p /home/azzel/favconf/ag/agignore"
-" let g:ag.highlight=1
-" let g:ag.format="%f:%l:%m"
-" let g:ag.apply_lmappings=0
-" let g:ag.apply_qmappings=0
-" let g:ag.lhandler="botright lopen"
-" let g:ag.qhandler="copen 20"
-" let g:ag.nhandler="topleft new"
-" let g:ag.mapping_message=0
-" let g:ag.goto_exact_line=0
-" let g:ag.jump_in_preview=0
-" let g:ag.toggle={}
-" let g:ag.toggle.mappings_to_cmd_history=1
 
 "" Lightline
 let g:lightline = {
@@ -150,28 +184,28 @@ let g:syntastic_check_on_wq = 0
 
 
 "" Codi
-let g:codi#interpreters = {
-  \ 'python': {
-    \ 'bin': 'python',
-    \ 'prompt': '^\(>>>\|\.\.\.\) ',
-  \ },
-\ }
-
-let g:codi#aliases = {
-  \ '*.py': 'python',
-\ }
-
-let g:codi#log = '/tmp/codi.log'
-
-function! s:AllowCodi()
-   if empty(glob('/tmp/cmd'))
-       call system('touch /tmp/cmd')
-   endif
-
-   call system('chmod u+x /tmp/cmd')
-endfunction
-
-autocmd VimEnter * call s:AllowCodi()
+" let g:codi#interpreters = {
+"   \ 'python': {
+"     \ 'bin': 'python',
+"     \ 'prompt': '^\(>>>\|\.\.\.\) ',
+"   \ },
+" \ }
+"
+" let g:codi#aliases = {
+"   \ '*.py': 'python',
+" \ }
+"
+" let g:codi#log = '/tmp/codi.log'
+"
+" function! s:AllowCodi()
+"    if empty(glob('/tmp/cmd'))
+"        call system('touch /tmp/cmd')
+"    endif
+"
+"    call system('chmod u+x /tmp/cmd')
+" endfunction
+"
+" autocmd VimEnter * call s:AllowCodi()
 
 
 "" T-comment
@@ -252,13 +286,13 @@ set statusline=%<%f\ %h%m%r%{fugitive#statusline()}%=%-14.(%l,%c%V%)\ %P
 
 
 "" YouCompleteMe
-let g:ycm_confirm_extra_conf = ''
-let g:ycm_global_ycm_extra_conf = '~/.vim/.ycm_extra_conf.py'
-let g:ycm_autoclose_preview_window_after_completion = 1
-autocmd vimrc FileType c,cpp nnoremap <buffer> ]d :YcmCompleter GoTo<CR>
-autocmd vimrc FileType c,cpp nnoremap <buffer> K :YcmCompleter GetType<CR>
-hi YcmErrorSection ctermfg=White ctermbg=Red
-
+" let g:ycm_confirm_extra_conf = ''
+" let g:ycm_global_ycm_extra_conf = '~/.vim/.ycm_extra_conf.py'
+" let g:ycm_autoclose_preview_window_after_completion = 1
+" autocmd vimrc FileType c,cpp nnoremap <buffer> ]d :YcmCompleter GoTo<CR>
+" autocmd vimrc FileType c,cpp nnoremap <buffer> K :YcmCompleter GetType<CR>
+" hi YcmErrorSection ctermfg=White ctermbg=Red
+"
 
 "" TagBar
 map <F3> :TagbarToggle<CR>
@@ -267,7 +301,7 @@ map <F3> :TagbarToggle<CR>
 
 "" Dirvish
 map <F4> <Plug>(dirvish_up)
-map <F6> :let $VIM_DIR=expand('%:p:h')<CR>:terminal<CR>cd $VIM_DIR; reset<CR>
+map <F6> :let $CURDIR=expand('%:p:h')<CR><c-t>:terminal<CR>icd $CURDIR<CR>
 tmap jj <c-\><c-n>
 
 
@@ -298,6 +332,8 @@ set hidden          " Hide buffers when they are abandoned
 set sessionoptions=folds,tabpages,winsize "no buffers
 set nosplitright
 set splitbelow
+noremap <C-d> :wa<cr>:sh<cr>
+" nnoremap <c-z> <nop>
 nnoremap <c-t> :tabe<CR>
 nnoremap <leader>d :tabe .<CR>
 nnoremap <leader>c :tabe ~/favconf<CR>
@@ -338,7 +374,7 @@ noremap [s :colder<CR>
 noremap ]s :cnewer<CR>:QToggle<CR>
 
 "" Clipboard
-set clipboard=autoselect "  clipboard
+set clipboard+=unnamedplus
 set mouse=a   " Enable mouse usage (all modes)
 noremap <Delete> "_d<Right>
 inoremap <Backspace> <Left><Delete>
@@ -415,7 +451,7 @@ endfunction
 command! -nargs=1 GCompare call g:GCompare_(<f-args>)
 
 inoremap \fn <C-R>=@%<CR>
-noremap  <leader>f :let @*=@%<CR>
+" noremap  <leader>f :let @*=@%<CR>
 inoremap \fh #include "<C-R>=expand("%:t:r").".h"<CR>"
 
 
@@ -550,4 +586,10 @@ autocmd vimrc BufNewFile * nested call s:goto_line()
 
 
 silent! call repeat#set("\<Plug>MyWonderfulMap", v:count)
+
+
+if !has('nvim')
+  set termwinscroll=1000000
+  set clipboard=autoselect "  clipboard
+endif
 

@@ -48,12 +48,12 @@ set FZF_DEFAULT_COMMAND   'ag --nocolor -g "" -p ~/favconf/ag/agignore'
 set FZF_CTRL_T_COMMAND    "$FZF_DEFAULT_COMMAND"
 set FZF_ALT_C_COMMAND     "$FZF_DEFAULT_COMMAND"
 
-function choose_workdir
+function wd 
   set NEW_DIR (git worktree list | fzf | awk '{print $1}')
-  if [ -n "$NEW_DIR" ]; set NEW_DIR " . "; end
+  if [ -n "$NEW_DIR" ]; cd $NEW_DIR; end
 end
 
-alias make="colormake -j4"
+#alias make="colormake -j4"
 alias ctags="ctags -R --extra=+f --exclude=.gitignore"
 alias sdcv="sdcv --color"
 alias figr="fd . | grep"
@@ -67,15 +67,16 @@ alias ls="ls -l --color"
 alias fzf='fzf --preview="head -$LINES {}"'
 alias ssh='ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no'
 alias scp='scp -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no'
-alias vi=vim
+alias vi=nvim
 alias qm54="~/Qt5.4.2/5.4/gcc_64/bin/qmake -r"
 alias pj='python -mjson.tool'
 alias op='xdg-open'
 alias decolor="perl -pe 's/\x1b\[[0-9;]*m//g'"
 alias tac="perl -e 'print reverse <>'"
 alias wl="git worktree list | fzf"
-alias wd='cd (choose_workdir)'
 alias ggre="git pre -2000 | grep " 
 alias lfw="ls files/firmware -lart  | sed -r -e 's#.*(BIOSMART.*)#\1#' | tail -1"
 alias find=fd
-
+alias vit="pstree -p | grep -C 6  $fish_pid"
+alias ccze="ccze -A"
+alias beep="echo -en "\a" > /dev/tty5"
