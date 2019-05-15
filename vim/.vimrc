@@ -94,7 +94,7 @@ Plug 'sheerun/vim-polyglot'
 
 Plug 'prabirshrestha/vim-lsp'
 Plug 'prabirshrestha/async.vim' "  
-" Plug 'prabirshrestha/asyncomplete.vim'
+Plug 'prabirshrestha/asyncomplete.vim'
 " Plug 'prabirshrestha/asyncomplete-lsp.vim'
 " Plug 'prabirshrestha/asyncomplete-tags.vim'
 
