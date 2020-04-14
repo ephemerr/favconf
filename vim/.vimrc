@@ -66,6 +66,7 @@ Plug 'junegunn/vim-peekaboo'
 " Plug 'pseewald/vim-anyfold'
 
 "" Buffers
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'derekwyatt/vim-fswitch'
 Plug 'majutsushi/tagbar' ", { 'on': 'TagbarToggle' }
@@ -87,7 +88,7 @@ Plug 'bronson/vim-trailing-whitespace'
 " Plug 'Valloric/YouCompleteMe', {'on': 'YcmRestartServer', 'do': './install.py --clang-completer'}
 Plug 'vim-scripts/AnsiEsc.vim'
 " Plug 'vim-syntastic/syntastic' "{'on': 'SyntasticToggleMode'}
-Plug 'ludovicchabant/vim-gutentags'
+" Plug 'ludovicchabant/vim-gutentags'
 " Plug 'autozimu/LanguageClient-neovim', { 'branch': 'next', 'do': '/bin/bash install.sh'}
 Plug 'ajh17/VimCompletesMe'
 Plug 'sheerun/vim-polyglot'
@@ -129,15 +130,15 @@ inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 inoremap <expr> <cr>    pumvisible() ? "\<C-y>" : "\<cr>"
 
 
-"" vim-mucomplete
-set complete=.,w,b,u,k
-set completeopt=menuone,noselect
-let g:mucomplete#enable_auto_at_startup = 1
-let g:mucomplete#chains = {}
-let g:mucomplete#chains.default = ['omni', 'c-n', 'path', 'tags', 'dict']
-let s:cpp_cond = { t -> t =~# '\%(->\|::\|\.\)$' }
-let g:mucomplete#can_complete = {}
-let g:mucomplete#can_complete.cpp = { 'omni': s:cpp_cond }
+" "" vim-mucomplete
+" set complete=.,w,b,u,k
+" set completeopt=menuone,noselect
+" let g:mucomplete#enable_auto_at_startup = 1
+" let g:mucomplete#chains = {}
+" let g:mucomplete#chains.default = ['omni', 'c-n', 'path', 'tags', 'dict']
+" let s:cpp_cond = { t -> t =~# '\%(->\|::\|\.\)$' }
+" let g:mucomplete#can_complete = {}
+" let g:mucomplete#can_complete.cpp = { 'omni': s:cpp_cond }
 
 "" Deoplete
 let g:deoplete#enable_at_startup = 1
@@ -342,7 +343,7 @@ if has("autocmd")
   au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
 endif
 autocmd FileType help wincmd H
-autocmd WinNew wincmd H
+" autocmd WinNew wincmd H
 autocmd BufWinEnter wincmd H
 
 "" Folding
@@ -355,8 +356,8 @@ hi Folded ctermbg=none
 "" Quickfix
 noremap <F5> :AsyncStop<CR>:AsyncRun make run<CR>
 noremap <F7> :!pkill python<CR>:YcmRestartServer<CR>
-noremap <F8> :wa<CR>:AsyncStop<CR>:AsyncRun qmake -r; make notify<CR>:copen<CR>G<C-w><C-w>
-noremap <M-F8> :wa<CR>:AsyncStop<CR>:AsyncRun qmake -r; make <CR>:copen<CR>G<C-w><C-w>
+noremap <F8> :wa<CR>:AsyncStop<CR>:AsyncRun; make <CR>:copen<CR>G<C-w><C-w>
+noremap <M-F8> :wa<CR>:AsyncStop<CR>:AsyncRun make run<CR>:copen<CR>G<C-w><C-w>
 noremap <C-F8> :wa<CR>:AsyncRun cd '%:p:h'; qmake -r; make<CR>
 
 
@@ -374,7 +375,7 @@ noremap [s :colder<CR>
 noremap ]s :cnewer<CR>:QToggle<CR>
 
 "" Clipboard
-set clipboard+=unnamedplus
+set clipboard+=unnamed
 set mouse=a   " Enable mouse usage (all modes)
 noremap <Delete> "_d<Right>
 inoremap <Backspace> <Left><Delete>
@@ -409,7 +410,7 @@ set formatoptions=cq "t
 
 " Trailing-whitespace
 hi ExtraWhitespace ctermbg=DarkGrey
-autocmd FileType js,qml,c,cpp,java,php,ruby,python autocmd BufWritePre <buffer> :FixWhitespace
+autocmd FileType rs,js,qml,c,cpp,java,php,ruby,python autocmd BufWritePre <buffer> :FixWhitespace
 
 "" Colors
 syntax on
@@ -593,3 +594,4 @@ if !has('nvim')
   set clipboard=autoselect "  clipboard
 endif
 
+source $COLORFILE

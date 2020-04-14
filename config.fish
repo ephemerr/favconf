@@ -76,7 +76,6 @@ alias tac="perl -e 'print reverse <>'"
 alias wl="git worktree list | fzf"
 alias ggre="git pre -2000 | grep " 
 alias lfw="ls files/firmware -lart  | sed -r -e 's#.*(BIOSMART.*)#\1#' | tail -1"
-alias find=fd
 alias vit="pstree -p | grep -C 6  $fish_pid"
 alias ccze="ccze -A"
 alias beep="echo -en "\a" > /dev/tty5"
