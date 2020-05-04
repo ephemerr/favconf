@@ -1,3 +1,4 @@
+types_c.taghl
 compile_commands.json
 lib*.so
 */.obj/*
@@ -16,3 +17,8 @@ bower_components/*
 *.js.map
 *.min.js*
 *.orig
+tags
+*.cmake
+CMakeFiles/*
+moc*.cpp
+Makefile

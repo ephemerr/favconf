@@ -2848,5 +2848,3 @@ PATH=$PATH:$HOME/.opam/system/bin
 export PATH 
 
 alias decolor="perl -pe 's/\x1b\[[0-9;]*m//g'"
-
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

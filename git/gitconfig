@@ -35,3 +35,7 @@
 	tool = vimdiff
 [rerere]
 	enabled = true
+[http]
+	sslverify = false
+[credential]
+	helper = store
