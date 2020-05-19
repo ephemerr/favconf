@@ -104,6 +104,7 @@ Plug 'sheerun/vim-polyglot'
 Plug 'fedorenchik/qt-support.vim'
 Plug 'bfrg/vim-cpp-modern'
 Plug 'vim-scripts/TagHighlight'
+Plug 'jackguo380/vim-lsp-cxx-highlight'
 
 "" Completion
 Plug 'ludovicchabant/vim-gutentags'
@@ -140,7 +141,8 @@ augroup MyTermMappings
   autocmd!
   autocmd TermOpen * nmap <buffer> <M-Enter> yaui<c-u>drop ./<c-\><c-n>pi<CR>
   autocmd TermOpen * nmap r i<c-u>drop .<CR>
-augroup END
+  " autocmd TermOpen * nmap r i<c-c><c-\><c-n>Vy :e <c-r>" <CR>
+augroup EN
 
 "" Vimspector
 " let g:vimspector_enable_mappings = 'HUMAN'
@@ -335,12 +337,14 @@ noremap <S-F2> :FSSplitLeft<CR>
 
 
 "" FZF
+let g:fzf_preview_window = ''
+
 command! -bang -nargs=* GGrep
       \ call fzf#vim#grep('git gr --line-number '.shellescape(<q-args>), 0, <bang>0)
 command! -bang -nargs=* Rg
       \ call fzf#vim#grep('rg --vimgrep '.shellescape(<q-args>), 0, <bang>0)
 command! -bang -nargs=? -complete=dir Files
-  \ call fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0)
+  \ call fzf#vim#files(<q-args>, fzf#vim#grep(), <bang>0)
 
 nmap g~ :e $HOME<CR>
 nmap gp :Files<CR>

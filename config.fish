@@ -27,10 +27,10 @@ set __fish_git_prompt_char_upstream_behind '-'
    set last_status $status
    set_color $fish_color_cwd
    # printf '%s' (prompt_pwd)
-   printf '%s' (pwd)
+   printf '%s ' (pwd)
    set_color normal
-   printf '%s ' (__fish_git_prompt)
-   set_color normal
+   # printf '%s ' (__fish_git_prompt)
+   # set_color normal
  end
 
 set FZF_DEFAULT_COMMAND   'ag --nocolor -g "" -p ~/favconf/ag/agignore'
@@ -70,6 +70,8 @@ alias vit="pstree -p | grep -C 6  $fish_pid"
 alias ccze="ccze -A"
 alias beep="echo -en "\a" > /dev/tty5"
 alias mc="mc -S ~/.mc/ini"
+
+set PATH $PATH ~/.local/bin
 
 source /usr/share/autojump/autojump.fish
 
