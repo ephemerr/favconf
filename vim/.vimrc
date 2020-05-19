@@ -76,7 +76,7 @@ Plug 'Julian/vim-textobj-brace'             "aj/ij
 
 
 "" Buffers
-Plug '~/.fzf'
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'mileszs/ack.vim'
 Plug 'justinmk/vim-dirvish'
@@ -105,6 +105,7 @@ Plug 'fedorenchik/qt-support.vim'
 Plug 'bfrg/vim-cpp-modern'
 Plug 'vim-scripts/TagHighlight'
 Plug 'jackguo380/vim-lsp-cxx-highlight'
+Plug 'chriskempson/base16-vim'
 
 "" Completion
 Plug 'ludovicchabant/vim-gutentags'

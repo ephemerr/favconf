@@ -11,3 +11,5 @@ ln -sf $FAV/config.fish             ~/.config/fish/config.fish
 
 #mkdir ~/.config/nvim
 ln -sf $FAV/nvim/init.vim           ~/.config/nvim/init.vim
+
+cp $FAV/vim/plug.vim                ~/.vim/autoload/` 
