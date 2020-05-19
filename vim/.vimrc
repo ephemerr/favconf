@@ -17,8 +17,6 @@ nnoremap <leader>p :tabe ~/.vim<CR>
 
 command! Resource source $MYVIMRC
 
-colorscheme base16-atlas
-
 "" Fast vimrc update
 augroup vimrc" {
     autocmd!
@@ -59,7 +57,7 @@ Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-unimpaired'
 Plug 'bkad/CamelCaseMotion'
-" Plug 'terryma/vim-expand-region'
+Plug 'terryma/vim-expand-region'
 Plug 'junegunn/vim-easy-align', { 'on': ['<Plug>(EasyAlign)', 'EasyAlign'] }
 Plug 'junegunn/vim-peekaboo'
 " Plug 'sirver/ultisnips'
@@ -121,6 +119,8 @@ endif
 call plug#end()
 
 " ============================================= PLUGIN CONFIGURATION
+
+colorscheme base16-bright
 
 "" UltiSnips
 let g:UltiSnipsJumpForwardTrigger="<c-b>"
