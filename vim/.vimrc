@@ -1,4 +1,4 @@
-let $HOME      = "/home/azzel"
+let $HOME      = "/home/me"
 let $FAVHOME   = $HOME."/favconf"
 let $MYVIMRC   = $HOME."/favconf/vim/.vimrc"
 let $ZSHFILE   = $HOME."/favconf/zsh/.zshrc.local"
