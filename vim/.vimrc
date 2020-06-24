@@ -1,4 +1,4 @@
-let $HOME      = "/home/me"
+let $HOME      = "/home/zheleznov"
 let $FAVHOME   = $HOME."/favconf"
 let $MYVIMRC   = $HOME."/favconf/vim/.vimrc"
 let $ZSHFILE   = $HOME."/favconf/zsh/.zshrc.local"
@@ -109,7 +109,7 @@ Plug 'chriskempson/base16-vim'
 Plug 'ludovicchabant/vim-gutentags'
 Plug 'skywind3000/gutentags_plus'
 Plug 'ajh17/VimCompletesMe'
-Plug 'neoclide/coc.nvim'
+Plug 'neoclide/coc.nvim', {'do': 'yarn install --pure-lockfile'}
 " Plug 'neovim/nvim-lsp'
 
 if !has('nvim')
@@ -150,8 +150,8 @@ augroup EN
 " packadd! vimspector
 
 "" COC """""""""""""""""""""""""""""""""""""""""""
-let g:coc_extension_root="/home/azzel/.config/coc/extensions"
-let g:coc_start_at_startup = 0
+let g:coc_data_home = "$HOME/.config/coc"
+let g:coc_start_at_startup = 1
 
 " correct comment highlighting, add:
 autocmd FileType json syntax match Comment +\/\/.\+$+
@@ -341,11 +341,13 @@ noremap <S-F2> :FSSplitLeft<CR>
 let g:fzf_preview_window = ''
 
 command! -bang -nargs=* GGrep
-      \ call fzf#vim#grep('git gr --line-number '.shellescape(<q-args>), 0, <bang>0)
+  \ call fzf#vim#grep(
+  \   'git grep --line-number -- '.shellescape(<q-args>), 0,
+  \   fzf#vim#with_preview({'dir': systemlist('git rev-parse --show-toplevel')[0]}), <bang>0)
 command! -bang -nargs=* Rg
-      \ call fzf#vim#grep('rg --vimgrep '.shellescape(<q-args>), 0, <bang>0)
-command! -bang -nargs=? -complete=dir Files
-  \ call fzf#vim#files(<q-args>, fzf#vim#grep(), <bang>0)
+  \ call fzf#vim#grep(
+  \   'rg --column --line-number --no-heading --color=always --smart-case -- '.shellescape(<q-args>), 1,
+  \   fzf#vim#with_preview(), <bang>0)
 
 nmap g~ :e $HOME<CR>
 nmap gp :Files<CR>
