@@ -1,7 +1,7 @@
 #!/bin/bash -x
 
 function my_beep {
-  sudo beep -f 600 -r 2 -d 30
+   beep -f 600 -r 2 -d 30
 }
 
 for((;;))

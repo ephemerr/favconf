@@ -42,6 +42,9 @@ function wd
   if [ -n "$NEW_DIR" ]; cd $NEW_DIR; end
 end
 
+alias cbuild="cmake --build ."
+alias cinst="cmake --install ."
+alias diffuse="python2 /usr/bin/diffuse"
 alias staff="svn diff > stash.diff"
 alias stapp="patch -Np 0 < stash.diff"
 alias st="~/favconf/svn-colorstat.py status"
@@ -51,8 +54,9 @@ alias ja="cd (j --stat | head -n -7 | cut -f 2 | tac | fzf)"
 alias ctags="ctags -R --fields=+l --extras=+f --exclude=.gitignore"
 alias sdcv="sdcv --color"
 alias figr="find . | grep"
+alias figa="fa . | grep"
 alias ag="ag --vimgrep -p ~/favconf/ag/agignore"
-alias fag="ag --nocolor -g '' -p ~/favconf/ag/agignore"
+alias fa="ag --nocolor -g '' -p ~/favconf/ag/agignore"
 alias rg="rg --vimgrep --ignore-file ~/favconf/ag/agignore"
 alias dd="sudo dd bs=64K conv=noerror,sync status=progress"
 alias cp="rsync -avh --progress"

@@ -101,6 +101,7 @@ Plug 'Valloric/MatchTagAlways'
 Plug 'sheerun/vim-polyglot'
 Plug 'fedorenchik/qt-support.vim'
 Plug 'bfrg/vim-cpp-modern'
+Plug 'vhdirk/vim-cake'
 Plug 'vim-scripts/TagHighlight'
 Plug 'jackguo380/vim-lsp-cxx-highlight'
 Plug 'chriskempson/base16-vim'
@@ -108,9 +109,9 @@ Plug 'chriskempson/base16-vim'
 "" Completion
 Plug 'ludovicchabant/vim-gutentags'
 Plug 'skywind3000/gutentags_plus'
-Plug 'ajh17/VimCompletesMe'
-Plug 'neoclide/coc.nvim', {'do': 'yarn install --pure-lockfile'}
-" Plug 'neovim/nvim-lsp'
+" Plug 'ajh17/VimCompletesMe'
+"Plug 'neoclide/coc.nvim', {'do': 'yarn install --pure-lockfile'}
+"Plug 'neovim/nvim-lsp'
 
 if !has('nvim')
   Plug 'drmikehenry/vim-fixkey'
@@ -120,7 +121,20 @@ call plug#end()
 
 " ============================================= PLUGIN CONFIGURATION
 
-colorscheme base16-bright
+"" vim-bookmarks
+function! BookmarkMapKeys()
+    nmap mm :BookmarkToggle<CR>
+    nmap mi :BookmarkAnnotate<CR>
+    nmap mn :BookmarkNext<CR>
+    nmap mp :BookmarkPrev<CR>
+    nmap ma :BookmarkShowAll<CR>
+    nmap mc :BookmarkClear<CR>
+    nmap mx :BookmarkClearAll<CR>
+    nmap mkk :BookmarkMoveUp
+    nmap mjj :BookmarkMoveDown
+endfunction
+
+colorscheme base16-atlas
 
 "" UltiSnips
 let g:UltiSnipsJumpForwardTrigger="<c-b>"
@@ -217,7 +231,7 @@ function! s:show_documentation()
 endfunction
 
 " Highlight symbol under cursor on CursorHold
-autocmd CursorHold * silent call CocActionAsync('highlight')
+" autocmd CursorHold * silent call CocActionAsync('highlight')
 """
 " Remap for rename current word
 nmap <leader>rn <Plug>(coc-rename)
@@ -460,11 +474,12 @@ aug END
 
 "" AsyncRun
 noremap <F7> :wa<CR>:DeleteHiddenBuffers<CR>:CocRestart<CR>
-noremap <F8> :wa<CR>:AsyncStop<CR>:AsyncRun make install <CR><F7>
+noremap <F8> :wa<CR>:AsyncRun make install <CR><F7>
+noremap <F9> :AsyncStop<CR>
 inoremap <F7> <Esc><F7>i
 inoremap <F8> <Esc><F8>i
 noremap <F5> :AsyncRun make run
-nnoremap <c-q> :call asyncrun#quickfix_toggle(10)<cr>zz
+nnoremap <C-Space> :call asyncrun#quickfix_toggle(10)<cr>zz
 
 let g:asyncrun_open = 10
 let g:asyncrun_exit = "!zenity --notification --text 'AsyncRun complete'"
@@ -757,3 +772,4 @@ endfun
 cnoremap <silent> xa<CR>  :call ConfirmQuit('xa')<CR>
 cnoremap <silent> qa<CR>  :call ConfirmQuit('qa')<CR>
 
+vertical
