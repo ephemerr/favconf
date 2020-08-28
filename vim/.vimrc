@@ -1,4 +1,4 @@
-let $HOME      = "/home/me"
+let $HOME      = "/home/zheleznov"
 let $FAVHOME   = $HOME."/favconf"
 let $MYVIMRC   = $HOME."/favconf/vim/.vimrc"
 let $ZSHFILE   = $HOME."/favconf/zsh/.zshrc.local"
@@ -106,10 +106,10 @@ Plug 'jackguo380/vim-lsp-cxx-highlight'
 Plug 'chriskempson/base16-vim'
 
 "" Completion
-Plug 'ludovicchabant/vim-gutentags'
-Plug 'skywind3000/gutentags_plus'
+" Plug 'ludovicchabant/vim-gutentags'
+" Plug 'skywind3000/gutentags_plus'
 Plug 'ajh17/VimCompletesMe'
-Plug 'neoclide/coc.nvim'
+Plug 'neoclide/coc.nvim' , {'branch': 'release'}
 " Plug 'neovim/nvim-lsp'
 
 if !has('nvim')
@@ -120,7 +120,7 @@ call plug#end()
 
 " ============================================= PLUGIN CONFIGURATION
 
-colorscheme base16-bright
+colorscheme base16-atlas
 
 "" UltiSnips
 let g:UltiSnipsJumpForwardTrigger="<c-b>"
@@ -217,7 +217,7 @@ function! s:show_documentation()
 endfunction
 
 " Highlight symbol under cursor on CursorHold
-autocmd CursorHold * silent call CocActionAsync('highlight')
+"autocmd CursorHold * silent call CocActionAsync('highlight')
 """
 " Remap for rename current word
 nmap <leader>rn <Plug>(coc-rename)
@@ -344,11 +344,11 @@ command! -bang -nargs=* GGrep
       \ call fzf#vim#grep('git gr --line-number '.shellescape(<q-args>), 0, <bang>0)
 command! -bang -nargs=* Rg
       \ call fzf#vim#grep('rg --vimgrep '.shellescape(<q-args>), 0, <bang>0)
-command! -bang -nargs=? -complete=dir Files
-  \ call fzf#vim#files(<q-args>, fzf#vim#grep(), <bang>0)
+" command! -bang -nargs=? -complete=dir Files
+"   \ call fzf#vim#files(<q-args>, fzf#vim#grep(), <bang>0)
 
 nmap g~ :e $HOME<CR>
-nmap gp :Files<CR>
+nmap gp :GFiles<CR>
 nmap gh :History<CR>
 nmap gb :Buffers<CR>
 nmap gP :tabe<CR>:Files<CR>
