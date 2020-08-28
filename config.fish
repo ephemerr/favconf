@@ -42,6 +42,7 @@ function wd
   if [ -n "$NEW_DIR" ]; cd $NEW_DIR; end
 end
 
+alias vimdiff="vi -d"
 alias cbuild="cmake --build ."
 alias cinst="cmake --install ."
 alias diffuse="python2 /usr/bin/diffuse"
