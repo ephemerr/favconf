@@ -120,6 +120,19 @@ call plug#end()
 
 " ============================================= PLUGIN CONFIGURATION
 
+"" vim-bookmarks
+function! BookmarkMapKeys()
+    nmap mm :BookmarkToggle<CR>
+    nmap mi :BookmarkAnnotate<CR>
+    nmap mn :BookmarkNext<CR>
+    nmap mp :BookmarkPrev<CR>
+    nmap ma :BookmarkShowAll<CR>
+    nmap mc :BookmarkClear<CR>
+    nmap mx :BookmarkClearAll<CR>
+    nmap mkk :BookmarkMoveUp
+    nmap mjj :BookmarkMoveDown
+endfunction
+
 colorscheme base16-atlas
 
 "" UltiSnips
@@ -150,8 +163,8 @@ augroup EN
 " packadd! vimspector
 
 "" COC """""""""""""""""""""""""""""""""""""""""""
-let g:coc_extension_root="/home/azzel/.config/coc/extensions"
-let g:coc_start_at_startup = 0
+let g:coc_data_home = "$HOME/.config/coc"
+let g:coc_start_at_startup = 1
 
 " correct comment highlighting, add:
 autocmd FileType json syntax match Comment +\/\/.\+$+
@@ -341,11 +354,13 @@ noremap <S-F2> :FSSplitLeft<CR>
 let g:fzf_preview_window = ''
 
 command! -bang -nargs=* GGrep
-      \ call fzf#vim#grep('git gr --line-number '.shellescape(<q-args>), 0, <bang>0)
+  \ call fzf#vim#grep(
+  \   'git grep --line-number -- '.shellescape(<q-args>), 0,
+  \   fzf#vim#with_preview({'dir': systemlist('git rev-parse --show-toplevel')[0]}), <bang>0)
 command! -bang -nargs=* Rg
-      \ call fzf#vim#grep('rg --vimgrep '.shellescape(<q-args>), 0, <bang>0)
-" command! -bang -nargs=? -complete=dir Files
-"   \ call fzf#vim#files(<q-args>, fzf#vim#grep(), <bang>0)
+  \ call fzf#vim#grep(
+  \   'rg --column --line-number --no-heading --color=always --smart-case -- '.shellescape(<q-args>), 1,
+  \   fzf#vim#with_preview(), <bang>0)
 
 nmap g~ :e $HOME<CR>
 nmap gp :GFiles<CR>
@@ -458,11 +473,12 @@ aug END
 
 "" AsyncRun
 noremap <F7> :wa<CR>:DeleteHiddenBuffers<CR>:CocRestart<CR>
-noremap <F8> :wa<CR>:AsyncStop<CR>:AsyncRun make install <CR><F7>
+noremap <F8> :wa<CR>:AsyncRun make install <CR><F7>
+noremap <F9> :AsyncStop<CR>
 inoremap <F7> <Esc><F7>i
 inoremap <F8> <Esc><F8>i
 noremap <F5> :AsyncRun make run
-nnoremap <c-q> :call asyncrun#quickfix_toggle(10)<cr>zz
+nnoremap <C-Space> :call asyncrun#quickfix_toggle(10)<cr>zz
 
 let g:asyncrun_open = 10
 let g:asyncrun_exit = "!zenity --notification --text 'AsyncRun complete'"

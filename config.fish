@@ -33,7 +33,7 @@ set __fish_git_prompt_char_upstream_behind '-'
    set_color normal
  end
 
-set FZF_DEFAULT_COMMAND   'ag --nocolor -g "" -p ~/favconf/ag/agignore'
+set FZF_DEFAULT_COMMAND   'fag'
 set FZF_CTRL_T_COMMAND    "$FZF_DEFAULT_COMMAND"
 set FZF_ALT_C_COMMAND     "$FZF_DEFAULT_COMMAND"
 
@@ -42,16 +42,21 @@ function wd
   if [ -n "$NEW_DIR" ]; cd $NEW_DIR; end
 end
 
+alias cbuild="cmake --build ."
+alias cinst="cmake --install ."
+alias diffuse="python2 /usr/bin/diffuse"
 alias staff="svn diff > stash.diff"
 alias stapp="patch -Np 0 < stash.diff"
 alias st="~/favconf/svn-colorstat.py status"
 alias di="svn diff  | colordiff"
 alias make="make -j4"
 alias ja="cd (j --stat | head -n -7 | cut -f 2 | tac | fzf)"
-alias ctags="ctags -R --fields=+l --extra=+f --exclude=.gitignore"
+alias ctags="ctags -R --fields=+l --extras=+f --exclude=.gitignore"
 alias sdcv="sdcv --color"
 alias figr="find . | grep"
+alias figa="fa . | grep"
 alias ag="ag --vimgrep -p ~/favconf/ag/agignore"
+alias fa="ag --nocolor -g '' -p ~/favconf/ag/agignore"
 alias rg="rg --vimgrep --ignore-file ~/favconf/ag/agignore"
 alias dd="sudo dd bs=64K conv=noerror,sync status=progress"
 alias cp="rsync -avh --progress"
@@ -72,4 +77,6 @@ alias beep="echo -en "\a" > /dev/tty5"
 alias mc="mc -S ~/.mc/ini"
 
 source /usr/share/autojump/autojump.fish
+
+set PATH $PATH /snap/bin
 
