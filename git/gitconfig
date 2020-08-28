@@ -39,3 +39,9 @@
 	sslverify = false
 [credential]
 	helper = store
+[mergetool]
+	keepBackup = false
+	propmpt = false
+[merge]
+	conflictstyle = diff3
+	tool = vimdiff
