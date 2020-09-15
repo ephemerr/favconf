@@ -77,6 +77,10 @@ alias ccze="ccze -A"
 alias beep="echo -en "\a" > /dev/tty5"
 alias mc="mc -S ~/.mc/ini"
 
+# Ctrl Left/Right to move in dir history
+bind \e\[1\;5D prevd-or-backward-word
+bind \e\[1\;5C nextd-or-forward-word
+
 source /usr/share/autojump/autojump.fish
 
 set PATH $PATH /snap/bin ~/.local/bin
