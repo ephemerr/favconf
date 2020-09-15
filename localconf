@@ -13,3 +13,7 @@ ln -sf $FAV/config.fish             ~/.config/fish/config.fish
 ln -sf $FAV/nvim/init.vim           ~/.config/nvim/init.vim
 
 cp $FAV/vim/plug.vim                ~/.vim/autoload/
+
+mkdir ~/.mc
+ln -sf $FAV/mc/ini                  ~/.mc/ini
+
