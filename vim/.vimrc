@@ -534,6 +534,26 @@ let base16colorspace=256 " Access colors present in 256 colorspace
 set t_Co=256 " 256 color mode
 set termguicolors
 
+" ambience theme from terminator
+if has('nvim')
+  let g:terminal_color_0  = '#2e3436'
+  let g:terminal_color_1  = '#cc0000'
+  let g:terminal_color_2  = '#4e9a06'
+  let g:terminal_color_3  = '#c4a000'
+  let g:terminal_color_4  = '#3465a4'
+  let g:terminal_color_5  = '#75507b'
+  let g:terminal_color_6  = '#06989a'
+  let g:terminal_color_7  = '#d3d7cf'
+  let g:terminal_color_8  = '#555753'
+  let g:terminal_color_9  = '#ef2929'
+  let g:terminal_color_10 = '#8ae234'
+  let g:terminal_color_11 = '#fce94f'
+  let g:terminal_color_12 = '#729fcf'
+  let g:terminal_color_13 = '#ad7fa8'
+  let g:terminal_color_14 = '#34e2e2'
+  let g:terminal_color_15 = '#eeeeec'
+endif
+
 hi! link CocHighlightText Special
 
 hi! link CursorLine     clear
@@ -771,3 +791,10 @@ endfun
 cnoremap <silent> xa<CR>  :call ConfirmQuit('xa')<CR>
 cnoremap <silent> qa<CR>  :call ConfirmQuit('qa')<CR>
 
+" move over wrapped lines
+nnoremap <Down> gj
+nnoremap <Up> gk
+vnoremap <Down> gj
+vnoremap <Up> gk
+inoremap <Down> <C-o>gj
+inoremap <Up> <C-o>gk

@@ -79,5 +79,5 @@ alias mc="mc -S ~/.mc/ini"
 
 source /usr/share/autojump/autojump.fish
 
-set PATH $PATH /snap/bin
+set PATH $PATH /snap/bin ~/.local/bin
 
