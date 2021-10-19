@@ -6,10 +6,10 @@ set red (set_color red)
 set gray (set_color -o black)
 
 # Fish git prompt
-set __fish_git_prompt_showdirtystate 'yes'
-set __fish_git_prompt_showstashstate 'yes'
-set __fish_git_prompt_showuntrackedfiles 'yes'
-set __fish_git_prompt_showupstream 'yes'
+# set __fish_git_prompt_showdirtystate 'yes'
+# set __fish_git_prompt_showstashstate 'yes'
+# set __fish_git_prompt_showuntrackedfiles 'yes'
+# set __fish_git_prompt_showupstream 'yes'
 set __fish_git_prompt_color_branch yellow
 set __fish_git_prompt_color_upstream_ahead green
 set __fish_git_prompt_color_upstream_behind red
@@ -76,6 +76,7 @@ alias vit="pstree -p | grep -C 6  $fish_pid"
 alias ccze="ccze -A"
 alias beep="echo -en "\a" > /dev/tty5"
 alias mc="mc -S ~/.mc/ini"
+alias vi=nvim
 
 # Ctrl Left/Right to move in dir history
 bind \e\[1\;5D prevd-or-backward-word
@@ -84,4 +85,3 @@ bind \e\[1\;5C nextd-or-forward-word
 source /usr/share/autojump/autojump.fish
 
 set PATH $PATH /snap/bin ~/.local/bin
-

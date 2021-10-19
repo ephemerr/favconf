@@ -1,4 +1,4 @@
-let $HOME      = "/home/zheleznov"
+let $HOME      = "/home/me"
 let $FAVHOME   = $HOME."/favconf"
 let $MYVIMRC   = $HOME."/favconf/vim/.vimrc"
 let $ZSHFILE   = $HOME."/favconf/zsh/.zshrc.local"
@@ -106,11 +106,14 @@ Plug 'jackguo380/vim-lsp-cxx-highlight'
 Plug 'chriskempson/base16-vim'
 
 "" Completion
-" Plug 'ludovicchabant/vim-gutentags'
-" Plug 'skywind3000/gutentags_plus'
+Plug 'ludovicchabant/vim-gutentags'
+Plug 'skywind3000/gutentags_plus'
 Plug 'ajh17/VimCompletesMe'
 Plug 'neoclide/coc.nvim' , {'branch': 'release'}
 " Plug 'neovim/nvim-lsp'
+Plug 'davidhalter/jedi-vim'
+Plug 'jupyter-vim/jupyter-vim'
+Plug 'jpalardy/vim-slime'
 
 if !has('nvim')
   Plug 'drmikehenry/vim-fixkey'
@@ -119,6 +122,20 @@ endif
 call plug#end()
 
 " ============================================= PLUGIN CONFIGURATION
+
+"" Slime
+let g:slime_target = "neovim"
+let g:slime_python_ipython = 1
+let g:slime_cell_delimiter = "#%%"
+nmap <c-s><c-s> <Plug>SlimeSendCell
+function! OpenPy()
+    vs
+    wincmd w
+    term ipython
+    let t:slime_job = &channel
+    wincmd w
+    let b:slime_config["jobid"] = t:slime_job
+endfunction
 
 "" vim-bookmarks
 function! BookmarkMapKeys()
@@ -163,8 +180,8 @@ augroup EN
 " packadd! vimspector
 
 "" COC """""""""""""""""""""""""""""""""""""""""""
-let g:coc_data_home = "$HOME/.config/coc"
-let g:coc_start_at_startup = 1
+let g:coc_data_home="/home/me/.config/coc/extensions"
+let g:coc_start_at_startup = 0
 
 " correct comment highlighting, add:
 autocmd FileType json syntax match Comment +\/\/.\+$+
@@ -745,8 +762,8 @@ inoremap <C-S-K> <Esc>:m .-2<CR>==gi
 vnoremap <C-S-J> :m '>+1<CR>gv=gv
 vnoremap <C-S-K> :m '<-2<CR>gv=gv
 
-map <M-J> PgUp
-map <M-K> PgDown
+nnoremap <M-j> PgUp
+nnoremap <M-k> PgDown
 
 " ----------------------------------------------------------------------------
 " Open FILENAME:LINE:COL

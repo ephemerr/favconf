@@ -9,6 +9,7 @@
 	editor = vim
 	excludesfile = /home/azzel/.config/git/ignore_
 	pager = cat
+	filemode = false
 [alias]
   kommit = "!KOMIT_GIT_DIR=$(git rev-parse --git-dir); if [ -a "${KOMIT_GIT_DIR}/SQUASH_MSG" ] ; then rm "${KOMIT_GIT_DIR}/SQUASH_MSG" ; fi && git commit"
   co = !git checkout $(git br | fzf | awk '{print $1}')
