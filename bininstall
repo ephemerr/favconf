@@ -1,5 +1,8 @@
 #!/bin/bash
-declare -r FAV="/home/azzel/favconf"
+# install:
+# ctags htop autojump fzf neovim neovim-remote fish xbindkeys xclip wmctrl scrot ag gdb-dashboard rsync enca diffuse kdiff3 meld sdcv gpartedjgbпии 
+
+declare -r FAV="/home/me/favconf"
 
 ln -sf $FAV/lawk/lawk   /usr/local/bin/lawk       
 ln -sf $FAV/gitcommit   /usr/local/bin/gitcommit  

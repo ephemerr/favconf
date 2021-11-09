@@ -53,11 +53,11 @@
 # Main utils
 "xfce4-terminal"
     Mod4 + F1
-"pcmanfm"
+"thunar"
     Mod4 + F2
-"chromium"
+"firefox"
     Mod4 + F3
-"virtualbox"
+""
     Mod4 + F7
 "telegram-desktop"
     Mod4 + F8
@@ -70,7 +70,7 @@
    Mod4 + Shift + p
 
 "dmenu_run -fn 'terminus:size=16'"
-    Mod1 + F2
+    Mod4 + Super_L
 
 # Window managment
 "wmctrl -c :ACTIVE:"
@@ -79,12 +79,11 @@
     Mod4 + Next
 "p2left"
     Mod4 + Prior
-#"wmctrl -r :ACTIVE: -b toggle,maximized_vert"
-#    Mod4 + End
+"wmctrl -r :ACTIVE: -b toggle,fullscreen"
+    Mod4 + Return
 
 "scrot"
-    m:0x0 + c:107
-    Print
+    Mod4 + Print
 
 #"xterm -geom 50x20+20+20"
 #   Shift+Mod2+alt + s
