@@ -7,7 +7,7 @@
 	encoding = utf-8
 [core]
 	editor = vim
-	excludesfile = /home/azzel/.config/git/ignore_
+	excludesfile = /home/user/.config/git/ignore_
 	pager = cat
 	filemode = false
 [alias]

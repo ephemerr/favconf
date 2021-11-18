@@ -1,4 +1,4 @@
-let $HOME      = "/home/me"
+let $HOME      = "/home/user"
 let $FAVHOME   = $HOME."/favconf"
 let $MYVIMRC   = $HOME."/favconf/vim/.vimrc"
 let $ZSHFILE   = $HOME."/favconf/zsh/.zshrc.local"
@@ -161,12 +161,16 @@ call textobj#uri#add_pattern('', "\\v'[^']+'", 'idrop %s')
 call textobj#uri#add_pattern('', "\\v[^ '\"]+", 'idrop %s')
 
 "" Dirvish
-map <F4> <Plug>(dirvish_up)
+map gk <Plug>(dirvish_up)
+map g<up> gk<up><CR>
+map g<down> gk<down><CR>
 map gt :let $CURDIR=expand('%:p:h')<CR>:tabe<CR>:terminal<CR>icd $CURDIR<CR>
 tmap jj <c-\><c-n>
 
 "" vim-terminal-help
 let g:terminal_edit="edit"
+let g:terminal_key="<c-=>"
+let g:terminal_height=15
 
 augroup MyTermMappings
   autocmd!
@@ -525,7 +529,7 @@ noremap <F9> :AsyncStop<CR>
 inoremap <F7> <Esc><F7>i
 inoremap <F8> <Esc><F8>i
 noremap <F5> :AsyncRun make run
-nnoremap <C-Space> :call asyncrun#quickfix_toggle(10)<cr>zz
+nnoremap <Space><Space> :call asyncrun#quickfix_toggle(10)<cr>zz
 
 let g:asyncrun_open = 10
 let g:asyncrun_exit = "!zenity --notification --text 'AsyncRun complete'"
@@ -543,9 +547,9 @@ inoremap <Backspace> <Left><Delete>
 noremap xx "_dd
 noremap x "_d
 noremap X "_D
-" for multiple replaces
-vnoremap p p:let @+=@0 <CR>
-vnoremap P P:let @+=@0 <CR>
+" for vnoremap replaces
+vnoremap p p:let @"=@0 <CR>
+vnoremap P P:let @"=@0 <CR>
 noremap <leader>p :!echo <C-r>*
 nnoremap <M-p> "*P
 " Make shift-insert work like in Xterm
@@ -571,7 +575,7 @@ set formatoptions=cq "t
 
 " Trailing-whitespace
 hi! link ExtraWhitespace Visual
-autocmd FileType vim,js,qml,c,cpp,java,php,ruby,python autocmd BufWritePre <buffer> :FixWhitespace
+autocmd FileType vim,cmake,js,qml,c,cpp,java,php,ruby,python autocmd BufWritePre <buffer> :FixWhitespace
 
 
 "" Colors
@@ -756,7 +760,6 @@ nnoremap th  :tabfirst<CR>
 nnoremap tk  :tabnext<CR>
 nnoremap tj  :tabprev<CR>
 nnoremap tl  :tablast<CR>
-nnoremap tt  :tabedit<Space>
 nnoremap tn  :tabnext<Space>
 nnoremap tm  :tabm<Space>
 nnoremap td  :tabclose<CR>
@@ -845,3 +848,8 @@ vnoremap <Down> gj
 vnoremap <Up> gk
 inoremap <Down> <C-o>gj
 inoremap <Up> <C-o>gk
+
+" open new line and return from insert mode
+nnoremap <M-o> o<Esc>
+
+
