@@ -83,6 +83,7 @@ Plug 'skywind3000/vim-terminal-help'
 
 " ++++++ Development
 
+" Plug 'Yggdroot/indentLine'
 Plug 'tomtom/tcomment_vim'
 Plug 'majutsushi/tagbar' ", { 'on': 'TagbarToggle' }
 Plug 'derekwyatt/vim-fswitch'
@@ -161,21 +162,24 @@ call textobj#uri#add_pattern('', "\\v[^ '\"]+", 'idrop %s')
 
 "" Dirvish
 map gk <Plug>(dirvish_up)
+map gj gf
 map g<up> gk<up><CR>
 map g<down> gk<down><CR>
-map gt :let $CURDIR=expand('%:p:h')<CR>:tabe<CR>:terminal<CR>icd $CURDIR<CR>
+" map gt let $CURDIR=expand('%:p:h')<CR>:tabe<CR>:terminal<CR>icd $CURDIR<CR>
+map gt :vs<Cr>:let $CURDIR=expand('%:p:h')<CR><c-w>w:terminal<CR>icd $CURDIR<CR>
 tmap jj <c-\><c-n>
 
 "" vim-terminal-help
 let g:terminal_edit="edit"
-let g:terminal_key="<c-=>"
+let g:terminal_key="tt"
 let g:terminal_height=15
 
 augroup MyTermMappings
   autocmd!
   autocmd TermOpen * nmap <buffer> <M-Enter> yaui<c-u>drop ./<c-\><c-n>pi<CR>
-  autocmd TermOpen * nmap r i<c-u>drop .<CR>
-  " autocmd TermOpen * nmap r i<c-c><c-\><c-n>Vy :e <c-r>" <CR>
+  autocmd TermOpen * nmap r :vs<CR>i<c-u>drop .<CR>
+  " autocmd TermOpen * nmap <c-w> i<c-d>
+  " autocmd TermOpen * nmap <s-r> i<c-u>pwd<CR>jj0jVyi<c-d><CR>:tabe <c-r>"<CR>
 augroup EN
 
 "" Vimspector
@@ -244,7 +248,8 @@ nmap <silent> [g <Plug>(coc-diagnostic-prev)
 nmap <silent> ]g <Plug>(coc-diagnostic-next)
 
 " Remap keys for gotos
-nmap <silent> gd <Plug>(coc-definition)<CR>
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gD <Plug>(coc-declaration)
 nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
@@ -355,7 +360,7 @@ autocmd FileType cpp let b:vcm_tab_complete = 'none'
 
 "" Ack
 "let g:ackprg = 'rg --vimgrep --ignore-file ~/favconf/ag/agignore'
-let g:ackprg = 'ag --vimgrep -p ~/favconf/ag/agignore'
+let g:ackprg = 'ag --vimgrep '
 "
 """" Lightline
 """let g:lightline = {
@@ -452,6 +457,7 @@ let g:gutentags_cache_dir = expand('~/.cache/tags')
 " change focus to quickfix window after search (optional).
 let g:gutentags_plus_switch = 1
 
+" let g:gutentags_ctags_exclude = ['build/']
 
 "" Gutentags_plus
 nmap <c-g> viwy<c-c>:GscopeFind<Space>s<Space><c-r>"<CR><c-c><c-c>
@@ -476,9 +482,9 @@ nmap ga <Plug>(EasyAlign)
 "=============================================  GENERAL
 
 "" Tabbing and indentation
-set tabstop=4
-set shiftwidth=4
-set softtabstop=4
+set tabstop=2
+set shiftwidth=2
+set softtabstop=2
 set expandtab
 "set cindent
 "set backspace=indent,eol
