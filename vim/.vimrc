@@ -165,19 +165,19 @@ map gk <Plug>(dirvish_up)
 map gj gf
 map g<up> gk<up><CR>
 map g<down> gk<down><CR>
-" map gt let $CURDIR=expand('%:p:h')<CR>:tabe<CR>:terminal<CR>icd $CURDIR<CR>
-map gt :vs<Cr>:let $CURDIR=expand('%:p:h')<CR><c-w>w:terminal<CR>icd $CURDIR<CR>
+map gt :let $CURDIR=expand('%:p:h')<CR>:tabe<CR>:terminal<CR>icd $CURDIR<CR>
+map ght :vs<CR>:let $CURDIR=expand('%:p:h')<CR><c-w>w:terminal<CR>icd $CURDIR<CR>
 tmap jj <c-\><c-n>
 
 "" vim-terminal-help
 let g:terminal_edit="edit"
-let g:terminal_key="tt"
+let g:terminal_key="<c-t>"
 let g:terminal_height=15
 
 augroup MyTermMappings
   autocmd!
   autocmd TermOpen * nmap <buffer> <M-Enter> yaui<c-u>drop ./<c-\><c-n>pi<CR>
-  autocmd TermOpen * nmap r :vs<CR>i<c-u>drop .<CR>
+  autocmd TermOpen * nmap <buffer> gk :vs<CR>i<c-u>drop .<CR>
   " autocmd TermOpen * nmap <c-w> i<c-d>
   " autocmd TermOpen * nmap <s-r> i<c-u>pwd<CR>jj0jVyi<c-d><CR>:tabe <c-r>"<CR>
 augroup EN
@@ -481,17 +481,6 @@ nmap ga <Plug>(EasyAlign)
 
 "=============================================  GENERAL
 
-"" Tabbing and indentation
-set tabstop=2
-set shiftwidth=2
-set softtabstop=2
-set expandtab
-"set cindent
-"set backspace=indent,eol
-filetype plugin indent on
-filetype plugin on
-
-
 "" Windows & buffers
 set autowrite   " Automatically save before commands like :next and :make
 "set autoread
@@ -500,7 +489,6 @@ set sessionoptions=folds,tabpages,winsize "no buffers
 set nosplitright
 set splitbelow
 nnoremap <c-z> <nop>
-nnoremap <c-t> :tabe<CR>
 " Jump to the last position when reopening a file
 if has("autocmd")
   au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
@@ -511,8 +499,8 @@ autocmd BufWinEnter wincmd H
 
 "" Folding
 set foldmethod=syntax
-set foldnestmax=1
-set foldlevelstart=1
+set foldnestmax=2
+set foldlevelstart=2
 hi Folded ctermbg=none
 let g:xml_syntax_folding=1
 au FileType xml setlocal foldmethod=syntax
@@ -521,11 +509,18 @@ au FileType xml setlocal foldmethod=syntax
 command! CocCleanBufRestart call DeleteHiddenBuffers() | CocRestart
 command! DeleteHiddenBuffers call DeleteHiddenBuffers()
 
+" close qf window if it is the last open window
 aug QFClose
   au!
   au WinEnter * if winnr('$') == 1 && &buftype == "quickfix"|q|endif
 aug END
 
+" prevent <c-o> in quickfix window
+augroup QuickFix
+     au!
+     au FileType qf map <buffer> <c-o> <c-w>w
+     au WinLeave * if &buftype == "quickfix"|map <c-o> <c-o>|endif
+augroup END
 
 "" AsyncRun
 noremap <F7> :wa<CR>:DeleteHiddenBuffers<CR>:CocRestart<CR>
@@ -534,7 +529,7 @@ noremap <F9> :AsyncStop<CR>
 inoremap <F7> <Esc><F7>i
 inoremap <F8> <Esc><F8>i
 noremap <F5> :AsyncRun make run
-nnoremap <Space><Space> :call asyncrun#quickfix_toggle(10)<cr>zz
+nnoremap <Space>q :call asyncrun#quickfix_toggle(10)<cr>zz
 
 let g:asyncrun_open = 10
 let g:asyncrun_exit = "!zenity --notification --text 'AsyncRun complete'"
@@ -713,8 +708,8 @@ autocmd BufReadPost quickfix nnoremap <buffer> <CR> :.cc<CR><C-W><C-W>
 " search in files word under cursor uses fugitive, vv and **
 nmap <c-f> :cclose<CR>viwy**:Ack <c-r>"<CR>
 vmap <c-f> y:cclose<CR>:Ack '<c-r>"'<CR>
-nmap <M-f> viwy**<c-t>:Ack <c-r>"<CR>
-vmap <M-f> y<c-t>: Ack '<c-r>"'<CR>
+nmap <M-f> viwy**gn:Ack <c-r>"<CR>
+vmap <M-f> ygn: Ack '<c-r>"'<CR>
 command! CountMatches %s///gn
 
 
@@ -735,8 +730,8 @@ command! W w
 command! Q q
 
 "" Stop unwanted scrolling during selection
-vnoremap <S-up> <up>
-vnoremap <S-down> <down>
+" vnoremap <S-up> <up>
+" vnoremap <S-down> <down>
 
 
 "" Allow saving of files as sudo when I forgot to start vim using sudo.
@@ -858,3 +853,13 @@ inoremap <Up> <C-o>gk
 nnoremap <M-o> o<Esc>
 
 
+"" Tabbing and indentation
+set tabstop=2
+set softtabstop=2
+set expandtab
+"set cindent
+"set backspace=indent,eol
+filetype plugin indent on
+filetype plugin on
+
+set shiftwidth=2
