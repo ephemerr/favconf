@@ -85,6 +85,15 @@
 "scrot"
     Mod4 + Print
 
+"setxkbmap us"
+    Mod4 + 1
+
+"setxkbmap ru,us"
+    Mod4 + 2
+
+"setxkbmap il,us"
+    Mod4 + 3
+
 #"xterm -geom 50x20+20+20"
 #   Shift+Mod2+alt + s
 #

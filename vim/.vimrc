@@ -161,7 +161,7 @@ call textobj#uri#add_pattern('', "\\v'[^']+'", 'idrop %s')
 call textobj#uri#add_pattern('', "\\v[^ '\"]+", 'idrop %s')
 
 "" Dirvish
-map <F4> <Plug>(dirvish_up)
+map gk <Plug>(dirvish_up)
 map gt :let $CURDIR=expand('%:p:h')<CR>:tabe<CR>:terminal<CR>icd $CURDIR<CR>
 tmap jj <c-\><c-n>
 
@@ -171,7 +171,7 @@ let g:terminal_edit="edit"
 augroup MyTermMappings
   autocmd!
   autocmd TermOpen * nmap <buffer> <M-Enter> yaui<c-u>drop ./<c-\><c-n>pi<CR>
-  autocmd TermOpen * nmap r i<c-u>drop .<CR>
+  autocmd TermOpen * nmap <buffer> gk i<c-u>drop .<CR>
   " autocmd TermOpen * nmap r i<c-c><c-\><c-n>Vy :e <c-r>" <CR>
 augroup EN
 
