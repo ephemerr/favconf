@@ -43,9 +43,9 @@
     XF86PowerOff
 "wireless_switch"
     Shift + F8
-"amixer set Master 5dB+"
+"amixer -D pulse sset Master 10%+"
     XF86AudioRaiseVolume
-"amixer set Master 5dB-"
+"amixer -D pulse sset Master 10%-"
     XF86AudioLowerVolume
 "amixer sset Master toggle"
     XF86AudioMute

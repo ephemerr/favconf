@@ -15,13 +15,14 @@
 \sloppy
 
 \usepackage{ucs}
-\usepackage[utf8]{inputenc}
-\usepackage[english,hebrew]{babel}
+% \usepackage[utf8]{inputenc}
+% \usepackage[english,hebrew]{babel}
 \usepackage{fancyhdr}
 \usepackage[colorlinks=true,hidelinks]{hyperref}
 \usepackage{ushort}
 \usepackage{textcase}
 \usepackage{tabularx}
+\usepackage{multicol}
 \usepackage{colortbl}
 \usepackage{graphicx}
 \usepackage[x11names]{xcolor}
@@ -32,7 +33,7 @@
 \pagestyle{fancy}
 \fancyhead{}
 \fancyfoot{}
-\fancyfoot[RO,RE] {\thepage}
+% \fancyfoot[RO,RE] {\thepage}
 \renewcommand{\headrulewidth}{0pt}
 \renewcommand{\footrulewidth}{0pt}
 
@@ -44,33 +45,32 @@
 
 \newcommand{\cvpart}[1]{%
 \vspace{-1em}%
-\section*{\Large\bfseries\MakeTextUppercase{#1}}%
+\section*{\large\bfseries\MakeTextUppercase{#1}}%
 \vspace{-1em}%
 \rule{\linewidth}{0.3em}\\[-.3em]%
 }
 
 \begin{document}
-
-\begin{centering}
-\begin{minipage}{0.70\linewidth}%
-\vspace{-3em}{\Huge\bfseries Alexander Zheleznov}
+\begin{flushleft}
+\vspace{-3em}{\Huge\bfseries Alexander Zheleznov }
 
 ~\\[-.5em]
+\begin{multicols}{2}
 
-\hspace{1.9em}\begin{tabularx}{\linewidth}{ll}
+\section*{\Large\bfseries Sr Software Engeneer}%
+\columnbreak
+\begin{tabularx}{\linewidth}{ll}
 {\it E-mail:}		& a.zheleznov@gmail.com\\
-{\it Phone:}	        & {\small +972586890662} \\
+{\it Phone:}	    & {\small +972586890662} \\
+{\it Location:}		& Jerusalem\\
+{\it LinkedIn:}		& linkedin.com/in/alexander-v-zheleznov\\
 % ~\\[-1.0em] 
 % {\it Address:}	    % & 1118\, Zelenograd\, Apt. 100\\124460\\
 %                     & Moscow, Russia\\
-
-~\\[-1.0em]
 % {\it Date of birth:}	& 12 June 1985\\
 % {\it Marital status:}& married\\
-    {\it Citizenship:} & Israeli, Russian \\
-    {\it Languages spoken:}& English (upper intermediate), Russian (native), Hebrew (אап)\\
+    % {\it Citizenship:} & Israeli, Russian \\
 \end{tabularx}
-\end{minipage}
 % \begin{minipage}{0.23\linewidth}%
 % \begin{flushright}
 % \includegraphics[width=30mm]{me.jpg}
@@ -83,13 +83,14 @@
 % }%
 % \end{flushright}
 % \end{minipage}
-\end{centering}
-~\\[1.5em]
-
+\end{multicols}
+\end{flushleft}
 
 \cvpart{Summary}
-
-I am a C++ and Python Software Developer.
+~\\
+I am a passionate software developer since middle school when I've learned  C/C++. 
+I have workerd in different fields and now I'm familiar with a number of software and data technologies and I am a continuous learner.
+% I particularly love working with sport data.
 I've recently made my Aliyah and in search of my first job in Israel.
 
 ~\\
@@ -111,16 +112,61 @@ I've recently made my Aliyah and in search of my first job in Israel.
 % \end{itemize}
 
 
-\cvpart{Technical skills}
-\begin{description}
-\item[Programming languages:]~C/C++,~Python,~SQL,~Qt/QML,~Bash,~HTML/CSS/JS.
-\item[General developer tools:]~git,~SVN,~vim,~Docker,~Jira,~Latex
-% \item[C++ developer tools:]~CMake,~valgrind,~GCC,~clang,~gdb 
-\item[General developer skills:]~OOP,~Algorithms,~Unit~Tests,~Debugging,~Agile
-\item[Data Science tools: ]~pandas,~NumPy,~scikit-learn,~H{\footnotesize 2}0,~KNIME
-\item[General DataScience skills:] ~Machine~Learning,~Data~Visualisation
-\item[Advanced user of operating systems:]~Ubuntu,~Arch,~MSDOS,~Windows~98/XP/7/10.
-\end{description}
+\cvpart{Professional Experience as Software Engeneer}
+
+% {\bf
+% 2022~--- Football Club Sochi, Sochi, Russian Federation. (Internship) \\ 
+% }
+% \begin{itemize}
+%     \item  Building ML models for determining outstanding players for the youth league (pandas, KNIME, H2O, scikit-learn, wyscout).
+% \end{itemize}
+
+{\bf
+2021~--- 2022 International Processing Systems (Online payment solutions).
+}
+\begin{itemize}
+    \item Backend  development for internet banking (C++/Boost).
+\end{itemize}
+
+{\bf
+2020~--- 2021 Medialooks (Video SDK).
+}
+\begin{itemize}
+    \item Development of Windows video tools (MSVisualStudio, ATL/COM).
+\end{itemize}
+
+{\bf
+2019~--- 2020 Elins (Military control and measurement devices).
+}
+\begin{itemize}
+    \item Development of crossplatform desktop applications for Windows/Linux (Qt, CMake).
+    \item Development of UnrealEngine Plugins (UE4, gstreamer, WebRTC).
+\end{itemize}
+
+{\bf
+2017~--- 2019 Prosoft Biometrics (Biometrical scaners and solutions).
+}
+\begin{itemize}
+    \item Development of applications for Raspberry Pi like SoM. (Qt/QML, sqlite, Bash)
+    \item Development of web applications. (Python, Flask, AngularJS)
+\end{itemize}
+
+{\bf
+2012~--- 2016 CSPA Leninetz (Radars and solutions in avionics)
+}
+
+\begin{itemize}
+    \item Research and develop algorithms for aricraft navigation system.
+    % \item Real-time inter process communication(IPC) development for on-board control system (ARINC--429, RapidIO, OS2000, 0S3000).
+%\item Cross-platform devdelopment for on board (MIPS64) and testing (x86) systems(C, GNU toolchain).
+    \item Developing unit tests for on board code (C, GNU toolchain, CppUtest).
+    % \item Porting on-board control system legacy code from MIPS64 to x86 (C, GNU toolchain).
+    \item Development of GPS navigation client application (Qt). 
+%    \item Debugging and profiling of applications. (gdb, gprof).
+%\item API design and writing documentation for interprocessor interaction framework (C99, doxygen).
+%\item Software integration~--- developing test stand for on-board system certification (C, shell).
+\end{itemize}
+
 
 ~\\
 
@@ -131,69 +177,25 @@ I've recently made my Aliyah and in search of my first job in Israel.
        % Faculty:& Applied Mathematics and Control Processes\\
     % Department:& Higher Mathematics\\
         Degree:& Specialist's degree in Applied Mathematics and Information Technology\\  
-    &~\\[.5em]
-          2021:& Financial University under the Government of the Russian Federation  \\
-       Subject:& Data Analysis \\ 
-         Hours:& 144
+    % &~\\[-.4em]
+    %       2021:& Financial University under the Government of the Russian Federation  \\
+    %    Subject:& Data Analysis \\ 
+         % Hours:& 144
 \end{tabularx}
 
 ~\\
 
-\cvpart{Professional Experience}
+\cvpart{Skills}
+\begin{description}
+\item[Programming languages:]~C/C++,~Python,~SQL,~Qt/QML,~Bash,~HTML/CSS/JS,~Lua
+\item[General developer tools:]~git,~SVN,~vim,~Docker,~Jira,~Latex,~SSH,~virtualbox
+% \item[C++ developer tools:]~CMake,~valgrind,~GCC,~clang,~gdb 
+\item[General developer skills:]~OOP,~Algorithms,~Unit~Tests,~Remote~debugging,~Agile
+% \item[Data tools: ]~pandas,~NumPy,~scikit-learn,~H{\footnotesize 2}0,~KNIME
+% \item[General Data skills:] ~Machine~Learning,~Data~Visualisation
+\item[Advanced user of operating systems:]~Ubuntu,~Arch,~MSDOS,~Windows~98/XP/7/10
+\item[Languages spoken:]~English(upper~intermediate),~Hebrew(basic)
 
-% {\bf
-% Football Club Sochi, Sochi, Russian Federation. \\ 
-% Data Analyst. Internship.\\
-% 2022
-% }
-% \begin{itemize}
-%     \item Building ML models for determining outstanding players for the youth league (pandas, KNIME, H2O, scikit-learn, wyscout).
-% \end{itemize}
-%
-{\bf
-2021~--- 2022 International Processing Systems.
-}
-\begin{itemize}
-    \item Backend  development for internet banking (C++/Boost).
-\end{itemize}
-
-{\bf
-2020~--- 2021 Medialooks.
-}
-\begin{itemize}
-    \item Development Windows video tools (MSVisualStudio, ATL/COM).
-\end{itemize}
-
-{\bf
-2019~--- 2020 Elins.
-}
-\begin{itemize}
-    \item Development of desktop applications for Windows/Linux (Qt, CMake).
-    \item Development of UnrealEngine Plugins (UE4, gstreamer, WebRTC).
-\end{itemize}
-
-{\bf
-2017~--- 2019 Prosoft Biometrics.
-}
-\begin{itemize}
-    \item Development of applications for Raspberry Pi like SoM. (Qt/QML, sqlite, Bash)
-    \item Development of web applications. (Python, Flask, AngularJS)
-\end{itemize}
-
-{\bf
-2012~--- 2016 CSPA Leninetz.
-}
-
-\begin{itemize}
-    \item Algorithm design and crossplatform implementation for aricraft navigation system.
-    % \item Real-time inter process communication(IPC) development for on-board control system (ARINC--429, RapidIO, OS2000, 0S3000).
-%\item Cross-platform devdelopment for on board (MIPS64) and testing (x86) systems(C, GNU toolchain).
-    \item Developing unit tests for on board code (C, GNU toolchain, CppUtest).
-    % \item Porting on-board control system legacy code from MIPS64 to x86 (C, GNU toolchain).
-    \item Development of GPS navigation client application (Qt). 
-%    \item Debugging and profiling of applications. (gdb, gprof).
-%\item API design and writing documentation for interprocessor interaction framework (C99, doxygen).
-%\item Software integration~--- developing test stand for on-board system certification (C, shell).
-\end{itemize}
+\end{description}
 
 \end{document}
