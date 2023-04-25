@@ -3,7 +3,17 @@ declare -r FAV=~/favconf
 ln -sf $FAV/git/.gitignore          ~/
 ln -sf $FAV/git/gitconfig          ~/.gitconfig
 ln -sf $FAV/vim/.vimrc              ~/
-ln -sf $FAV/vim/darktooth.vim       ~/.vim/after/plugin/darktooth.vim
-ln -sf $FAV/vim/darktooth.vim       ~/.vim/colors
-ln -sf $FAV/xbk/xbindkeysrc         ~/.xbindkeysrc
-ln -sf $FAV/zsh/.zshrc.local        ~/.zshrc.local
+
+#ln -sf $FAV/xbk/xbindkeysrc         ~/.xbindkeysrc
+#ln -sf $FAV/zsh/.zshrc.local        ~/.zshrc.local
+ln -sf $FAV/config.fish             ~/config.fish
+ln -sf $FAV/config.fish             ~/.config/fish/config.fish
+
+#mkdir ~/.config/nvim
+ln -sf $FAV/nvim/init.vim           ~/.config/nvim/init.vim
+
+cp $FAV/vim/plug.vim                ~/.vim/autoload/
+
+mkdir ~/.mc
+ln -sf $FAV/mc/ini                  ~/.mc/ini
+

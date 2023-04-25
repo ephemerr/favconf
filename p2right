@@ -1,3 +1,4 @@
 #!/bin/bash
 wmctrl -r :ACTIVE: -b remove,maximized_vert 
-wmctrl -r :ACTIVE: -e '0,960,0,960,1135' 
+wmctrl -r :ACTIVE: -b remove,maximized_horz
+wmctrl -r :ACTIVE: -e '0,683,0,683,720' 

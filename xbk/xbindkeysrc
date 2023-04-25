@@ -43,12 +43,12 @@
     XF86PowerOff
 "wireless_switch"
     Shift + F8
+"amixer set Master 5dB+"
+    XF86AudioRaiseVolume
 "amixer set Master 5dB-"
-    Shift + F10
-"amixer set Master 5dB-"
-    Shift + F11
-"amixer sset Speaker Mix DAC2SPK toggle"
-    Shift + F12
+    XF86AudioLowerVolume
+"amixer sset Master toggle"
+    XF86AudioMute
 
 # Main utils
 "xfce4-terminal"
@@ -73,8 +73,8 @@
     Mod1 + F2
 
 # Window managment
-#"wmctrl -c :ACTIVE:"
-#    Mod1 + F4
+"wmctrl -c :ACTIVE:"
+    Mod1 + F4
 "p2right"
     Mod4 + Next
 "p2left"

@@ -7,13 +7,17 @@
 	encoding = utf-8
 [core]
 	editor = vim
-	excludesfile = /home/azzel/.config/git/ignore
+	excludesfile = /home/azzel/.config/git/ignore_
 	pager = cat
+	filemode = false
 [alias]
-  check = checkout
+  kommit = "!KOMIT_GIT_DIR=$(git rev-parse --git-dir); if [ -a "${KOMIT_GIT_DIR}/SQUASH_MSG" ] ; then rm "${KOMIT_GIT_DIR}/SQUASH_MSG" ; fi && git commit"
+  co = !git checkout $(git br | fzf | awk '{print $1}')
   pick = cherry-pick
-  br = branch --sort=committerdate -v
+  br = branch --sort=committerdate -v 
+  has = branch --sort=committerdate -va --contains
 	gr = grep -I --recurse-submodules
+  wl = worktree list
 	pre = log -10 --pretty=format:'%C(yellow)%h %Cred%ad %Cblue%an%Cgreen%d %Creset%s' --date=short
 	who-added = log --diff-filter=A
   who-changed = log -1 --diff-filter=M
@@ -23,9 +27,22 @@
   sr-reinit = "!sr-reinit.sh $1"
   sr-reremote = "!sr-reremote.sh $1"
   sr = "subrepo"
+  forere = "rerere forget"
+  subclean = "submodule foreach --recursive 'git reset --hard && git clean -f'"
 [status]
 	submoduleSummary = true
 [diff]
 	submodule = diff
+	tool = vimdiff
 [rerere]
 	enabled = true
+[http]
+	sslverify = false
+[credential]
+	helper = store
+[mergetool]
+	keepBackup = false
+	propmpt = false
+[merge]
+	conflictstyle = diff3
+	tool = vimdiff

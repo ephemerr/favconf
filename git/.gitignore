@@ -14,7 +14,6 @@
 *.cmake
 CMakeFiles/*
 CMakeCache.txt
-.sfvf
 tags
 cscope*
 *.out
@@ -24,7 +23,11 @@ GPATH
 GTAGS
 GRTAGS
 GSYMS
-utest
-core
 .session.vim
-files/addons
+*.orig
+.root
+.clangd
+compile_commands.json
+types_c.taghl
+*.autosave
+*.gdb_history

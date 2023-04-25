@@ -1,5 +1,11 @@
+types_c.taghl
+compile_commands.json
 lib*.so
 */.obj/*
+tests/*
+util/*
+fftw/*
+bower_components/*
 *.png
 *.ttf
 *.bin
@@ -10,3 +16,9 @@ lib*.so
 *.css
 *.js.map
 *.min.js*
+*.orig
+tags
+*.cmake
+CMakeFiles/*
+moc*.cpp
+Makefile

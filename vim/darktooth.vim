@@ -20,7 +20,10 @@ hi link Delimiter    Statement
 hi link Namespace    Type
 hi link EnumConstant Constant
 
-hi DiffAdd	  ctermfg = Black
-hi DiffChange ctermfg = Black
-hi DiffText   ctermfg = Black
-hi DiffDelete ctermfg = Black 
+
+highlight DiffAdd    cterm=bold ctermfg=Black ctermbg=Grey gui=none guifg=bg guibg=Red
+highlight DiffDelete cterm=bold ctermfg=Black ctermbg=Grey gui=none guifg=bg guibg=Red
+highlight DiffChange cterm=bold ctermfg=Black ctermbg=Grey gui=none guifg=bg guibg=Red
+highlight DiffText   cterm=bold ctermfg=Black ctermbg=Red gui=none guifg=bg guibg=Red
+
+" let g:ag.ignore_list="/home/azzel/favconf/ag/agignore"

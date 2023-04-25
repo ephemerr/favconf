@@ -1,19 +1,20 @@
 #!/bin/bash -x
 
-# forward traffic on the same $IF for one particular $ADDR, acting as gateway
+# forward traffic on from $IF to $ADDR and vice-versa
+
+IF="enp4s0"
+ADDR="$1"
 
 function redirect {
-  iptables -A FORWARD -i $IF -o $IF -d $1 -m state --state ESTABLISHED,RELATED -j ACCEPT
-  iptables -A FORWARD -i $IF -o $IF -s $1 -j ACCEPT
-  iptables -t nat -A POSTROUTING -s $1 -j MASQUERADE
+  iptables -A FORWARD -i $IF -d $ADDR -m state --state ESTABLISHED,RELATED -j ACCEPT
+  iptables -A FORWARD -o $IF -s $ADDR -j ACCEPT
+  iptables -t nat -A POSTROUTING -s $ADDR -j MASQUERADE
 }
 
 modprobe nf_conntrack
 # modprobe nf_conntrack_ipv4
 modprobe nf_nat
 modprobe iptable_nat
-
-IF="enp4s0"
 
 echo "1" > /proc/sys/net/ipv4/ip_forward
 echo "1" > /proc/sys/net/ipv4/ip_dynaddr
@@ -26,4 +27,4 @@ iptables -P FORWARD DROP
 iptables -F FORWARD
 iptables -t nat -F
 
-redirect $1
+redirect
