@@ -1,6 +1,8 @@
 #!/bin/bash
 # install:
-# ctags htop autojump fzf neovim neovim-remote fish xbindkeys xclip wmctrl scrot ag gdb-dashboard rsync enca diffuse kdiff3 meld sdcv gpartedjgbпии 
+# git ctags htop autojump fzf neovim neovim-remote fish ag rsync enca 
+# gdb-dashboard sdcv 
+# xclip wmctrl scrot diffuse kdiff3 meld gparted xbindkeys 
 
 declare -r FAV="/home/me/favconf"
 

@@ -1,5 +1,12 @@
 #!/bin/bash
 declare -r FAV=~/favconf
+
+function check_create() {
+    if [ ! -d "$1" ]; then
+        mkdir "$1"
+    fi
+}
+
 ln -sf $FAV/git/.gitignore          ~/
 ln -sf $FAV/git/gitconfig          ~/.gitconfig
 ln -sf $FAV/vim/.vimrc              ~/
@@ -9,11 +16,12 @@ ln -sf $FAV/xbk/xbindkeysrc         ~/.xbindkeysrc
 ln -sf $FAV/config.fish             ~/config.fish
 ln -sf $FAV/config.fish             ~/.config/fish/config.fish
 
-#mkdir ~/.config/nvim
+check_create ~/.config/nvim
+check_create ~/.vim/bundle
 ln -sf $FAV/nvim/init.vim           ~/.config/nvim/init.vim
 
 cp $FAV/vim/plug.vim                ~/.vim/autoload/
 
-mkdir ~/.mc
+check_create ~/.mc
 ln -sf $FAV/mc/ini                  ~/.mc/ini
 
