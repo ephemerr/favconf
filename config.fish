@@ -42,6 +42,10 @@ function wd
   if [ -n "$NEW_DIR" ]; cd $NEW_DIR; end
 end
 
+function ff
+    ffmpeg -i "$argv" -b:v 1500k -b:a 128k "_$argv"
+end
+
 alias vimdiff="vi -d"
 alias cbuild="cmake --build ."
 alias cinst="cmake --install ."
@@ -51,7 +55,7 @@ alias stapp="patch -Np 0 < stash.diff"
 alias st="~/favconf/svn-colorstat.py status"
 alias di="svn diff  | colordiff"
 alias make="make -j4"
-alias ja="cd (j --stat | head -n -7 | cut -f 2 | tac | fzf)"
+alias ja="cd (j -s 1 | head -n -7 | cut -f 2 | tac | fzf)"
 alias ctags="ctags -R --fields=+l --extras=+f --exclude=.gitignore"
 alias sdcv="sdcv --color"
 alias figr="find . | grep"

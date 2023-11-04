@@ -136,6 +136,7 @@ function! OpenPy()
     wincmd w
     let b:slime_config["jobid"] = t:slime_job
 endfunction
+nnoremap <silent> gc :call OpenPy()<CR>
 
 "" vim-bookmarks
 function! BookmarkMapKeys()
@@ -851,3 +852,6 @@ vnoremap <Down> gj
 vnoremap <Up> gk
 inoremap <Down> <C-o>gj
 inoremap <Up> <C-o>gk
+
+" let russian in normal mode
+set langmap=ФИСВУАПРШОЛДЬТЩЗЙКЫЕГМЦЧНЯ;ABCDEFGHIJKLMNOPQRSTUVWXYZ,фисвуапршолдьтщзйкыегмцчня;abcdefghijklmnopqrstuvwxyz

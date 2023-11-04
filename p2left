@@ -1,4 +1,9 @@
 #!/bin/bash
-wmctrl -r :ACTIVE: -b remove,maximized_vert 
-wmctrl -r :ACTIVE: -b remove,maximized_horz
-wmctrl -r :ACTIVE: -e '0,0,0,683,720' 
+set -x
+wmctrl -r :ACTIVE: -b remove,maximized_vert,maximized_horz
+wmctrl -r :ACTIVE: -b remove,fullscreen
+X=$(xrandr | grep '*' | awk '{ print $1 }' | sed 's/x.\+//g')
+Y=$(xrandr | grep '*' | awk '{ print $1 }' | sed 's/.\+x//g')
+X2=$((X/2))
+Y2=$((Y/2))
+wmctrl -r :ACTIVE: -e "0,0,0,$X2,$Y"
