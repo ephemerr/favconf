@@ -97,7 +97,7 @@ Plug 'junegunn/gv.vim'
 
 "" Formats & colors
 Plug 'bronson/vim-trailing-whitespace'
-Plug 'Valloric/MatchTagAlways'
+" Plug 'Valloric/MatchTagAlways'
 Plug 'sheerun/vim-polyglot'
 Plug 'fedorenchik/qt-support.vim'
 Plug 'bfrg/vim-cpp-modern'
@@ -123,6 +123,11 @@ call plug#end()
 
 " ============================================= PLUGIN CONFIGURATION
 
+"" Prettier
+command! -nargs=0 Prettier :CocCommand prettier.forceFormatDocument
+" vmap <leader>t  <Plug>(coc-format-selected)
+" nmap <leader>t  <Plug>(coc-format-selected)
+
 "" Slime
 let g:slime_target = "neovim"
 let g:slime_python_ipython = 1
@@ -134,6 +139,7 @@ function! OpenPy()
     term ipython
     let t:slime_job = &channel
     wincmd w
+    let b:slime_config = {}
     let b:slime_config["jobid"] = t:slime_job
 endfunction
 nnoremap <silent> gc :call OpenPy()<CR>
@@ -375,7 +381,8 @@ let g:ackprg = 'ag --vimgrep -p ~/favconf/ag/agignore'
 
 
 "" T-comment
-map -- gcc<Esc>
+" map -- gcc<Esc>
+" let g:tcomment_opleader2 = "<c-slash>"
 " let g:tcommentMapLeaderOp2
 " let g:tcommentMapLeaderOp2
 au BufRead,BufNewFile, *.pro   set filetype=qmake
@@ -566,7 +573,7 @@ inoremap jj <Esc><Right>
 
 " Unset paste on InsertLeave
 au InsertLeave * silent! set nopaste
-set pastetoggle=<F9>
+" set pastetoggle=<F9>
 
 
 "" Line breaks
@@ -578,7 +585,7 @@ set formatoptions=cq "t
 
 " Trailing-whitespace
 hi! link ExtraWhitespace Visual
-autocmd FileType vim,js,qml,c,cpp,java,php,ruby,python autocmd BufWritePre <buffer> :FixWhitespace
+autocmd FileType tex,vim,js,qml,c,cpp,java,php,ruby,python autocmd BufWritePre <buffer> :FixWhitespace
 
 
 "" Colors

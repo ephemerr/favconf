@@ -55,13 +55,11 @@
     Mod4 + F1
 "thunar"
     Mod4 + F2
-"firefox"
+"google-chrome-stable"
     Mod4 + F3
-""
-    Mod4 + F7
-"telegram-desktop"
-    Mod4 + F8
-"slock"
+"Telegram"
+    Mod4 + F4
+"blueman-manager"
     Mod4 + F10
 "systemctl suspend"
     Mod4 + F11

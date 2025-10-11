@@ -81,6 +81,11 @@ alias ccze="ccze -A"
 alias beep="echo -en "\a" > /dev/tty5"
 alias mc="mc -S ~/.mc/ini"
 alias vi=nvim
+alias pacfa="pacman -Ql"
+
+alias unrarthis='find  ./ -name "*.rar" -type f -exec unrar x {} \;'
+alias cbzthis='find  ./ -mindepth 1 -name "*" -type d -exec zip -r {}.cbz {}  \; '
+alias rar2cbz="unrarthis && cbzthis  "
 
 # Ctrl Left/Right to move in dir history
 bind \e\[1\;5D prevd-or-backward-word
@@ -88,4 +93,5 @@ bind \e\[1\;5C nextd-or-forward-word
 
 source /usr/share/autojump/autojump.fish
 
-set PATH $PATH /snap/bin ~/.local/bin
+set VCPKG_ROOT /home/me/.local/share/vcpkg/vcpkg
+set PATH $PATH /snap/bin ~/.local/bin $VCPKG_ROOT
