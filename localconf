@@ -18,7 +18,8 @@ ln -sf $FAV/config.fish             ~/.config/fish/config.fish
 
 check_create ~/.config/nvim
 check_create ~/.vim/bundle
-ln -sf $FAV/nvim/init.vim           ~/.config/nvim/init.vim
+ln -sf $FAV/nvim/init.vim           ~/.config/nvim/legacy.vim
+ln -sf $FAV/nvim/init.lua           ~/.config/nvim/init.lua
 
 cp $FAV/vim/plug.vim                ~/.vim/autoload/
 

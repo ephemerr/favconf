@@ -80,7 +80,7 @@ alias vit="pstree -p | grep -C 6  $fish_pid"
 alias ccze="ccze -A"
 alias beep="echo -en "\a" > /dev/tty5"
 alias mc="mc -S ~/.mc/ini"
-alias vi=nvim
+alias vi="nvim --listen /tmp/nvimsocket"
 alias pacfa="pacman -Ql"
 
 alias unrarthis='find  ./ -name "*.rar" -type f -exec unrar x {} \;'
@@ -94,4 +94,4 @@ bind \e\[1\;5C nextd-or-forward-word
 source /usr/share/autojump/autojump.fish
 
 set VCPKG_ROOT /home/me/.local/share/vcpkg/vcpkg
-set PATH $PATH /snap/bin ~/.local/bin $VCPKG_ROOT
+set PATH $PATH /snap/bin ~/.local/bin $VCPKG_ROOT 

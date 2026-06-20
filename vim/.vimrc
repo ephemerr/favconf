@@ -91,6 +91,16 @@ Plug 'derekwyatt/vim-fswitch'
 " Plug 'liuchengxu/vista.vim'
 " jreybert/vimagit
 
+"" AI
+Plug 'nvim-treesitter/nvim-treesitter'
+" Plug 'ravitemer/mcphub.nvim'
+" Plug 'sudo-tee/opencode.nvim'
+" Plug 'yetone/avante.nvim'
+Plug 'folke/sidekick.nvim'
+Plug 'nvim-lua/plenary.nvim'
+" Plug 'monkoose/neocodeium'
+Plug 'olimorris/codecompanion.nvim'
+
 "" Git
 Plug 'tpope/vim-fugitive'
 Plug 'junegunn/gv.vim'
@@ -181,6 +191,8 @@ augroup MyTermMappings
   autocmd TermOpen * nmap <buffer> gk i<c-u>drop .<CR>
   " autocmd TermOpen * nmap r i<c-c><c-\><c-n>Vy :e <c-r>" <CR>
 augroup EN
+
+autocmd TermRequest,TermResponse,TermEnter * execute "file " .. fnameescape(get(b:, 'term_title', ''))
 
 "" Vimspector
 " let g:vimspector_enable_mappings = 'HUMAN'
@@ -382,7 +394,7 @@ let g:ackprg = 'ag --vimgrep -p ~/favconf/ag/agignore'
 
 "" T-comment
 " map -- gcc<Esc>
-" let g:tcomment_opleader2 = "<c-slash>"
+let g:tcomment_opleader2 = "<c-slash>"
 " let g:tcommentMapLeaderOp2
 " let g:tcommentMapLeaderOp2
 au BufRead,BufNewFile, *.pro   set filetype=qmake
