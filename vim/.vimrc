@@ -51,6 +51,7 @@ call plug#begin('~/.vim/bundle')
 "" General
 Plug 'skywind3000/asyncrun.vim'
 Plug 'vim-scripts/AnsiEsc.vim'
+Plug 'LunarVim/bigfile.nvim'
 
 "" Text & movement
 Plug 'tpope/vim-repeat'
@@ -96,7 +97,7 @@ Plug 'nvim-treesitter/nvim-treesitter'
 " Plug 'ravitemer/mcphub.nvim'
 " Plug 'sudo-tee/opencode.nvim'
 " Plug 'yetone/avante.nvim'
-Plug 'folke/sidekick.nvim'
+" Plug 'folke/sidekick.nvim'
 Plug 'nvim-lua/plenary.nvim'
 " Plug 'monkoose/neocodeium'
 Plug 'olimorris/codecompanion.nvim'
@@ -132,6 +133,13 @@ endif
 call plug#end()
 
 " ============================================= PLUGIN CONFIGURATION
+
+"" CodeCompanionC
+nnoremap gz <cmd>CodeCompanionChat Toggle<cr>
+nnoremap <leader>ac <cmd>CodeCompanion<cr>
+xnoremap <leader>ac <cmd>CodeCompanion<cr>
+nnoremap <leader>am <cmd>CodeCompanionActions<cr>
+nnoremap <leader>al <cmd>CodeCompanionCLI<cr>
 
 "" Prettier
 command! -nargs=0 Prettier :CocCommand prettier.forceFormatDocument
@@ -190,9 +198,9 @@ augroup MyTermMappings
   autocmd TermOpen * nmap <buffer> <M-Enter> yaui<c-u>drop ./<c-\><c-n>pi<CR>
   autocmd TermOpen * nmap <buffer> gk i<c-u>drop .<CR>
   " autocmd TermOpen * nmap r i<c-c><c-\><c-n>Vy :e <c-r>" <CR>
+  " autocmd TermRequest,TermEnter * exec "keepalt file " .. fnameescape(get(b:, 'term_title', '') .. " " .. bufnr())
 augroup EN
 
-autocmd TermRequest,TermResponse,TermEnter * execute "file " .. fnameescape(get(b:, 'term_title', ''))
 
 "" Vimspector
 " let g:vimspector_enable_mappings = 'HUMAN'
@@ -393,7 +401,7 @@ let g:ackprg = 'ag --vimgrep -p ~/favconf/ag/agignore'
 
 
 "" T-comment
-" map -- gcc<Esc>
+map -- gcc<Esc>
 let g:tcomment_opleader2 = "<c-slash>"
 " let g:tcommentMapLeaderOp2
 " let g:tcommentMapLeaderOp2
@@ -597,7 +605,7 @@ set formatoptions=cq "t
 
 " Trailing-whitespace
 hi! link ExtraWhitespace Visual
-autocmd FileType tex,vim,js,qml,c,cpp,java,php,ruby,python autocmd BufWritePre <buffer> :FixWhitespace
+autocmd FileType lua,tex,vim,js,qml,c,cpp,java,php,ruby,python autocmd BufWritePre <buffer> :FixWhitespace
 
 
 "" Colors
@@ -874,3 +882,9 @@ inoremap <Up> <C-o>gk
 
 " let russian in normal mode
 set langmap=ФИСВУАПРШОЛДЬТЩЗЙКЫЕГМЦЧНЯ;ABCDEFGHIJKLMNOPQRSTUVWXYZ,фисвуапршолдьтщзйкыегмцчня;abcdefghijklmnopqrstuvwxyz
+
+" open terminal by default
+autocmd VimEnter * if argc() == 0 && bufname('%') == '' | execute 'term' | endif
+
+" open quick window with vim errors
+nnoremap <Leader>m :new <bar> put =execute('messages')<CR>

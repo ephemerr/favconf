@@ -82,6 +82,7 @@ alias beep="echo -en "\a" > /dev/tty5"
 alias mc="mc -S ~/.mc/ini"
 alias vi="nvim --listen /tmp/nvimsocket"
 alias pacfa="pacman -Ql"
+alias ask="opencode run"
 
 alias unrarthis='find  ./ -name "*.rar" -type f -exec unrar x {} \;'
 alias cbzthis='find  ./ -mindepth 1 -name "*" -type d -exec zip -r {}.cbz {}  \; '
@@ -95,3 +96,17 @@ source /usr/share/autojump/autojump.fish
 
 set VCPKG_ROOT /home/me/.local/share/vcpkg/vcpkg
 set PATH $PATH /snap/bin ~/.local/bin $VCPKG_ROOT 
+
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+if test -f /opt/miniconda3/bin/conda
+    eval /opt/miniconda3/bin/conda "shell.fish" "hook" $argv | source
+else
+    if test -f "/opt/miniconda3/etc/fish/conf.d/conda.fish"
+        . "/opt/miniconda3/etc/fish/conf.d/conda.fish"
+    else
+        set -x PATH "/opt/miniconda3/bin" $PATH
+    end
+end
+# <<< conda initialize <<<
+

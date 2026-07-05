@@ -1,4 +1,7 @@
 \documentclass[a4paper,oneside,12pt]{article}
+
+\providecommand{\jobposition}{Software Engineer}
+
 \usepackage{polyglossia}
 \usepackage{microtype}
 \setdefaultlanguage{english}
@@ -26,7 +29,7 @@
 \usepackage{colortbl}
 \usepackage{graphicx}
 \usepackage[x11names]{xcolor}
-\usepackage[left=20mm,right=20mm,top=22mm,bottom=22mm]{geometry}
+\usepackage[left=10mm,right=10mm,top=10mm,bottom=10mm]{geometry}
 \setlength{\parindent}{0em}
 \definecolor{dark}{RGB}{0,0,0}
 
@@ -41,7 +44,7 @@
 \def\labelitemii { \raisebox{0.1em} {$\scriptscriptstyle \Box        $} }
 %\def\labelitemiii{ \raisebox{0.1em} {$\scriptscriptstyle $} }
 
-\linespread{.7}
+\linespread{.6}
 
 \newcommand{\cvpart}[1]{%
 \vspace{-1em}%
@@ -52,19 +55,19 @@
 
 \begin{document}
 \begin{flushleft}
-\vspace{-3em}{\Huge\bfseries Alexander Zheleznov }
+\vspace{-12em}{\Huge\bfseries Alexander Zheleznov }
 
 ~\\[-.5em]
 \begin{multicols}{2}
 
-\section*{\Large\bfseries Senior Software Engeneer}%
+\section*{\Large\bfseries \jobposition}%
 \columnbreak
 \begin{tabularx}{\linewidth}{ll}
-{\it E-mail:}		& a.zheleznov@gmail.com\\
-{\it Phone:}	    & {\small +972586890662} \\
+{\it E-mail:}		        & a.zheleznov@gmail.com\\
+{\it Phone/WA:}	    & {\small +972586890662} \\
 % {\it Location:}		& Jerusalem\\
 {\it LinkedIn:}		& linkedin.com/in/alexander-v-zheleznov\\
-% ~\\[-1.0em] 
+% ~\\[-1.0em]
 % {\it Address:}	    % & 1118\, Zelenograd\, Apt. 100\\124460\\
 %                     & Moscow, Russia\\
 % {\it Date of birth:}	& 12 June 1985\\
@@ -88,8 +91,8 @@
 
 \cvpart{Summary}
 ~\\
-I am a passionate software developer since middle school when I've learned  C/C++. 
-I have workerd in different fields and now I'm familiar with a number of software and data technologies and I am a continuous learner.
+Software Engineer with years of experience developing high-performance software applications, proficient in modern technologies and AI-assisted development tools. Skilled in algorithm design, performance optimization, multithreading, and databases, with a strong understanding of data structures, OOP principles, version control, and the full software development lifecycle.
+% I have workerd in different fields and now I'm familiar with a number of software and data technologies and I am a continuous learner.
 % I particularly love working with sport data.
 % I've recently made my Aliyah and in search of my first job in Israel.
 
@@ -112,7 +115,7 @@ I have workerd in different fields and now I'm familiar with a number of softwar
 % \end{itemize}
 
 
-\cvpart{Professional Experience as Software Engeneer}
+\cvpart{Professional Experience as Software Engineer}
 
 % {\bf
 % 2022~--- Football Club Sochi, Sochi, Russian Federation. (Internship) \\ 
@@ -122,33 +125,50 @@ I have workerd in different fields and now I'm familiar with a number of softwar
 % \end{itemize}
 
 {\bf
+2025~--- 2026 Scorewarrior (Game Development).
+}
+\begin{itemize}
+    \setlength{\itemsep}{-2pt}
+    \item Optimized C++23 backend modules for high-load server by implementing new event system.
+    \item Developed and maintained database migration supporting live schema evolution without downtime.
+\end{itemize}
+
+{\bf
+2022~--- 2025 Digital Scouting (Sports Data Performance Analysis).
+}
+\begin{itemize}
+    \setlength{\itemsep}{-2pt}
+    \item Built a large-scale data collection framework using Python and Selenium.
+    \item Developed data visualization pipelines with Colab, Looker Studio, and Apps Script.
+\end{itemize}
+
+{\bf
 2021~--- 2022 International Processing Systems (Online payment solutions).
 }
 \begin{itemize}
-    \item Backend  development for internet banking (C++/Boost).
+    \setlength{\itemsep}{-2pt}
+    \item Maintained and extended payment backend modules using C++20 and Boost.
+    \item Refactored the C++ transaction engine into modular, testable components without downtime.
 \end{itemize}
 
 {\bf
-2020~--- 2021 Medialooks (Video SDK).
+2019~--- 2021 Elins (Control and measurement devices).
 }
 \begin{itemize}
-    \item Development of Windows video tools (MSVisualStudio, ATL/COM).
+    \setlength{\itemsep}{-2pt}
+    \item Developed cross-platform monitoring and signal visualization applications using C++ and Qt.
+    \item Profiled memory usage and resolved concurrency issues using Valgrind.
+    \item Architected and developed Unreal Engine plugins for automated control system validation.
 \end{itemize}
 
 {\bf
-2019~--- 2020 Elins (Military control and measurement devices).
+2016~--- 2019 Prosoft Biometrics (Biometrical scaners and solutions).
 }
 \begin{itemize}
-    \item Development of crossplatform desktop applications for Windows/Linux (Qt, CMake).
-    \item Development of UnrealEngine Plugins (UE4, gstreamer, WebRTC).
-\end{itemize}
-
-{\bf
-2017~--- 2019 Prosoft Biometrics (Biometrical scaners and solutions).
-}
-\begin{itemize}
-    \item Development of applications for Raspberry Pi like SoM. (Qt/QML, sqlite, Bash)
-    \item Development of web applications. (Python, Flask, AngularJS)
+    \setlength{\itemsep}{-2pt}
+    \item Led a hardware integration team delivering biometric scanner firmware to production.
+    \item Developed embedded applications for SoM devices using C++, Qt/QML, SQLite, Bash, and Yocto.
+    \item Development of web admin panel for embedded devices. (Python, Flask, AngularJS)
 \end{itemize}
 
 {\bf
@@ -156,17 +176,17 @@ I have workerd in different fields and now I'm familiar with a number of softwar
 }
 
 \begin{itemize}
-    \item Research and develop algorithms for the aircraft navigation system.
+    \setlength{\itemsep}{-2pt}
+    \item Researched and developed CENS algorithms and INS integration for an aircraft navigation.
+    \item Developed unit tests for onboard real-time systems in C using GNU toolchain and CppUTest.
+    \item Architected and developed a GPS navigation client using C++, Qt, and UART.
     % \item Real-time inter process communication(IPC) development for on-board control system (ARINC--429, RapidIO, OS2000, 0S3000).
-%\item Cross-platform devdelopment for on board (MIPS64) and testing (x86) systems(C, GNU toolchain).
-    \item Developing unit tests for onboard code (C, GNU toolchain, CppUtest).
+    %\item Cross-platform devdelopment for on board (MIPS64) and testing (x86) systems(C, GNU toolchain).
     % \item Porting on-board control system legacy code from MIPS64 to x86 (C, GNU toolchain).
-    \item Development of GPS navigation client application (Qt). 
 %    \item Debugging and profiling of applications. (gdb, gprof).
 %\item API design and writing documentation for interprocessor interaction framework (C99, doxygen).
 %\item Software integration~--- developing test stand for on-board system certification (C, shell).
 \end{itemize}
-
 
 ~\\
 
@@ -176,7 +196,7 @@ I have workerd in different fields and now I'm familiar with a number of softwar
   2008~-- 2013:& Saint Petersburg State University\\
        % Faculty:& Applied Mathematics and Control Processes\\
     % Department:& Higher Mathematics\\
-        Degree:& Bachelor's degree in Applied Mathematics and Computer Science\\  
+        Degree:& Bachelor's degree in Applied Mathematics and Computer Science\\ 
     % &~\\[-.4em]
     %       2021:& Financial University under the Government of the Russian Federation  \\
     %    Subject:& Data Analysis \\ 
@@ -187,15 +207,15 @@ I have workerd in different fields and now I'm familiar with a number of softwar
 
 \cvpart{Skills}
 \begin{description}
-\item[Programming languages:]~C/C++,~Python,~SQL,~Qt/QML,~Bash,~HTML/CSS/JS,~Lua
-\item[General developer tools:]~git,~SVN,~vim,~Docker,~Jira,~Latex,~SSH,~virtualbox
-% \item[C++ developer tools:]~CMake,~valgrind,~GCC,~clang,~gdb 
-\item[General developer skills:]~OOP,~Algorithms,~Unit~Tests,~Remote~debugging,~Agile
-% \item[Data tools: ]~pandas,~NumPy,~scikit-learn,~H{\footnotesize 2}0,~KNIME
-% \item[General Data skills:] ~Machine~Learning,~Data~Visualisation
-\item[Advanced user of operating systems:]~Ubuntu,~Arch,~MSDOS,~Windows~98/XP/7/10
-\item[Languages spoken:]~English(fluent),~Hebrew(basic),~Russian
-
+    \setlength{\itemsep}{-2pt}
+    \item[Programming languages:]~C/C++,~Python,~SQL,~Qt/QML,~Bash,~HTML/CSS/JS,~Lua,~Rust
+    \item[General developer tools:]~git,~Docker,~Jira,~SSH,~Opencode,~CI/CD~pipelines,~CMake
+    % \item[C++ developer tools:]~CMake,~valgrind,~GCC,~clang,~gdb
+    \item[General developer skills:]~OOP,~Algorithms,~Unit~Tests,~Remote~debugging,~Agile,~AI~tools
+    % \item[Data tools: ]~pandas,~NumPy,~scikit-learn,~H{\footnotesize 2}0,~KNIME
+    % \item[General Data skills:] ~Machine~Learning,~Data~Visualisation
+    \item[Advanced user of operating systems:]~Linux,~Windows
+    \item[Languages spoken:]~English(fluent),~Hebrew(conversational)
 \end{description}
 
 \end{document}

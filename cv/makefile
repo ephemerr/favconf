@@ -1,7 +1,11 @@
+JOB ?= Software Engineer
+
+run:  
+	make all
 all :  
-	make clean
 	xelatex my.tex 
-	cp my.pdf alexander_zheleznov_cv.pdf
+	xelatex "\def\jobposition{$(JOB)} \input{my.tex}"
+	cp my.pdf "Alexander Zheleznov - $(JOB)".pdf
 	evince my.pdf
 
 .PHONY: clean all
