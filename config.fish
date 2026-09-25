@@ -65,7 +65,7 @@ alias fa="ag --nocolor -g '' -p ~/favconf/ag/agignore"
 alias rg="rg --vimgrep --ignore-file ~/favconf/ag/agignore"
 alias dd="sudo dd bs=64K conv=noerror,sync status=progress"
 alias cp="rsync -avh --progress"
-alias ls="ls -lh --color"
+alias ls="ls -lhrt --color"
 # alias fzf='fzf --preview="head -$LINES {}"'
 alias ssh='ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no'
 alias scp='scp -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no'
@@ -81,6 +81,7 @@ alias ccze="ccze -A"
 alias beep="sudo echo -en "\a" > /dev/tty5"
 alias mc="mc -S ~/.mc/ini"
 alias vi="nvim --listen /tmp/nvimsocket"
+alias nano="vi"
 alias pacfa="pacman -Ql"
 alias ask="opencode run"
 alias heb="opencode run 'transalte to hebrew (with niqqud): '"
@@ -103,14 +104,14 @@ set PATH $PATH /snap/bin ~/.local/bin $VCPKG_ROOT
 
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
-if test -f /opt/miniconda3/bin/conda
-    eval /opt/miniconda3/bin/conda "shell.fish" "hook" $argv | source
-else
-    if test -f "/opt/miniconda3/etc/fish/conf.d/conda.fish"
-        . "/opt/miniconda3/etc/fish/conf.d/conda.fish"
-    else
-        set -x PATH "/opt/miniconda3/bin" $PATH
-    end
-end
+# if test -f /opt/miniconda3/bin/conda
+#     eval /opt/miniconda3/bin/conda "shell.fish" "hook" $argv | source
+# else
+#     if test -f "/opt/miniconda3/etc/fish/conf.d/conda.fish"
+#         . "/opt/miniconda3/etc/fish/conf.d/conda.fish"
+#     else
+#         # set -x PATH "/opt/miniconda3/bin" $PATH
+#     end
+# end
 # <<< conda initialize <<<
 
