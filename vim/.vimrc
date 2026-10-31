@@ -160,7 +160,7 @@ function! OpenPy()
     let b:slime_config = {}
     let b:slime_config["jobid"] = t:slime_job
 endfunction
-nnoremap <silent> gc :call OpenPy()<CR>
+nnoremap <silent> gs :call OpenPy()<CR>
 
 "" vim-bookmarks
 function! BookmarkMapKeys()
@@ -199,6 +199,7 @@ augroup MyTermMappings
   autocmd TermOpen * nmap <buffer> gk i<c-u>drop .<CR>
   " autocmd TermOpen * nmap r i<c-c><c-\><c-n>Vy :e <c-r>" <CR>
   " autocmd TermRequest,TermEnter * exec "keepalt file " .. fnameescape(get(b:, 'term_title', '') .. " " .. bufnr())
+  " autocmd TermRequest,TermEnter * exec "keepalt file " .. fnameescape(get(b:, 'term_title', 'Terminal') .. " " .. bufnr())
 augroup EN
 
 
@@ -454,13 +455,17 @@ nmap gB :tabe<CR>:Buffers<CR>
 nmap gn :tabe<CR>
 nmap di :tabe<CR>:term<CR>idi<CR>
 
-" CTRL-A CTRL-Q to select all and build quickfix list
-
-function! s:build_quickfix_list(lines)
-  call setqflist(map(copy(a:lines), '{ "filename": v:val }'))
-  copen
-  cc
+function! ToggleBlame()
+    if &filetype == 'fugitiveblame' || &filetype == 'fugitive'
+        execute 'close'
+    else
+        execute 'Git blame'
+        execute 'vertical resize -30'
+    endif
 endfunction
+
+nnoremap <silent> gl :call ToggleBlame()<CR>
+
 
 let g:fzf_action = {
   \ 'ctrl-q': function('s:build_quickfix_list'),
@@ -508,7 +513,7 @@ nmap ga <Plug>(EasyAlign)
 
 "" Tabbing and indentation
 set tabstop=4
-set shiftwidth=4
+set shiftwidth=2
 set softtabstop=4
 set expandtab
 "set cindent
@@ -888,3 +893,6 @@ autocmd VimEnter * if argc() == 0 && bufname('%') == '' | execute 'term' | endif
 
 " open quick window with vim errors
 nnoremap <Leader>m :new <bar> put =execute('messages')<CR>
+
+" vimdiff options
+autocmd VimEnter,OptionSet * if &diff | set cmdheight=0 showtabline=0 noshowcmd foldcolumn=0| endif
