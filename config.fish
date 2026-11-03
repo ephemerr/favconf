@@ -116,3 +116,7 @@ set PATH $PATH /snap/bin ~/.local/bin $VCPKG_ROOT
 # end
 # <<< conda initialize <<<
 
+function git-rebase-editor
+    xfce4-terminal --maximize --command "vim -f $argv"
+end
+funcsave git-rebase-editor

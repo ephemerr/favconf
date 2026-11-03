@@ -51,7 +51,6 @@ call plug#begin('~/.vim/bundle')
 "" General
 Plug 'skywind3000/asyncrun.vim'
 Plug 'vim-scripts/AnsiEsc.vim'
-Plug 'LunarVim/bigfile.nvim'
 
 "" Text & movement
 Plug 'tpope/vim-repeat'
@@ -93,6 +92,8 @@ Plug 'derekwyatt/vim-fswitch'
 " jreybert/vimagit
 
 "" AI
+
+if has('nvim')
 Plug 'nvim-treesitter/nvim-treesitter'
 " Plug 'ravitemer/mcphub.nvim'
 " Plug 'sudo-tee/opencode.nvim'
@@ -101,6 +102,7 @@ Plug 'nvim-treesitter/nvim-treesitter'
 Plug 'nvim-lua/plenary.nvim'
 " Plug 'monkoose/neocodeium'
 Plug 'olimorris/codecompanion.nvim'
+endif
 
 "" Git
 Plug 'tpope/vim-fugitive'
@@ -128,6 +130,7 @@ Plug 'jpalardy/vim-slime', {'branch': 'main'}
 
 if !has('nvim')
   Plug 'drmikehenry/vim-fixkey'
+  Plug 'LunarVim/bigfile.nvim'
 endif
 
 call plug#end()
@@ -181,9 +184,9 @@ colorscheme base16-atlas
 let g:UltiSnipsJumpForwardTrigger="<c-b>"
 let g:UltiSnipsJumpBackwardTrigger="<c-z>"
 
-"" textobj-uri
-call textobj#uri#add_pattern('', "\\v'[^']+'", 'idrop %s')
-call textobj#uri#add_pattern('', "\\v[^ '\"]+", 'idrop %s')
+" "" textobj-uri
+" call textobj#uri#add_pattern('', "\\v'[^']+'", 'idrop %s')
+" call textobj#uri#add_pattern('', "\\v[^ '\"]+", 'idrop %s')
 
 "" Dirvish
 map gk <Plug>(dirvish_up)
@@ -194,12 +197,17 @@ tmap jj <c-\><c-n>
 let g:terminal_edit="edit"
 
 augroup MyTermMappings
+if has('nvim')
   autocmd!
   autocmd TermOpen * nmap <buffer> <M-Enter> yaui<c-u>drop ./<c-\><c-n>pi<CR>
   autocmd TermOpen * nmap <buffer> gk i<c-u>drop .<CR>
   " autocmd TermOpen * nmap r i<c-c><c-\><c-n>Vy :e <c-r>" <CR>
   " autocmd TermRequest,TermEnter * exec "keepalt file " .. fnameescape(get(b:, 'term_title', '') .. " " .. bufnr())
   " autocmd TermRequest,TermEnter * exec "keepalt file " .. fnameescape(get(b:, 'term_title', 'Terminal') .. " " .. bufnr())
+elseif has('terminal')
+  autocmd TerminalOpen * nmap <buffer> <M-Enter> yaui<c-u>drop ./<c-w>Npi<CR>
+  autocmd TerminalOpen * nmap <buffer> gk i<c-u>drop .<CR>
+endif
 augroup EN
 
 
@@ -467,11 +475,11 @@ endfunction
 nnoremap <silent> gl :call ToggleBlame()<CR>
 
 
-let g:fzf_action = {
-  \ 'ctrl-q': function('s:build_quickfix_list'),
-  \ 'ctrl-t': 'tab split',
-  \ 'ctrl-x': 'split',
-  \ 'ctrl-v': 'vsplit' }
+" let g:fzf_action = {
+"   \ 'ctrl-q': function('s:build_quickfix_list'),
+"   \ 'ctrl-t': 'tab split',
+"   \ 'ctrl-x': 'split',
+"   \ 'ctrl-v': 'vsplit' }
 
 let $FZF_DEFAULT_OPTS = '--bind ctrl-a:select-all'
 
@@ -649,10 +657,10 @@ hi! link QuickFixLine   Special
 hi! link Visual         CursorColumn
 hi! link MatchParen     Special
 
-hi SignColumn   guibg = none
-hi LineNr       guibg = none
-hi TabLine      guibg = none
-hi TabLineSel   guibg = none
+hi SignColumn   guibg = NONE
+hi LineNr       guibg = NONE
+hi TabLine      guibg = NONE
+hi TabLineSel   guibg = NONE
 
 hi! link Repeat       Keyword
 hi! link Conditional  Keyword
@@ -860,7 +868,7 @@ silent! call repeat#set("\<Plug>MyWonderfulMap", v:count)
 
 if !has('nvim')
   let g:terminal_scrollback_buffer_size = 100000
-  set clipboard=autoselect "  clipboard
+  set clipboard=unnamedplus
 endif
 
 " disable Python2 support

@@ -6,7 +6,7 @@
 [gui]
 	encoding = utf-8
 [core]
-	editor = vim
+	editor = xfce4-terminal  -e 'vim -f'
 	excludesfile = /home/azzel/.config/git/ignore_
 	pager = cat
 	filemode = false
@@ -50,3 +50,5 @@
 	tool = nvimdiff
 [url "git@github.com:"]
 	insteadOf = https://github.com/
+[sequence]
+	editor = fish -c \"xfce4-terminal --disable-server --command \\\"vim -f \\$argv[1]\\\"\"
